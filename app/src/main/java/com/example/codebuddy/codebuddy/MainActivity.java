@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    private NavigationView nvDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         // Find our drawer view
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
+        selectDefaultDrawerItem();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.profile:
@@ -102,24 +103,29 @@ public class MainActivity extends AppCompatActivity {
             default:
                 fragmentClass = ProfileFragment.class;
         }
+        setFragment(fragmentClass);
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+    }
 
+    public void selectDefaultDrawerItem() {
+        setFragment(ProfileFragment.class);
+        nvDrawer.getMenu().getItem(0).setChecked(true);
+        setTitle(R.string.profile);
+    }
+
+    public void setFragment(Class fragmentClass){
+        Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Insert the fragment by replacing any existing fragment
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
         mDrawer.closeDrawers();
     }
-
 }
 
