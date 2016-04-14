@@ -1,12 +1,8 @@
-package com.example.codebuddy.codebuddy;
+package com.jenky.codebuddy.ui;
 
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.app.Fragment;
@@ -14,20 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.example.codebuddy.codebuddy.R;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -151,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.flContent, fragment);
         tx.commit();
-        setTitle("Profile");
+        setTitle(getString(R.string.profile));
     }
 
 }
