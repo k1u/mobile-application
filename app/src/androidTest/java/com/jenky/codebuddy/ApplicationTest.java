@@ -1,4 +1,4 @@
-package com.example.codebuddy.codebuddy;
+package com.jenky.codebuddy;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

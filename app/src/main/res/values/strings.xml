@@ -23,4 +23,8 @@
     <string name="title_activity_log_in">LogInActivity</string>
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="total_score">Total score</string>
+    <string name="avg_score">avg score</string>
+    <string name="completed_achievements">Completed achievments</string>
+    <string name="games_played">Games played</string>
 </resources>

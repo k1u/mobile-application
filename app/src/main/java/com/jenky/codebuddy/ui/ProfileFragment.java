@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.codebuddy.codebuddy.R;
+import com.jenky.codebuddy.R;
+
 
 /**
  * A placeholder fragment containing a simple view.
