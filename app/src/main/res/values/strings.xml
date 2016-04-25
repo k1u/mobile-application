@@ -27,4 +27,8 @@
     <string name="avg_score">avg score</string>
     <string name="completed_achievements">Completed achievments</string>
     <string name="games_played">Games played</string>
+    <string name="project_name">Project Name:</string>
+    <string name="score">Score:</string>
+    <string name="status">Status:</string>
+    <string name="rank">Rank:</string>
 </resources>
