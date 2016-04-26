@@ -31,4 +31,6 @@
     <string name="score">Score:</string>
     <string name="status">Status:</string>
     <string name="rank">Rank:</string>
+    <string name="created_on">Created on:</string>
+    <string name="members">Members:</string>
 </resources>

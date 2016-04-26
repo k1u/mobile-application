@@ -1,25 +1,16 @@
 package com.jenky.codebuddy.ui;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.adapters.ProjectItemAdapter;
+import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.models.Project;
-import com.jenky.codebuddy.util.IntentFactory;
 
 import java.util.ArrayList;
 
@@ -29,7 +20,7 @@ import java.util.ArrayList;
  */
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private ProjectItemAdapter projectAdapter;
+    private HistoryAdapter projectAdapter;
     private ArrayList<Project> Projects = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
@@ -45,10 +36,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        projectAdapter = new ProjectItemAdapter(getContext(), R.layout.component_project, Projects);
+        projectAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
         resultListView.setAdapter(projectAdapter);
         resultListView.setOnItemClickListener(this);
 
+        //TODO Fill array adapter
         //TEST
         for(int i = 0; i < 5; i++){
             Project project = new Project();
