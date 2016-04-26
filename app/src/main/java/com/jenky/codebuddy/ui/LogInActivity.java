@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.codebuddy.codebuddy.R;
+import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.util.IntentFactory;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
