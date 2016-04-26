@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = ProfileFragment.class;
                 break;
             case R.id.projects:
-                fragmentClass = ProfileFragment.class;
+                fragmentClass = ProjectFragment.class;
                 break;
             case R.id.achievements:
                 fragmentClass = ProfileFragment.class;
