@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
+import com.jenky.codebuddy.util.DateConverter;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,9 @@ public class ProjectAdapter extends ArrayAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         viewHolder.name.setText(project.getName());
-        viewHolder.createdOn.setText(project.getCreatedOn().toString());
+        viewHolder.createdOn.setText(DateConverter.ddMMyyyyToString(project.getCreatedOn()));
         viewHolder.members.setText(Integer.toString(project.getMembers()));
 
         // Populate the data into the template view using the data object

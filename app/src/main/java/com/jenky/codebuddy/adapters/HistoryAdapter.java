@@ -56,6 +56,5 @@ public class HistoryAdapter extends ArrayAdapter {
         TextView score;
         TextView status;
         TextView rank;
-
     }
 }

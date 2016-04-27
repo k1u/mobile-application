@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private HistoryAdapter projectAdapter;
+    private HistoryAdapter historyAdapter;
     private ArrayList<Project> Projects = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
@@ -36,8 +36,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        projectAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
-        resultListView.setAdapter(projectAdapter);
+        historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
+        resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
 
         //TODO Fill array adapter
@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             Projects.add(project);
         }
 
-        projectAdapter.notifyDataSetChanged();
+        historyAdapter.notifyDataSetChanged();
     }
 
     @Override

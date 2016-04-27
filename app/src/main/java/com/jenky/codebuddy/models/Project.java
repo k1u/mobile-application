@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Project implements Parcelable {
     private String name;
     private int score;
     private String status;
-    private Date createdOn;
+    private Calendar createdOn;
     private int members;
     private String rank;
 
@@ -45,7 +46,7 @@ public class Project implements Parcelable {
         score = in.readInt();
         status = in.readString();
         rank = in.readString();
-        createdOn = (Date) in.readSerializable();
+        createdOn = (Calendar) in.readSerializable();
         members = in.readInt();
     }
 
@@ -110,11 +111,11 @@ public class Project implements Parcelable {
         this.rank = rank;
     }
 
-    public Date getCreatedOn() {
+    public Calendar getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(Calendar createdOn) {
         this.createdOn = createdOn;
     }
 

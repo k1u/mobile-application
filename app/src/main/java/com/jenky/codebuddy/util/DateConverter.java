@@ -12,12 +12,13 @@ import java.util.Date;
  * Created by Jason on 26-Apr-16.
  */
 public class DateConverter {
-    public String ddMMyyyyToString(Date date) {
+
+    public static String ddMMyyyyToString(Calendar calendar) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return df.format(date);
+        return df.format(calendar.getTime());
     }
 
-    public Date stringToddMMYYYY(String string) {
+    public static Calendar stringToddMMYYYY(String string) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
         try {
@@ -25,6 +26,7 @@ public class DateConverter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return cal.getTime();
+        return cal;
     }
+
 }
