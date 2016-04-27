@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by JTLie on 25-4-2016.
  */
-public class Project implements Parcelable {
+public class Project /*implements Parcelable */{
 
-    public static final Parcelable.Creator<Project> CREATOR = new Parcelable.Creator<Project>() {
+/*    public static final Parcelable.Creator<Project> CREATOR = new Parcelable.Creator<Project>() {
         public Project createFromParcel(Parcel in) {
             return new Project(in);
         }
@@ -27,31 +27,37 @@ public class Project implements Parcelable {
         public Project[] newArray(int size) {
             return new Project[size];
         }
-    };
+    };*/
 
-    private Context mContext;
-    private LayoutInflater inflater;
+/*    private Context mContext;
+    private LayoutInflater inflater;*/
+
     private String name;
+    private int id;
     private int score;
     private String status;
     private Calendar createdOn;
     private int members;
     private String rank;
 
-    public Project() {
+/*    public Project() {
     }
 
+
     public Project(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         score = in.readInt();
         status = in.readString();
+
         rank = in.readString();
         createdOn = (Calendar) in.readSerializable();
         members = in.readInt();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeInt(score);
         dest.writeString(status);
@@ -66,10 +72,11 @@ public class Project implements Parcelable {
     }
 
     public Project init(JSONObject json) throws JSONException {
-        return this;
-    }
 
-    public Project setContext(Context context) {
+        return this;
+    }*/
+
+/*    public Project setContext(Context context) {
         mContext = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return this;
@@ -77,7 +84,7 @@ public class Project implements Parcelable {
 
     public int describeContents() {
         return 0;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -126,4 +133,13 @@ public class Project implements Parcelable {
     public void setMembers(int members) {
         this.members = members;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
