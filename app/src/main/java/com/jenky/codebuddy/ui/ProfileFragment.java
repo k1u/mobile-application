@@ -12,13 +12,14 @@ import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
+import com.jenky.codebuddy.api.ProjectApi;
 import com.jenky.codebuddy.models.Project;
-import com.jenky.codebuddy.service.ProjectApi;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -41,7 +42,14 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        new HttpRequestTask().execute();
+        try {
+            Project project = new ProjectApi().execute().get();
+            Projects.add(project);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         super.onActivityCreated(savedInstanceState);
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
         resultListView.setAdapter(historyAdapter);
@@ -61,35 +69,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     }
 
-
-    private class HttpRequestTask extends AsyncTask<Void, Void, Project> {
-        @Override
-        protected Project doInBackground(Void... params) {
-            try {
-                final String url = "http://jenky.azurewebsites.net/score";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Project project = restTemplate.getForObject(url, Project.class);
-                return project;
-            } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Project project) {
-
-            project.setName(Integer.toString(project.getId()));
-            project.setId(project.getId());
-
-            Projects.add(project);
-            historyAdapter.notifyDataSetChanged();
-
-        }
-
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
