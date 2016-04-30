@@ -1,7 +1,9 @@
 package com.jenky.codebuddy.ui;
 
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,14 @@ import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
+import com.jenky.codebuddy.api.ProjectApi;
 import com.jenky.codebuddy.models.Project;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -35,6 +42,14 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        try {
+            Project project = new ProjectApi().execute().get();
+            Projects.add(project);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         super.onActivityCreated(savedInstanceState);
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
         resultListView.setAdapter(historyAdapter);
@@ -42,17 +57,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
         //TODO Fill array adapter
         //TEST
-        for (int i = 0; i < 5; i++) {
-            Project project = new Project();
-            project.setName("name" + i);
-            project.setScore(i);
-            project.setRank("Rank" + i);
-            project.setStatus("Status" + i);
-            Projects.add(project);
-        }
 
-        historyAdapter.notifyDataSetChanged();
+//        for(int i = 0; i < 5; i++){
+//            Project project = new Project();
+//            project.setName("name" + i);
+//            project.setScore(i);
+//            project.setRank("Rank" + i);
+//            project.setStatus("Status" + i);
+//            Projects.add(project);
+//        }
+
+
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
