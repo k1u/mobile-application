@@ -23,5 +23,4 @@ public class ProjectApi extends AsyncTask<Void, Void, Project> {
         project.setName(Integer.toString(project.getId()));
         project.setId(project.getId());
     }
-
 }
