@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
         //TODO Fill array adapter
         //TEST
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             Project project = new Project();
             project.setName("name" + i);
             project.setScore(i);
@@ -57,10 +57,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Project project = Projects.get(position);
-        gotoLocationDetail(project);
+        gotoProjectStats(project);
     }
 
-    private void gotoLocationDetail(Project project) {
-      //TODO Ga naar Project Activity (Towers)
+    private void gotoProjectStats(Project project) {
+        //TODO Ga naar Project Activity (Towers)
     }
 }

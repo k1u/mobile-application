@@ -57,10 +57,10 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Project project = Projects.get(position);
-        gotoLocationDetail(project);
+        gotoTowers(project);
     }
 
-    private void gotoLocationDetail(Project project) {
+    private void gotoTowers(Project project) {
         //TODO Ga naar Project Activity (Towers)
     }
 }
