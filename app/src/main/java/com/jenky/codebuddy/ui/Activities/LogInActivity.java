@@ -1,10 +1,9 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +38,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonLogIn = (Button) findViewById(R.id.log_in);
         buttonSignUp = (Button) findViewById(R.id.sign_up);
-
         buttonSignUp.setOnClickListener(this);
         buttonLogIn.setOnClickListener(this);
     }

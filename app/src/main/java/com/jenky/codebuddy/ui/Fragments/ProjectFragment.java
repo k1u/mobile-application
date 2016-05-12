@@ -1,4 +1,4 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.adapters.ProjectAdapter;
 import com.jenky.codebuddy.models.Project;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;

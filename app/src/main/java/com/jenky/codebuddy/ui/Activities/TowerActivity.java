@@ -1,4 +1,4 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.activities;
 
 import android.os.Bundle;
 import android.app.Activity;

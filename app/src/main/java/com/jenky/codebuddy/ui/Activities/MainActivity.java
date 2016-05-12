@@ -1,5 +1,6 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,7 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.ui.ProfileFragment;
+import com.jenky.codebuddy.ui.fragments.AchievementFragment;
+import com.jenky.codebuddy.ui.fragments.ProfileFragment;
+import com.jenky.codebuddy.ui.fragments.ProjectFragment;
+import com.jenky.codebuddy.util.IntentFactory;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -98,10 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = ProjectFragment.class;
                 break;
             case R.id.achievements:
-                fragmentClass = ProfileFragment.class;
+                fragmentClass = AchievementFragment.class;
                 break;
             case R.id.shop:
                 fragmentClass = ProfileFragment.class;
+                goToShop();
                 break;
             default:
                 fragmentClass = ProfileFragment.class;
@@ -129,6 +134,11 @@ public class MainActivity extends AppCompatActivity {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         mDrawer.closeDrawers();
+    }
+
+    public void goToShop(){
+        Intent intent = IntentFactory.getShopIntent(this);
+        startActivity(intent);
     }
 }
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Achievement;
-import com.jenky.codebuddy.models.Project;
+import com.jenky.codebuddy.util.DateConverter;
 
 import java.util.ArrayList;
 
@@ -31,23 +31,24 @@ public class AchievementAdapter extends ArrayAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_history, null);
-            viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
-            viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
-            viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
-            viewHolder.rank = (TextView) convertView.findViewById(R.id.rank_text);
+            convertView = inflater.inflate(R.layout.component_achievement, null);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.description = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.completion = (TextView) convertView.findViewById(R.id.completion);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        viewHolder.name.setText(achievement.getName());
+        viewHolder.description.setText(achievement.getDescription());
+        viewHolder.completion.setText(Double.toString(achievement.getComplete_percentage()));
         // Populate the data into the template view using the data object
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView project;
-        TextView score;
-        TextView status;
-        TextView rank;
+        TextView name;
+        TextView description;
+        TextView completion;
     }
 }

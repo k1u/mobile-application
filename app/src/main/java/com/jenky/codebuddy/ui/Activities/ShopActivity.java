@@ -1,0 +1,29 @@
+package com.jenky.codebuddy.ui.activities;
+
+import android.support.design.widget.TabLayout;
+import android.support.v7.app.AppCompatActivity;
+
+import android.support.v4.view.ViewPager;
+import android.os.Bundle;
+
+import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.adapters.FragmentAdapter;
+
+public class ShopActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shop);
+
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
+                ShopActivity.this));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+}

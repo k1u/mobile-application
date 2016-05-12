@@ -1,9 +1,7 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.fragments;
 
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +10,9 @@ import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
-import com.jenky.codebuddy.api.ProjectApi;
 import com.jenky.codebuddy.models.Project;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -42,14 +35,16 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        try {
+/*        try {
             Project project = new ProjectApi().execute().get();
             Projects.add(project);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
+        }catch (RuntimeException e){
+            Toast.makeText(getContext(), "Failed to receive", Toast.LENGTH_SHORT);
+        }*/
         super.onActivityCreated(savedInstanceState);
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, Projects);
         resultListView.setAdapter(historyAdapter);

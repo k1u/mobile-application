@@ -1,17 +1,15 @@
-package com.jenky.codebuddy.ui;
+package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.AchievementAdapter;
 import com.jenky.codebuddy.models.Achievement;
-import com.jenky.codebuddy.models.Project;
 
 import java.util.ArrayList;
 
@@ -38,6 +36,15 @@ public class AchievementFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         achievmentAdapter = new AchievementAdapter(getContext(), R.layout.component_project, achievements);
         resultListView.setAdapter(achievmentAdapter);
+
+        for (int i = 0; i < 1000; i++) {
+            Achievement achievement = new Achievement();
+            achievement.setName("name" + i);
+            achievement.setComplete_percentage((double) i);
+            achievement.setId(i);
+            achievement.setDescription("description" + i);
+            achievements.add(achievement);
+        }
         achievmentAdapter.notifyDataSetChanged();
     }
 

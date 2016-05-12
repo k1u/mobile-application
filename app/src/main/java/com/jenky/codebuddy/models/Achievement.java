@@ -24,7 +24,7 @@ public class Achievement {
     private String image;
     private String description;
     private String reward;
-    private Double complete;
+    private double complete;
 
     public int getId() {
         return id;
@@ -66,11 +66,11 @@ public class Achievement {
         this.reward = reward;
     }
 
-    public Double getComplete_percentage() {
+    public double getComplete_percentage() {
         return complete;
     }
 
-    public void setComplete_percentage(Double complete_percentage) {
+    public void setComplete_percentage(double complete_percentage) {
         this.complete = complete_percentage;
     }
 
