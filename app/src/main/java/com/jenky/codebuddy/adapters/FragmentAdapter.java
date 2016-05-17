@@ -12,7 +12,7 @@ import com.jenky.codebuddy.ui.fragments.ShopFragment;
  */
 public class FragmentAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
+    private String tabTitles[] = new String[] { "Heads", "Shirts", "Legs" };
     private Context context;
 
     public FragmentAdapter(FragmentManager fm, Context context) {
