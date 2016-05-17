@@ -5,14 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.jenky.codebuddy.ui.fragments.ShopFragment;
+import com.jenky.codebuddy.ui.fragments.HelmetFragment;
+import com.jenky.codebuddy.ui.fragments.LegsFragment;
+import com.jenky.codebuddy.ui.fragments.ShirtFragment;
 
 /**
  * Created by Jason on 12-May-16.
  */
 public class FragmentAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Heads", "Shirts", "Legs" };
+    final int pageCount = 3;
+    private String tabTitles[] = new String[] { "Helmets", "Shirts", "Legs" };
     private Context context;
 
     public FragmentAdapter(FragmentManager fm, Context context) {
@@ -22,12 +24,21 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return PAGE_COUNT;
+        return pageCount;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ShopFragment.newInstance(position + 1);
+        switch(position){
+            case 0:
+                return HelmetFragment.newInstance();
+            case 1:
+                return ShirtFragment.newInstance();
+            case 2:
+                return LegsFragment.newInstance();
+            default:
+                return HelmetFragment.newInstance();
+        }
     }
 
     @Override

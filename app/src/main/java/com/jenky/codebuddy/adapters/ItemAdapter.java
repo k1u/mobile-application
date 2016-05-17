@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Achievement;
+import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.DateConverter;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 /**
  * Created by JTLie on 25-4-2016.
  */
-public class AchievementAdapter extends ArrayAdapter {
-    public AchievementAdapter(Context context, int resource, ArrayList<Achievement> items) {
+public class ItemAdapter extends ArrayAdapter {
+    public ItemAdapter(Context context, int resource, ArrayList<Item> items) {
         super(context, resource, items);
     }
 
@@ -26,32 +27,30 @@ public class AchievementAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         //getResultsFromServer();
-        final Achievement achievement = (Achievement) getItem(position);
+        final Item item = (Item) getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_achievement, null);
+            convertView = inflater.inflate(R.layout.component_item, null);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.description = (TextView) convertView.findViewById(R.id.description);
-            viewHolder.completion = (TextView) convertView.findViewById(R.id.completion);
+            viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
             convertView.setTag(viewHolder);
         } else {
+
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.name.setText(achievement.getName());
-        viewHolder.description.setText(achievement.getDescription());
-        viewHolder.completion.setText(Double.toString(achievement.getComplete_percentage()));
+        viewHolder.name.setText(item.getName());
+        viewHolder.price.setText(Double.toString(item.getPrice()));
         // Populate the data into the template view using the data object
         return convertView;
     }
 
     private static class ViewHolder {
         TextView name;
-        TextView description;
-        TextView completion;
+        TextView price;
         ImageView image;
     }
 }
