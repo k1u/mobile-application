@@ -8,12 +8,9 @@ import com.jenky.codebuddy.R;
 
 public class TowerActivity extends Activity {
 
-    LinearLayout main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
-        main = (LinearLayout) findViewById(R.id.main);
-
     }
 }
