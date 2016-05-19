@@ -38,6 +38,7 @@
         <activity
             android:name=".ui.activities.ShopActivity"
             android:label="@string/title_activity_shop"
+            android:theme="@style/AppTheme.NoActionBar"
 
             >
         </activity>

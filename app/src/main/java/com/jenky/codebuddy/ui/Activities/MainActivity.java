@@ -28,17 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Set a Toolbar to replace the ActionBar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Find our drawer view
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
-        mDrawer.addDrawerListener(drawerToggle);
-        // Find our drawer view
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        // Setup drawer view
-        setupDrawerContent(nvDrawer);
+        setActionBar();
         selectDefaultDrawerItem();
     }
 
@@ -48,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
@@ -92,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Class fragmentClass;
+        setTitle(menuItem.getTitle());
         switch(menuItem.getItemId()) {
             case R.id.profile:
                 fragmentClass = ProfileFragment.class;
@@ -104,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.shop:
                 fragmentClass = ProfileFragment.class;
+                setTitle(getString(R.string.profile));
                 goToShop();
                 break;
             default:
@@ -112,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         setFragment(fragmentClass);
         menuItem.setChecked(true);
         // Set action bar title
-        setTitle(menuItem.getTitle());
+
         // Close the navigation drawer
     }
 
@@ -137,6 +128,16 @@ public class MainActivity extends AppCompatActivity {
     public void goToShop(){
         Intent intent = IntentFactory.getShopIntent(this);
         startActivity(intent);
+    }
+
+    private void setActionBar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle();
+        mDrawer.addDrawerListener(drawerToggle);
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(nvDrawer);
     }
 }
 

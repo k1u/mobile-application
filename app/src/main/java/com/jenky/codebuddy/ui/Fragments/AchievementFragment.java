@@ -47,5 +47,4 @@ public class AchievementFragment extends Fragment {
         }
         achievmentAdapter.notifyDataSetChanged();
     }
-
 }
