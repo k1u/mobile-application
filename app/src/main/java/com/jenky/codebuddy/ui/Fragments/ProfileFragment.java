@@ -51,16 +51,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         resultListView.setOnItemClickListener(this);
 
         //TODO Fill array adapter
-        //TEST
-
-//        for(int i = 0; i < 5; i++){
-//            Project project = new Project();
-//            project.setName("name" + i);
-//            project.setScore(i);
-//            project.setRank("Rank" + i);
-//            project.setStatus("Status" + i);
-//            Projects.add(project);
-//        }
 
 
     }
