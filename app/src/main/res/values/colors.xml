@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#1E4949</color>
     <color name="colorAccent">#4597EA</color>
     <color name="light_yellow">#FFEF68</color>
+    <color name="tower_background">#5357DF</color>
 </resources>
