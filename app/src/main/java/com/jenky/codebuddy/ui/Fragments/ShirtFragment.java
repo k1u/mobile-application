@@ -22,7 +22,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemClickLi
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
 
-    public static  ShirtFragment newInstance() {
+    public static ShirtFragment newInstance() {
         ShirtFragment fragment = new  ShirtFragment();
         return fragment;
     }
