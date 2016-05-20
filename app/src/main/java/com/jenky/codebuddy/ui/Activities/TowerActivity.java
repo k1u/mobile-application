@@ -2,33 +2,50 @@ package com.jenky.codebuddy.ui.activities;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.customViews.HorizontalScroll;
+import com.jenky.codebuddy.customViews.VerticalScroll;
+import com.jenky.codebuddy.models.Tower;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-    public class TowerActivity extends Activity {
+import java.util.ArrayList;
+
+public class TowerActivity extends Activity {
 
     private float mx, my;
-    private float curX, curY;
-
     private ScrollView vScroll;
     private HorizontalScrollView hScroll;
+    private LinearLayout backgroundLinearLayout, towerLinearLayout;
+    private ArrayList<Tower> towers = new ArrayList<>();
+    private final int TowerPerBackground = 9;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
-
-        vScroll = (ScrollView) findViewById(R.id.vScroll);
-        hScroll = (HorizontalScrollView) findViewById(R.id.hScroll);
+        setLayouts();
         scrollDown(vScroll);
+        addTestTowers();
+        drawActivity();
+    }
+
+    private void setLayouts() {
+        vScroll = (VerticalScroll) findViewById(R.id.vScroll);
+        hScroll = (HorizontalScroll) findViewById(R.id.hScroll);
+        backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
+        towerLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
     }
 
 
@@ -60,24 +77,52 @@ import android.widget.ScrollView;
         return true;
     }
 
-    private void scrollDown(ScrollView s){
+    private void scrollDown(ScrollView s) {
         final ScrollView scrollView = s;
         scrollView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN );
+                scrollView.fullScroll(View.FOCUS_DOWN);
             }
         }, 1000);
     }
 
-    private void drawActivity (){
-
+    private void drawActivity() {
+        drawBackground(towers.size());
+        drawTowers(towers);
     }
 
-    private void drawBackground() {
+    private void drawBackground(double towerAmount) {
 
+        int backgroundAmount = (int) Math.ceil(towerAmount / TowerPerBackground);
+
+        for (int i = 0; i < backgroundAmount; i++) {
+            backgroundLinearLayout.addView(getBackgroundImage());
+        }
     }
-    private void drawTowers(){
 
+    private void drawTowers(ArrayList<Tower> towers) {
+        for(int i = 0; i < towers.size(); i++){
+            int towerSize = towers.get(i).getHeight();
+        }
+    }
+
+    private void addTestTowers() {
+        for (int i = 0; i < 30; i++) {
+            Tower tower = new Tower();
+            tower.setHeight(i * 7 + 1);
+            tower.setId(1 + 1);
+            tower.setBlock(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_block));
+            tower.setScore(i * 1000);
+            towers.add(tower);
+        }
+    }
+
+    private ImageView getBackgroundImage() {
+        ImageView background = new ImageView(this);
+        background.setLayoutParams(new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        background.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.background1));
+        return background;
     }
 }
