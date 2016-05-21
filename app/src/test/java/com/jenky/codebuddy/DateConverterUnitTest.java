@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import android.content.Context;
 
-import com.jenky.codebuddy.util.DateConverter;
+import com.jenky.codebuddy.util.Converters;
 
 import junit.framework.Assert;
 
@@ -36,7 +36,7 @@ public class DateConverterUnitTest {
         }
 
         for (int j = 0; j < calendars.size(); j++){
-            Assert.assertTrue(DateConverter.ddMMyyyyToString(calendars.get(j)).matches("[0-9]{2}/[0-9]{2}/[0-9]{4}"));
+            Assert.assertTrue(Converters.ddMMyyyyToString(calendars.get(j)).matches("[0-9]{2}/[0-9]{2}/[0-9]{4}"));
         }
     }
 }

@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.models.Achievement;
 import com.jenky.codebuddy.models.Item;
-import com.jenky.codebuddy.util.DateConverter;
 
 import java.util.ArrayList;
 

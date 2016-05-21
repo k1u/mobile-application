@@ -12,7 +12,7 @@ public class Tower {
     private int score;
     private int height;
     private Player player;
-    private Drawable block;
+    private String block;
 
 
     private int id;
@@ -49,11 +49,11 @@ public class Tower {
         this.player = player;
     }
 
-    public Drawable getBlock() {
+    public String getBlock() {
         return block;
     }
 
-    public void setBlock(Drawable block) {
+    public void setBlock(String block) {
         this.block = block;
     }
 }

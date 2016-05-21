@@ -1,5 +1,8 @@
 package com.jenky.codebuddy.util;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.jenky.codebuddy.R;
@@ -11,7 +14,13 @@ import java.util.Date;
 /**
  * Created by Jason on 26-Apr-16.
  */
-public class DateConverter {
+public class Converters {
+
+    Context context;
+
+    public Converters(Context Context) {
+        this.context = Context;
+    }
 
     public static String ddMMyyyyToString(Calendar calendar) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -27,5 +36,12 @@ public class DateConverter {
             e.printStackTrace();
         }
         return cal;
+    }
+
+    public int getInDp(int value){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return Math.round(value * displayMetrics.density);
     }
 }
