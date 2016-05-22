@@ -1,11 +1,14 @@
 package com.jenky.codebuddy.ui.activities;
 
+import android.app.ActivityManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,7 @@ import com.jenky.codebuddy.customViews.HorizontalScroll;
 import com.jenky.codebuddy.customViews.VerticalScroll;
 import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.TestData;
 
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
@@ -33,7 +37,7 @@ public class TowerActivity extends Activity {
     private HorizontalScrollView hScroll;
     private LinearLayout backgroundLinearLayout, globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
-    private final int towerPerBackground = 9;
+    private final int towerPerBackground = 7;
     private final int towerMagrinLeft = 20;
     private final int towerMagrinRight = 0;
     private final int towerMagrinTop = 0;
@@ -47,8 +51,9 @@ public class TowerActivity extends Activity {
         setContentView(R.layout.activity_tower);
         setLayouts();
         scrollDown(vScroll);
-        addTestTowers();
+        TestData.addTestTowers(towers);
         drawActivity();
+
     }
 
     private void setLayouts() {
@@ -123,16 +128,7 @@ public class TowerActivity extends Activity {
         }
     }
 
-    private void addTestTowers() {
-        for (int i = 0; i < 30; i++) {
-            Tower tower = new Tower();
-            tower.setHeight(i + 1);
-            tower.setId(i + 1);
-            tower.setScore(i * 1000);
-            tower.setBlock("http://imgur.com/b80yEkL");
-            towers.add(tower);
-        }
-    }
+
 
     private ImageView getBackgroundImage() {
         ImageView background = new ImageView(this);
@@ -182,7 +178,19 @@ public class TowerActivity extends Activity {
             e.printStackTrace();
         }*/
 
-         block.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),  R.drawable.test_block));
+         block.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_block));
         return block;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

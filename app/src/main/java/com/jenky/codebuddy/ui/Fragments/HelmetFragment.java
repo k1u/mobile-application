@@ -11,6 +11,9 @@ import android.widget.ListView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ItemAdapter;
 import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.util.TestData;
+
+import junit.framework.Test;
 
 import java.util.ArrayList;
 
@@ -42,11 +45,7 @@ public class HelmetFragment extends Fragment implements AdapterView.OnItemClickL
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
-        for (int i = 0; i < 5; i++) {
-            Item item = new Item();
-            item.setName("helmet" + i);
-            items.add(item);
-        }
+        TestData.addTestItems(items);
         itemAdapter.notifyDataSetChanged();
     }
 

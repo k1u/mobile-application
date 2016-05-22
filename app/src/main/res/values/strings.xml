@@ -24,8 +24,7 @@
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign Up</string>
     <string name="total_score">Total score</string>
-    <string name="avg_score">avg score</string>
-    <string name="completed_achievements">Completed achievements</string>
+    <string name="avg_score">Avg score</string>
     <string name="games_played">Games played</string>
     <string name="project_name">Project Name:</string>
     <string name="score">Score:</string>
@@ -40,4 +39,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_shop">ShopActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="purchase">Purchase</string>
 </resources>

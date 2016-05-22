@@ -33,7 +33,7 @@ public class HistoryAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.component_history, null);
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
-            viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
+
             viewHolder.rank = (TextView) convertView.findViewById(R.id.rank_text);
             convertView.setTag(viewHolder);
         } else {
@@ -41,8 +41,8 @@ public class HistoryAdapter extends ArrayAdapter {
         }
         viewHolder.project.setText(project.getName());
         viewHolder.score.setText(Integer.toString(project.getScore()));
-        viewHolder.status.setText(project.getStatus());
-        viewHolder.rank.setText(project.getRank());
+
+        viewHolder.rank.setText(Integer.toString(project.getRank()));
 
 
 
@@ -54,7 +54,7 @@ public class HistoryAdapter extends ArrayAdapter {
     private static class ViewHolder {
         TextView project;
         TextView score;
-        TextView status;
+
         TextView rank;
     }
 }

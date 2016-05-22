@@ -1,5 +1,6 @@
 package com.jenky.codebuddy.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ProjectAdapter;
 import com.jenky.codebuddy.models.Project;
+import com.jenky.codebuddy.util.IntentFactory;
+import com.jenky.codebuddy.util.TestData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +24,7 @@ import java.util.Calendar;
 public class ProjectFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ProjectAdapter projectAdapter;
-    private ArrayList<Project> Projects = new ArrayList<>();
+    private ArrayList<Project> projects = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
 
@@ -36,30 +39,24 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        projectAdapter = new ProjectAdapter(getContext(), R.layout.component_project, Projects);
+        projectAdapter = new ProjectAdapter(getContext(), R.layout.component_project, projects);
         resultListView.setAdapter(projectAdapter);
         resultListView.setOnItemClickListener(this);
 
+        TestData.addTestProjects(projects);
         //TEST
-        for(int i = 0; i < 5; i++){
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, i);
-            Project project = new Project();
-            project.setName("name" + i);
-            project.setCreatedOn(calendar);
-            project.setMembers(i);
-            Projects.add(project);
-        }
         projectAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Project project = Projects.get(position);
+        Project project = projects.get(position);
         gotoTowers(project);
     }
 
     private void gotoTowers(Project project) {
-        //TODO Ga naar Project Activity (Towers)
+            Intent intent = IntentFactory.getTowerIntent(getActivity());
+            startActivity(intent);
+
     }
 }

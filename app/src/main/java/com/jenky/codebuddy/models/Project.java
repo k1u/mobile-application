@@ -38,7 +38,7 @@ public class Project /*implements Parcelable */{
     private String status;
     private Calendar createdOn;
     private int members;
-    private String rank;
+    private int rank;
 
 /*    public Project() {
     }
@@ -110,11 +110,11 @@ public class Project /*implements Parcelable */{
         this.status = status;
     }
 
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 
