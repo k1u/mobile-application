@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.util.IntentFactory;
@@ -57,9 +58,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logIn(){
-        Intent intent = IntentFactory.getMainIntent(this);
-        startActivity(intent);
-        finish();
+        if(editTextUsername.getText().toString().toLowerCase().equals("jtlie") && (editTextPassword.getText().toString().equals("test123"))){
+            Intent intent = IntentFactory.getMainIntent(this);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(getApplication(), "Wrong Login", Toast.LENGTH_SHORT).show();
+        }
         //TODO create login method
     }
 

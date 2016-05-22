@@ -46,7 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="created_on_text" />
+                android:text="created_on_text"
+                android:textStyle="italic" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="29dp"
-                android:text="members_text" />
+                android:text="members_text"
+                android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>
 

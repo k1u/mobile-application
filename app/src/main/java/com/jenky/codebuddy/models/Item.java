@@ -53,7 +53,7 @@ public class Item {
         return type;
     }
 
-    public void setType(String description) {
+    public void setType(String type) {
         this.type = type;
     }
 

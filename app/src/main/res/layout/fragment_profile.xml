@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivityFragment"
-    android:orientation="vertical">
+    tools:context=".MainActivityFragment">
 
     <LinearLayout
         android:id="@+id/row_1"
@@ -15,27 +15,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/avatar_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            android:gravity="center"
+            android:background="@drawable/profile_stats"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/avatar"
-                android:layout_width="100dp"
-                android:layout_height="160dp"
-                android:src="@drawable/ic_launcher" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/stats_layout"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background='@color/light_yellow'
+            android:layout_marginLeft="5dp"
+            android:background='@drawable/profile_stats'
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_horizontal_margin">
+            android:padding="@dimen/activity_horizontal_margin">
 
             <LinearLayout
                 android:id="@+id/stats_labels"
@@ -46,58 +43,85 @@
                 <TextView
                     android:id="@+id/total_score_label"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/total_score" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/total_score"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/avg_score_label"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/avg_score" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/avg_score"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/completed_achievements_label"
+                    android:id="@+id/achievements_label"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/completed_achievements" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/achievements"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/games_played_label"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/games_played" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/games_played"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/stats_values"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:layout_marginLeft="5dp"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin">
 
                 <TextView
                     android:id="@+id/total_score_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test1" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="test1"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/avg_score_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test2" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="test2"
+                    android:textStyle="italic" />
 
                 <TextView
-                    android:id="@+id/completed_achievements_value"
+                    android:id="@+id/achievements_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test3" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="test3"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/games_played_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="text4" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="text4"
+                    android:textStyle="italic" />
             </LinearLayout>
         </LinearLayout>
 
