@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -30,7 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class TowerActivity extends Activity {
+public class TowerActivity extends AppCompatActivity {
 
     private float mx, my;
     private ScrollView vScroll;
@@ -43,6 +45,7 @@ public class TowerActivity extends Activity {
     private final int towerMagrinTop = 0;
     private final int towerMagrinBottom = 0;
     private final Converters converters = new Converters(this);
+    private Toolbar toolbar;
 
 
     @Override
@@ -50,10 +53,10 @@ public class TowerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
         setLayouts();
+        setActionBar();
         scrollDown(vScroll);
         TestData.addTestTowers(towers);
         drawActivity();
-
     }
 
     private void setLayouts() {
@@ -61,6 +64,14 @@ public class TowerActivity extends Activity {
         hScroll = (HorizontalScroll) findViewById(R.id.hScroll);
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    }
+
+    private void setActionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -123,11 +134,9 @@ public class TowerActivity extends Activity {
             for (int j = 0; j < tower.getHeight(); j++) {
                 towerLayout.addView(getTowerBlock(tower.getBlock()));
             }
-
             globalTowerLayout.addView(towerLayout);
         }
     }
-
 
 
     private ImageView getBackgroundImage() {
@@ -160,7 +169,7 @@ public class TowerActivity extends Activity {
         return linearLayout;
     }
 
-    private ImageView getTowerBlock(String BlockUrl )   {
+    private ImageView getTowerBlock(String BlockUrl) {
         ImageView block = new ImageView(this);
         block.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
@@ -178,7 +187,7 @@ public class TowerActivity extends Activity {
             e.printStackTrace();
         }*/
 
-         block.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_block));
+        block.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_block));
         return block;
     }
 
@@ -193,4 +202,6 @@ public class TowerActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
