@@ -20,7 +20,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
     </string>
-    <string name="title_activity_log_in">LogInActivity</string>
+    <string name="title_activity_log_in">Log In</string>
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign Up</string>
     <string name="total_score">Total score</string>
@@ -32,8 +32,8 @@
     <string name="rank">Rank:</string>
     <string name="created_on">Created on:</string>
     <string name="members">Members:</string>
-    <string name="title_activity_project_metriics">ProjectMetriicsActivity</string>
-    <string name="title_activity_tower">TowerActivity</string>
+    <string name="title_activity_project_metriics">Project Metrics</string>
+    <string name="title_activity_tower">Tower</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

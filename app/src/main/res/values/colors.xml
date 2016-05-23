@@ -7,4 +7,5 @@
     <color name="tower_background">#5357DF</color>
     <color name="test_border">#4CFF00</color>
     <color name="light_grey">#CECECE</color>
+    <color name="transparant">#00FFFFFF</color>
 </resources>
