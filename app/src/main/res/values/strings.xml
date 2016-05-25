@@ -41,4 +41,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="purchase">Purchase</string>
     <string name="equipment">Equipment</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
 </resources>

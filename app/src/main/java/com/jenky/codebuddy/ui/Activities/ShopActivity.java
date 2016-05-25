@@ -10,10 +10,6 @@ import android.view.MenuItem;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ShopAdapter;
-import com.jenky.codebuddy.models.Item;
-import com.jenky.codebuddy.util.TestData;
-
-import java.util.ArrayList;
 
 public class ShopActivity extends AppCompatActivity {
 
@@ -27,7 +23,7 @@ public class ShopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop);
         setTitle(getString(R.string.shop));
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        setActionBar();
+        setViews();
 
         setTabs();
 
@@ -45,7 +41,7 @@ public class ShopActivity extends AppCompatActivity {
         }
     }
 
-    private void setActionBar() {
+    private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);

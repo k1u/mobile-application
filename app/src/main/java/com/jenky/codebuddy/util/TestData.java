@@ -60,12 +60,14 @@ public class TestData {
         Item item = new Item();
         Item item2 = new Item();
 
+        item.setId(1);
         item.setName("Orange Bricks");
         item.setType("block");
         item.setPrice(rand.nextInt(50) + 1);
         item.setImage("http://i.imgur.com/b80yEkL.png");
         items.add(item);
 
+        item2.setId(2);
         item2.setName("Dark Bricks");
         item2.setType("block");
         item2.setPrice(rand.nextInt(50) + 1);
@@ -81,12 +83,14 @@ public class TestData {
         Item item = new Item();
         Item item2 = new Item();
 
+        item.setId(1);
         item.setName("Bat Helm");
         item.setType("helmet");
         item.setPrice(rand.nextInt(50) + 1);
         item.setImage("http://i.imgur.com/UCGB5Rn.png");
         items.add(item);
 
+        item2.setId(2);
         item2.setName("Iron Helm");
         item2.setType("helmet");
         item2.setPrice(rand.nextInt(50) + 1);
@@ -103,12 +107,14 @@ public class TestData {
         Item item = new Item();
         Item item2 = new Item();
 
+        item.setId(1);
         item.setName("Bat Shirt");
         item.setType("shirt");
         item.setPrice(rand.nextInt(50) + 1);
         item.setImage("http://i.imgur.com/cAcMw06.png");
         items.add(item);
 
+        item2.setId(2);
         item2.setName("Iron shirt");
         item2.setType("shirt");
         item2.setPrice(rand.nextInt(50) + 1);
@@ -122,12 +128,14 @@ public class TestData {
         Item item = new Item();
         Item item2 = new Item();
 
+        item.setId(1);
         item.setName("Bat Legs");
         item.setType("legs");
         item.setPrice(rand.nextInt(50) + 1);
         item.setImage("http://i.imgur.com/THzZGs7.png");
         items.add(item);
 
+        item2.setId(2);
         item2.setName("Iron Legs");
         item2.setType("legs");
         item2.setPrice(rand.nextInt(50) + 1);

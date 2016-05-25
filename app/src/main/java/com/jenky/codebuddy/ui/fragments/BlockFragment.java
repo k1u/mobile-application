@@ -22,7 +22,7 @@ public class BlockFragment extends Fragment implements AdapterView.OnItemClickLi
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
-
+    private View rootView;
     public static BlockFragment newInstance() {
         BlockFragment fragment = new BlockFragment();
         return fragment;
@@ -31,9 +31,9 @@ public class BlockFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shop, container, false);
-        resultListView = (ListView) view.findViewById(R.id.result_list_view);
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_shop, container, false);
+        resultListView = (ListView) rootView.findViewById(R.id.result_list_view);
+        return rootView;
     }
 
     @Override

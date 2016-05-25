@@ -1,14 +1,9 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.app.ActivityManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +14,6 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.customViews.HorizontalScroll;
 import com.jenky.codebuddy.customViews.VerticalScroll;
 import com.jenky.codebuddy.models.Tower;
-import com.jenky.codebuddy.util.AppContext;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
@@ -29,9 +23,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class TowerActivity extends AppCompatActivity {
@@ -54,20 +45,19 @@ public class TowerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
-        setLayouts();
+        setViews();
         setActionBar();
         scrollDown(vScroll);
         TestData.addTestTowers(towers);
         drawActivity();
     }
 
-    private void setLayouts() {
+    private void setViews() {
         vScroll = (VerticalScroll) findViewById(R.id.vScroll);
         hScroll = (HorizontalScroll) findViewById(R.id.hScroll);
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
     }
 
     private void setActionBar() {
@@ -75,7 +65,6 @@ public class TowerActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

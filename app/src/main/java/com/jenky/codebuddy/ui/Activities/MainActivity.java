@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setActionBar();
+        setViews();
         setDefaultValues();
         selectDefaultDrawerItem();
         setTestAvater();
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setActionBar() {
+    private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);

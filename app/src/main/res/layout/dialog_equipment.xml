@@ -13,37 +13,28 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/helmetPrevious"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="a" />
+            android:background="@drawable/previous" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:id="@+id/helmetLayout"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/test_head1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="10dp"
-                android:text="@string/hello_blank_fragment" />
         </LinearLayout>
 
         <Button
-
+            android:id="@+id/helmetNext"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="b" />
+            android:background="@drawable/next" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,37 +46,28 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/shirtPrevious"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="a" />
+            android:background="@drawable/previous" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:id="@+id/shirtLayout"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/test_shirt1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="10dp"
-                android:text="@string/hello_blank_fragment" />
         </LinearLayout>
 
         <Button
-
+            android:id="@+id/shirtNext"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="b" />
+            android:background="@drawable/next" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,37 +79,31 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/legsPrevious"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="a" />
+            android:background="@drawable/previous" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+
+            android:id="@+id/legsLayout"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/test_legs1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="10dp"
-                android:text="@string/hello_blank_fragment" />
+
+
         </LinearLayout>
 
         <Button
-
+            android:id="@+id/legsNext"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="b" />
+            android:background="@drawable/next" />
     </LinearLayout>
 
     <LinearLayout
@@ -139,37 +115,49 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/blockPrevious"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="a" />
+            android:background="@drawable/previous" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/blockLayout"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/test_block" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="10dp"
-                android:text="@string/hello_blank_fragment" />
+
+
         </LinearLayout>
 
         <Button
+            android:id="@+id/blockNext"
             android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:text="b" />
+            android:background="@drawable/next" />
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:background="@drawable/default_button"
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"/>
+        <Button
+            android:background="@drawable/default_button"
+            android:id="@+id/apply"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="@string/apply"/>
+    </LinearLayout>
 </LinearLayout>
 
