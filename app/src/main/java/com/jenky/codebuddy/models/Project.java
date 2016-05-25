@@ -17,9 +17,8 @@ import java.util.List;
 /**
  * Created by JTLie on 25-4-2016.
  */
-public class Project /*implements Parcelable */{
-
-/*    public static final Parcelable.Creator<Project> CREATOR = new Parcelable.Creator<Project>() {
+public class Project implements Parcelable {
+    public static final Parcelable.Creator<Project> CREATOR = new Parcelable.Creator<Project>() {
         public Project createFromParcel(Parcel in) {
             return new Project(in);
         }
@@ -27,21 +26,18 @@ public class Project /*implements Parcelable */{
         public Project[] newArray(int size) {
             return new Project[size];
         }
-    };*/
+    };
 
 /*    private Context mContext;
     private LayoutInflater inflater;*/
 
-    private String name;
     private int id;
+    private String name;
     private int score;
     private String status;
     private Calendar createdOn;
     private int members;
     private int rank;
-
-/*    public Project() {
-    }
 
 
     public Project(Parcel in) {
@@ -49,23 +45,26 @@ public class Project /*implements Parcelable */{
         name = in.readString();
         score = in.readInt();
         status = in.readString();
-
-        rank = in.readString();
         createdOn = (Calendar) in.readSerializable();
         members = in.readInt();
-    }*/
+        rank = in.readInt();
+    }
 
-    /*@Override
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeInt(score);
         dest.writeString(status);
-        dest.writeString(rank);
         dest.writeSerializable(createdOn);
         dest.writeInt(members);
+        dest.writeInt(rank);
     }
 
+    public int describeContents() {
+        return 0;
+    }
+/*
     public Project init(String jsonString) throws JSONException {
         init(new JSONObject(jsonString));
         return this;
@@ -82,9 +81,7 @@ public class Project /*implements Parcelable */{
         return this;
     }
 
-    public int describeContents() {
-        return 0;
-    }*/
+*/
 
     public String getName() {
         return name;

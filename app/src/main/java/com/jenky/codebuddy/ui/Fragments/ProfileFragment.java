@@ -2,6 +2,7 @@ package com.jenky.codebuddy.ui.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         TestData.addTestProjects(projects);
         converters = new Converters(getActivity());
         addTestStats();
+        setOnClickListeners();
         //TODO Fill array adapter
 
 
@@ -163,5 +165,17 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
                 0
         );
         return params;
+    }
+
+    private void setOnClickListeners(){
+        avatar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                EquipmentFragment equipmentFragment = new EquipmentFragment();
+                // Show DialogFragment
+                FragmentManager fm = getFragmentManager();
+                equipmentFragment.show(fm,"Dialog Fragment");
+            }
+        });
+
     }
 }

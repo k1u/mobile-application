@@ -17,14 +17,47 @@ import java.util.List;
 /**
  * Created by JTLie on 25-4-2016.
  */
-public class Achievement {
+public class Achievement implements Parcelable{
+    public static final Parcelable.Creator<Achievement> CREATOR = new Parcelable.Creator<Achievement>() {
+        public Achievement createFromParcel(Parcel in) {
+            return new Achievement(in);
+        }
 
+        public Achievement[] newArray(int size) {
+            return new Achievement[size];
+        }
+    };
     private int id;
     private String name;
     private String image;
     private String description;
     private String reward;
     private double complete;
+
+    public Achievement(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        image = in.readString();
+        description = in.readString();
+        reward = in.readString();
+        complete = in.readDouble();
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(image);
+        dest.writeString(description);
+        dest.writeString(reward);
+        dest.writeDouble(complete);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public int getId() {
         return id;
