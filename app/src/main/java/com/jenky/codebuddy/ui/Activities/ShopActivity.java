@@ -9,12 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.adapters.FragmentAdapter;
+import com.jenky.codebuddy.adapters.ShopAdapter;
+import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.util.TestData;
+
+import java.util.ArrayList;
 
 public class ShopActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,9 @@ public class ShopActivity extends AppCompatActivity {
         setTitle(getString(R.string.shop));
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         setActionBar();
+
         setTabs();
+
     }
 
     @Override
@@ -47,7 +54,7 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
+        viewPager.setAdapter(new ShopAdapter(getSupportFragmentManager(),
                 ShopActivity.this));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);

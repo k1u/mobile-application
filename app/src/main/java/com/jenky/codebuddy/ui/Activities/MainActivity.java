@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        Class fragmentClass;
+        Class fragmentClass = null;
         if (menuItem.getItemId() == R.id.shop) {
             goToShop();
         } else {
@@ -103,21 +103,17 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.profile:
                     fragmentClass = ProfileFragment.class;
-                    setFragment(fragmentClass);
-                    menuItem.setChecked(true);
                     break;
                 case R.id.projects:
                     fragmentClass = ProjectFragment.class;
-                    setFragment(fragmentClass);
-                    menuItem.setChecked(true);
                     break;
                 case R.id.achievements:
                     fragmentClass = AchievementFragment.class;
-                    setFragment(fragmentClass);
-                    menuItem.setChecked(true);
                     break;
             }
+            setFragment(fragmentClass);
         }
+        menuItem.setChecked(true);
     }
 
     public void selectDefaultDrawerItem() {

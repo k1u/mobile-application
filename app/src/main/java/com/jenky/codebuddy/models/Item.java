@@ -30,11 +30,13 @@ public class Item implements Parcelable {
     private int id;
     private String name;
     private String image;
-
     private String type;
     private double price;
 
 
+    public Item() {
+
+    }
 
     public Item(Parcel in) {
         id = in.readInt();

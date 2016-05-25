@@ -21,6 +21,10 @@ public class Player implements Parcelable{
     private String name;
     private String image;
 
+    public Player(){
+
+    }
+
     public Player(Parcel in) {
         id = in.readInt();
         name = in.readString();

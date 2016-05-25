@@ -43,7 +43,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemClickLi
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
-        TestData.addTestItems(items);
+        TestData.addTestShirts(items);
         itemAdapter.notifyDataSetChanged();
     }
 

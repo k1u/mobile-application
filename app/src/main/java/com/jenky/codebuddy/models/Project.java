@@ -31,6 +31,8 @@ public class Project implements Parcelable {
 /*    private Context mContext;
     private LayoutInflater inflater;*/
 
+
+
     private int id;
     private String name;
     private int score;
@@ -39,6 +41,9 @@ public class Project implements Parcelable {
     private int members;
     private int rank;
 
+    public Project() {
+
+    }
 
     public Project(Parcel in) {
         id = in.readInt();

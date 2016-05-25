@@ -19,8 +19,10 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.customViews.HorizontalScroll;
 import com.jenky.codebuddy.customViews.VerticalScroll;
 import com.jenky.codebuddy.models.Tower;
+import com.jenky.codebuddy.util.AppContext;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
+import com.squareup.picasso.Picasso;
 
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
@@ -169,25 +171,14 @@ public class TowerActivity extends AppCompatActivity {
         return linearLayout;
     }
 
-    private ImageView getTowerBlock(String BlockUrl) {
+    private ImageView getTowerBlock(String blockUrl) {
         ImageView block = new ImageView(this);
         block.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-
-
-        //TODO load tower block image instead.
-
-       /* try {
-            URL url = new URL(BlockUrl);
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            block.setImageBitmap(bmp);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        block.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_block));
+        Picasso.with(this)
+                .load(blockUrl)
+                .placeholder(R.drawable.test_block)
+                .into(block);
         return block;
     }
 

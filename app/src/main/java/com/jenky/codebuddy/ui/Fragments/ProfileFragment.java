@@ -15,15 +15,12 @@ import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
+import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Project;
-import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 /**
@@ -33,6 +30,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     private HistoryAdapter historyAdapter;
     private ArrayList<Project> projects = new ArrayList<>();
+    private ArrayList<Item> itemList = new ArrayList<Item>();
     private ListView resultListView;
     private RelativeLayout avatar;
     private ImageView head,
@@ -48,6 +46,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             achievementsValue,
             gamesPlayedValue;
     private View rootView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,12 +169,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private void setOnClickListeners(){
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                //TODO remove tests
+                TestData.addTestHelmets(itemList);
+                TestData.addTestShirts(itemList);
+                TestData.addTestLegs(itemList);
+                TestData.addTestBlocks(itemList);
                 EquipmentFragment equipmentFragment = new EquipmentFragment();
                 // Show DialogFragment
                 FragmentManager fm = getFragmentManager();
-                equipmentFragment.show(fm,"Dialog Fragment");
+                Bundle args = new Bundle();
+                args.putParcelableArrayList("items", itemList);
+                equipmentFragment.setArguments(args);
+                equipmentFragment.show(fm, "Dialog Fragment");
             }
         });
-
     }
 }

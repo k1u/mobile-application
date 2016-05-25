@@ -18,13 +18,13 @@ import java.util.ArrayList;
 /**
  * Created by Jason on 12-May-16.
  */
-public class LegsFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class BlockFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
 
-    public static LegsFragment newInstance() {
-        LegsFragment fragment = new LegsFragment();
+    public static BlockFragment newInstance() {
+        BlockFragment fragment = new BlockFragment();
         return fragment;
     }
 
@@ -43,7 +43,7 @@ public class LegsFragment extends Fragment implements AdapterView.OnItemClickLis
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
-        TestData.addTestLegs(items);
+        TestData.addTestBlocks(items);
         itemAdapter.notifyDataSetChanged();
     }
 

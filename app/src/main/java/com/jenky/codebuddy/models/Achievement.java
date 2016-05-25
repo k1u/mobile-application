@@ -34,6 +34,10 @@ public class Achievement implements Parcelable{
     private String reward;
     private double complete;
 
+    public Achievement() {
+
+    }
+
     public Achievement(Parcel in) {
         id = in.readInt();
         name = in.readString();

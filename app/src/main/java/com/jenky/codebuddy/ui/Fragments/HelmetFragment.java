@@ -45,7 +45,7 @@ public class HelmetFragment extends Fragment implements AdapterView.OnItemClickL
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
-        TestData.addTestItems(items);
+        TestData.addTestHelmets(items);
         itemAdapter.notifyDataSetChanged();
     }
 

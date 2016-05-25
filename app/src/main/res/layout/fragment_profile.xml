@@ -20,7 +20,7 @@
             android:layout_width="100dp"
             android:layout_height="160dp"
             android:gravity="center"
-            android:background="@drawable/profile_stats"
+            android:background="@drawable/frame"
             android:orientation="vertical">
 
         </RelativeLayout>
@@ -30,7 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:background='@drawable/profile_stats'
+            android:background="@drawable/frame"
             android:orientation="horizontal"
             android:padding="@dimen/activity_horizontal_margin">
 

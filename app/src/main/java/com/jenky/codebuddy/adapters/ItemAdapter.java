@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Item;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,11 @@ public class ItemAdapter extends ArrayAdapter {
         }
         viewHolder.name.setText(item.getName());
         viewHolder.price.setText(Double.toString(item.getPrice()));
+        Picasso.with(getContext())
+                .load(item.getImage())
+                .placeholder(R.drawable.ic_launcher4)
+                .into(viewHolder.image);
+
         // Populate the data into the template view using the data object
         return convertView;
     }

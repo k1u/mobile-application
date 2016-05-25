@@ -24,6 +24,10 @@ public class Tower implements Parcelable {
     private Player player;
     private String block;
 
+    public Tower() {
+
+    }
+
     public Tower(Parcel in) {
         score = in.readInt();
         height = in.readInt();
