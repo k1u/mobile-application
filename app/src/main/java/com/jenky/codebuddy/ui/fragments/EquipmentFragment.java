@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,6 +60,7 @@ public class EquipmentFragment extends DialogFragment {
         setViews(rootView);
         createImages(itemList);
         setClickListeners();
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return rootView;
     }
 

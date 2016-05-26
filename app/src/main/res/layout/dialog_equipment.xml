@@ -1,16 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/light_grey"
+    android:orientation="vertical"
     android:padding="20dp">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/blue"
-    android:text="@string/equipment"
-    android:textSize="25dp"
-    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:text="@string/equipment"
+        android:textColor="@color/blue"
+        android:textSize="25dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -18,6 +20,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:padding="10dp">
+
+
 
         <Button
             android:id="@+id/helmetPrevious"
@@ -101,7 +105,6 @@
             android:orientation="vertical">
 
 
-
         </LinearLayout>
 
         <Button
@@ -135,8 +138,6 @@
             android:orientation="vertical">
 
 
-
-
         </LinearLayout>
 
         <Button
@@ -146,28 +147,33 @@
             android:layout_gravity="center"
             android:background="@drawable/next" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:orientation="horizontal">
+
         <Button
-            style="@style/DefaultButton"
-            android:background="@drawable/default_button"
             android:id="@+id/cancel"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="@string/cancel"/>
-        <Button
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
             style="@style/DefaultButton"
-            android:id="@+id/apply"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/default_button"
-            android:text="@string/apply"/>
+
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/apply"
+            style="@style/DefaultButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/default_button"
+            android:text="@string/apply"
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>
 
