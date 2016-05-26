@@ -2,8 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/light_grey"
     android:padding="20dp">
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/blue"
+    android:text="@string/equipment"
+    android:textSize="25dp"
+    />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -14,8 +21,8 @@
 
         <Button
             android:id="@+id/helmetPrevious"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
@@ -31,8 +38,8 @@
 
         <Button
             android:id="@+id/helmetNext"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/next" />
     </LinearLayout>
@@ -47,8 +54,8 @@
 
         <Button
             android:id="@+id/shirtPrevious"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
@@ -64,8 +71,8 @@
 
         <Button
             android:id="@+id/shirtNext"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/next" />
     </LinearLayout>
@@ -80,8 +87,8 @@
 
         <Button
             android:id="@+id/legsPrevious"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
@@ -95,13 +102,12 @@
 
 
 
-
         </LinearLayout>
 
         <Button
             android:id="@+id/legsNext"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/next" />
     </LinearLayout>
@@ -116,8 +122,8 @@
 
         <Button
             android:id="@+id/blockPrevious"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
@@ -135,8 +141,8 @@
 
         <Button
             android:id="@+id/blockNext"
-            android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_width="35dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/next" />
     </LinearLayout>
@@ -145,6 +151,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <Button
+            style="@style/DefaultButton"
             android:background="@drawable/default_button"
             android:id="@+id/cancel"
             android:layout_width="0dp"
@@ -152,11 +159,14 @@
             android:layout_weight="1"
             android:text="@string/cancel"/>
         <Button
-            android:background="@drawable/default_button"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            style="@style/DefaultButton"
             android:id="@+id/apply"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@drawable/default_button"
             android:text="@string/apply"/>
     </LinearLayout>
 </LinearLayout>

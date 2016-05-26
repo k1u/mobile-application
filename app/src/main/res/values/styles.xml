@@ -15,7 +15,9 @@
         <!-- Support library compatibility -->
         <item name="windowActionBarOverlay">true</item>
     </style>
+    <style name="DefaultButton" parent="android:Widget.Holo.Button">
+        <item name="android:textColor">@color/white</item>
 
-
+    </style>
 
 </resources>

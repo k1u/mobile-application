@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1472FF</color>
-    <color name="colorPrimaryDark">#1346FF</color>
-    <color name="colorPrimaryLight">#00E4FF</color>
-    <color name="colorAccent">#4597EA</color>
-    <color name="light_yellow">#FFEF68</color>
     <color name="tower_background">#5357DF</color>
-    <color name="test_border">#4CFF00</color>
-    <color name="light_grey">#CECECE</color>
     <color name="notification_bar">#0E33B7</color>
+    <color name="colorPrimaryDark">#1346FF</color>
+    <color name="colorPrimary">#1472FF</color>
+    <color name="colorAccent">#4597EA</color>
+    <color name="blue">#2BA9E6</color>
+    <color name="colorPrimaryLight">#00E4FF</color>
+    <color name="light_yellow">#FFEF68</color>
+    <color name="test_border">#4CFF00</color>
+    <color name="dark_grey">#777777</color>
+    <color name="light_grey">#CECECE</color>
+    <color name="white">#FFFFFF</color>
+
 </resources>
