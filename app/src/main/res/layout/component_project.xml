@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -13,7 +14,8 @@
             android:layout_height="120dp"
             android:layout_gravity="center_vertical"
             android:padding="10dp"
-            android:src="@drawable/ic_launcher4" />
+            android:src="@drawable/ic_launcher"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <LinearLayout
@@ -26,7 +28,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Project_Name"
+
             android:textStyle="bold" />
 
         <LinearLayout
@@ -46,8 +48,8 @@
                 android:id="@+id/created_on_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="created_on_text"
+                android:layout_marginStart="20dp"
+
                 android:textStyle="italic" />
         </LinearLayout>
 
@@ -68,8 +70,8 @@
                 android:id="@+id/member_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="29dp"
-                android:text="members_text"
+                android:layout_marginStart="29dp"
+
                 android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>

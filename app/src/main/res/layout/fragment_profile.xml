@@ -29,7 +29,7 @@
             android:id="@+id/stats_layout"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/frame"
             android:orientation="horizontal"
             android:padding="@dimen/activity_horizontal_margin">
@@ -81,11 +81,10 @@
                 android:id="@+id/stats_values"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
                 android:gravity="end"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin">
+               >
 
                 <TextView
                     android:id="@+id/total_score_value"
@@ -93,7 +92,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="test1"
+
                     android:textStyle="italic" />
 
                 <TextView
@@ -102,7 +101,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="test2"
+
                     android:textStyle="italic" />
 
                 <TextView
@@ -111,7 +110,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="test3"
+
                     android:textStyle="italic" />
 
                 <TextView
@@ -120,7 +119,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="text4"
+
                     android:textStyle="italic" />
             </LinearLayout>
         </LinearLayout>

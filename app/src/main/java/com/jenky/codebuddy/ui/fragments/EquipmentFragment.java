@@ -75,7 +75,7 @@ public class EquipmentFragment extends DialogFragment {
             imageView.setTag(itemList.get(i).getId());
             Picasso.with(getContext())
                     .load(itemList.get(i).getImage())
-                    .placeholder(R.drawable.ic_launcher4)
+                    .placeholder(R.drawable.ic_launcher)
                     .into(imageView);
             switch (itemList.get(i).getType()) {
                 case "helmet":

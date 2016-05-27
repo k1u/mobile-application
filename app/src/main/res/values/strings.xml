@@ -43,4 +43,6 @@
     <string name="equipment">Equipment</string>
     <string name="cancel">Cancel</string>
     <string name="apply">Apply</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>

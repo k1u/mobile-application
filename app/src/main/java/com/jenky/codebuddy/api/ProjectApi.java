@@ -1,12 +1,9 @@
 package com.jenky.codebuddy.api;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.jenky.codebuddy.models.Project;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Fabian on 28-4-2016.

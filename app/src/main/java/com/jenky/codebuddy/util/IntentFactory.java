@@ -13,17 +13,14 @@ import com.jenky.codebuddy.ui.activities.TowerActivity;
 public class IntentFactory {
 
     public static Intent getMainIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     public static Intent getShopIntent(Context context) {
-        Intent intent = new Intent(context, ShopActivity.class);
-        return intent;
+        return new Intent(context, ShopActivity.class);
     }
 
     public static Intent getTowerIntent(Context context) {
-        Intent intent = new Intent(context, TowerActivity.class);
-        return intent;
+        return new Intent(context, TowerActivity.class);
     }
 }

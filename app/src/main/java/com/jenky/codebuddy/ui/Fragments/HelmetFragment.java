@@ -13,8 +13,6 @@ import com.jenky.codebuddy.adapters.ItemAdapter;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.TestData;
 
-import junit.framework.Test;
-
 import java.util.ArrayList;
 
 /**
@@ -26,8 +24,7 @@ public class HelmetFragment extends Fragment implements AdapterView.OnItemClickL
     private ListView resultListView;
 
     public static HelmetFragment newInstance() {
-        HelmetFragment fragment = new HelmetFragment();
-        return fragment;
+        return new HelmetFragment();
     }
 
     @Override
@@ -57,6 +54,6 @@ public class HelmetFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     private void purchaseItem(Item item) {
-        //TODO Ga naar Project Activity (Towers)
+        //TODO Request Item Purchase
     }
 }

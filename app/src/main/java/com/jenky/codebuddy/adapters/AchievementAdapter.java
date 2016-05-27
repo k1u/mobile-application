@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Achievement;
 
+
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by JTLie on 25-4-2016.
@@ -31,7 +33,7 @@ public class AchievementAdapter extends ArrayAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_achievement, null);
+            convertView = inflater.inflate(R.layout.component_achievement, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
             viewHolder.completion = (TextView) convertView.findViewById(R.id.completion);
@@ -42,7 +44,8 @@ public class AchievementAdapter extends ArrayAdapter {
         }
         viewHolder.name.setText(achievement.getName());
         viewHolder.description.setText(achievement.getDescription());
-        viewHolder.completion.setText(Double.toString(achievement.getComplete_percentage()));
+        viewHolder.completion.setText(String.format(Locale.getDefault(),"%.2f", achievement.getComplete_percentage()));
+
         // Populate the data into the template view using the data object
         return convertView;
     }

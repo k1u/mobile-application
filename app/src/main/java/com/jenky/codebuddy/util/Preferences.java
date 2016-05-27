@@ -19,7 +19,7 @@ public class Preferences {
 
 
     public void setToken(String token) {
-        preferences.edit().putString(sessionToken, token).commit();
+        preferences.edit().putString(sessionToken, token).apply();
     }
 
     public String getToken() {

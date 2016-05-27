@@ -12,6 +12,7 @@ import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.Converters;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Jason on 26-Apr-16.
@@ -31,7 +32,7 @@ public class ProjectAdapter extends ArrayAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_project, null);
+            convertView = inflater.inflate(R.layout.component_project, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.createdOn = (TextView) convertView.findViewById(R.id.created_on_text);
             viewHolder.members = (TextView) convertView.findViewById(R.id.member_text);
@@ -42,7 +43,7 @@ public class ProjectAdapter extends ArrayAdapter {
 
         viewHolder.name.setText(project.getName());
         viewHolder.createdOn.setText(Converters.ddMMyyyyToString(project.getCreatedOn()));
-        viewHolder.members.setText(Integer.toString(project.getMembers()));
+        viewHolder.members.setText(String.format(Locale.getDefault(), "%d", project.getMembers()));
 
         // Populate the data into the template view using the data object
         return convertView;

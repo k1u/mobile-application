@@ -5,13 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.jenky.codebuddy.models.Item;
+
 import com.jenky.codebuddy.ui.fragments.BlockFragment;
 import com.jenky.codebuddy.ui.fragments.HelmetFragment;
 import com.jenky.codebuddy.ui.fragments.LegsFragment;
 import com.jenky.codebuddy.ui.fragments.ShirtFragment;
 
-import java.util.ArrayList;
+
 
 /**
  * Created by Jason on 12-May-16.

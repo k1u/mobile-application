@@ -24,8 +24,7 @@ public class LegsFragment extends Fragment implements AdapterView.OnItemClickLis
     private ListView resultListView;
 
     public static LegsFragment newInstance() {
-        LegsFragment fragment = new LegsFragment();
-        return fragment;
+        return new LegsFragment();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class LegsFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemAdapter = new ItemAdapter(getContext(), R.layout.component_item, items);
+        itemAdapter = new ItemAdapter(getContext(),R.layout.component_item, items);
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
@@ -55,6 +54,6 @@ public class LegsFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void purchaseItem(Item item) {
-        //TODO Ga naar Project Activity (Towers)
+        //TODO Request Item Purchase
     }
 }

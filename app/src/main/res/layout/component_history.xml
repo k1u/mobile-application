@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,7 @@
         android:id="@+id/row_1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
 
@@ -27,17 +29,17 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/project_name"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
 
             <TextView
-                android:textStyle="italic"
-
                 android:id="@+id/project_text"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="project_text" />
+                android:textStyle="italic" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,12 +59,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:textStyle="italic"
                 android:id="@+id/score_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="score_text" />
+                android:textStyle="italic" />
 
         </LinearLayout>
 
@@ -74,28 +75,22 @@
         android:id="@+id/row_2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/rank_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rank"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/rank_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank"
+            android:textStyle="bold" />
 
-            <TextView
-                android:textStyle="italic"
-                android:id="@+id/rank_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="rank_text" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/rank_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic" />
+
     </LinearLayout>
 </LinearLayout>

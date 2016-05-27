@@ -30,7 +30,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     private HistoryAdapter historyAdapter;
     private ArrayList<Project> projects = new ArrayList<>();
-    private ArrayList<Item> itemList = new ArrayList<Item>();
+    private ArrayList<Item> itemList = new ArrayList<>();
     private ListView resultListView;
     private RelativeLayout avatar;
     private ImageView head,
@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             Toast.makeText(getContext(), "Failed to receive", Toast.LENGTH_SHORT);
         }*/
         super.onActivityCreated(savedInstanceState);
-        historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, projects);
+        historyAdapter = new HistoryAdapter(getContext(),R.layout.component_history,  projects);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
         TestData.addTestProjects(projects);

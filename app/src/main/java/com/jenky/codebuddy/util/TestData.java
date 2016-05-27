@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class TestData {
 
-    public static ArrayList<Tower> addTestTowers(ArrayList<Tower> towers) {
+    public static void addTestTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < 60; i++) {
             Tower tower = new Tower();
             tower.setHeight(i + 1);
@@ -22,10 +22,9 @@ public class TestData {
             tower.setBlock("http://i.imgur.com/b80yEkL.png");
             towers.add(tower);
         }
-        return towers;
     }
 
-    public static ArrayList<Achievement> addTestAchievments(ArrayList<Achievement> achievements) {
+    public static void addTestAchievments(ArrayList<Achievement> achievements) {
         for (int i = 0; i < 10; i++) {
             Achievement achievement = new Achievement();
             achievement.setName("name" + i);
@@ -34,11 +33,11 @@ public class TestData {
             achievement.setDescription("description" + i);
             achievements.add(achievement);
         }
-        return achievements;
+
     }
 
 
-    public static ArrayList<Project> addTestProjects(ArrayList<Project> projects) {
+    public static void addTestProjects(ArrayList<Project> projects) {
         for (int i = 0; i < 3; i++) {
             Project project = new Project();
             project.setName("Project " + (i + 1));
@@ -52,10 +51,9 @@ public class TestData {
             project.setCreatedOn(cal);
             projects.add(project);
         }
-        return projects;
     }
 
-    public static ArrayList<Item> addTestBlocks(ArrayList<Item> items) {
+    public static void addTestBlocks(ArrayList<Item> items) {
         Random rand = new Random();
         Item item = new Item();
         Item item2 = new Item();
@@ -75,10 +73,9 @@ public class TestData {
         items.add(item2);
 
 
-        return items;
     }
 
-    public static ArrayList<Item> addTestHelmets(ArrayList<Item> items) {
+    public static void addTestHelmets(ArrayList<Item> items) {
         Random rand = new Random();
         Item item = new Item();
         Item item2 = new Item();
@@ -98,10 +95,9 @@ public class TestData {
         items.add(item2);
 
 
-        return items;
     }
 
-    public static ArrayList<Item> addTestShirts(ArrayList<Item> items) {
+    public static void addTestShirts(ArrayList<Item> items) {
         Random rand = new Random();
 
         Item item = new Item();
@@ -120,10 +116,10 @@ public class TestData {
         item2.setPrice(rand.nextInt(50) + 1);
         item2.setImage("http://i.imgur.com/DRh6lWk.png");
         items.add(item2);
-        return items;
+
     }
 
-    public static ArrayList<Item> addTestLegs(ArrayList<Item> items) {
+    public static void addTestLegs(ArrayList<Item> items) {
         Random rand = new Random();
         Item item = new Item();
         Item item2 = new Item();
@@ -141,6 +137,6 @@ public class TestData {
         item2.setPrice(rand.nextInt(50) + 1);
         item2.setImage("http://i.imgur.com/1B02FqW.png");
         items.add(item2);
-        return items;
+
     }
 }

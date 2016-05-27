@@ -11,6 +11,7 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by JTLie on 25-4-2016.
@@ -30,7 +31,7 @@ public class HistoryAdapter extends ArrayAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_history, null);
+            convertView = inflater.inflate(R.layout.component_history, parent, false);
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
 
@@ -40,9 +41,9 @@ public class HistoryAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.project.setText(project.getName());
-        viewHolder.score.setText(Integer.toString(project.getScore()));
+        viewHolder.score.setText(String.format(Locale.getDefault(), "%d", project.getScore()));
 
-        viewHolder.rank.setText(Integer.toString(project.getRank()));
+        viewHolder.rank.setText(String.format(Locale.getDefault(), "%d", project.getRank()));
 
 
 

@@ -35,7 +35,7 @@ public class AchievementFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        achievmentAdapter = new AchievementAdapter(getContext(), R.layout.component_project, achievements);
+        achievmentAdapter = new AchievementAdapter(getContext(), R.layout.component_project,achievements);
         resultListView.setAdapter(achievmentAdapter);
         TestData.addTestAchievments(achievements);
         achievmentAdapter.notifyDataSetChanged();

@@ -3,32 +3,32 @@ package com.jenky.codebuddy.util;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.jenky.codebuddy.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
+import java.util.Locale;
+
 /**
  * Created by Jason on 26-Apr-16.
  */
 public class Converters {
 
-    Context context;
+    private Context context;
 
     public Converters(Context Context) {
         this.context = Context;
     }
 
     public static String ddMMyyyyToString(Calendar calendar) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         return df.format(calendar.getTime());
     }
 
     public static Calendar stringToddMMYYYY(String string) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Calendar cal = Calendar.getInstance();
         try {
             cal.setTime(format.parse(string));

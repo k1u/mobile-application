@@ -1,7 +1,5 @@
 package com.jenky.codebuddy.models;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 

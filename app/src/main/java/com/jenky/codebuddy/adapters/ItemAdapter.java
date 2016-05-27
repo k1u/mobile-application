@@ -32,7 +32,7 @@ public class ItemAdapter extends ArrayAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.component_item, null);
+            convertView = inflater.inflate(R.layout.component_item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
@@ -45,7 +45,7 @@ public class ItemAdapter extends ArrayAdapter {
         viewHolder.price.setText(Double.toString(item.getPrice()));
         Picasso.with(getContext())
                 .load(item.getImage())
-                .placeholder(R.drawable.ic_launcher4)
+                .placeholder(R.drawable.ic_launcher)
                 .into(viewHolder.image);
 
         // Populate the data into the template view using the data object

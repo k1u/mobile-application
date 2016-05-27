@@ -24,8 +24,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemClickLi
     private ListView resultListView;
 
     public static ShirtFragment newInstance() {
-        ShirtFragment fragment = new  ShirtFragment();
-        return fragment;
+        return new  ShirtFragment();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemAdapter = new ItemAdapter(getContext(), R.layout.component_item, items);
+        itemAdapter = new ItemAdapter(getContext(),R.layout.component_item, items);
         resultListView.setAdapter(itemAdapter);
         resultListView.setOnItemClickListener(this);
         items.clear();
@@ -55,6 +54,6 @@ public class ShirtFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     private void purchaseItem(Item item) {
-        //TODO Ga naar Project Activity (Towers)
+        //TODO Request Item Purchase
     }
 }

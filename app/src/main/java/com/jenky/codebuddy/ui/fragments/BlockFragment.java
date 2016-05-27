@@ -24,8 +24,7 @@ public class BlockFragment extends Fragment implements AdapterView.OnItemClickLi
     private ListView resultListView;
     private View rootView;
     public static BlockFragment newInstance() {
-        BlockFragment fragment = new BlockFragment();
-        return fragment;
+        return new BlockFragment();
     }
 
     @Override
@@ -55,6 +54,6 @@ public class BlockFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     private void purchaseItem(Item item) {
-        //TODO Ga naar Project Activity (Towers)
+        //TODO Request Item Purchase
     }
 }
