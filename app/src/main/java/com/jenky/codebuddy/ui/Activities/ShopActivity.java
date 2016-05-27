@@ -24,9 +24,10 @@ public class ShopActivity extends AppCompatActivity {
         setTitle(getString(R.string.shop));
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         setViews();
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTabs();
-
     }
 
     @Override
@@ -43,9 +44,7 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void setTabs() {

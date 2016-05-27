@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViews();
+        setSupportActionBar(toolbar);
         setDefaultValues();
         selectDefaultDrawerItem();
         setTestAvater();
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
