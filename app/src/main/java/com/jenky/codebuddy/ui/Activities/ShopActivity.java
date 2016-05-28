@@ -22,7 +22,6 @@ public class ShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         setTitle(getString(R.string.shop));
-        // Get the ViewPager and set it's PagerAdapter so that it can display items
         setViews();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -34,7 +33,6 @@ public class ShopActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
@@ -44,7 +42,6 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
     }
 
     private void setTabs() {

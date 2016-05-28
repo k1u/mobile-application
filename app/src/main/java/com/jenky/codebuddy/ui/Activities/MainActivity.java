@@ -25,7 +25,7 @@ import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout mDrawer;
+    private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView nvDrawer;
@@ -50,21 +50,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
+                drawer.openDrawer(GravityCompat.START);
                 return true;
         }
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    // `onPostCreate` called when activity start-up is complete after `onStart()`
-    // NOTE! Make sure to override the method with only a single `Bundle` argument
     @Override
     protected void onPostCreate(Bundle state) {
         super.onPostCreate(state);
@@ -75,9 +73,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
-
     }
 
 
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         }
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        mDrawer.closeDrawers();
+        drawer.closeDrawers();
     }
 
     public void goToShop() {
@@ -139,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
-        mDrawer.addDrawerListener(drawerToggle);
+        drawer.addDrawerListener(drawerToggle);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         nvHeader = (LinearLayout) nvDrawer.getHeaderView(0);
         username = (TextView) nvHeader.findViewById(R.id.username);
