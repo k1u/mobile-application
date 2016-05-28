@@ -22,7 +22,7 @@ public class Player implements Parcelable{
     private String image;
 
     public Player(){
-
+        //Empty for initial creation
     }
 
     public Player(Parcel in) {

@@ -37,10 +37,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             shirt,
             legs;
     private Converters converters;
-    private TextView totalScore,
-            avgScore,
-            achievments,
-            gamesPlayed,
+    private TextView
             totalScoreValue,
             avgScoreValue,
             achievementsValue,
@@ -60,16 +57,16 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     public void onActivityCreated(Bundle savedInstanceState) {
 /*        try {
             Project project = new ProjectApi().execute().get();
-            projects.add(project);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }catch (RuntimeException e){
-            Toast.makeText(getContext(), "Failed to receive", Toast.LENGTH_SHORT);
-        }*/
+        projects.add(project);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    } catch (ExecutionException e) {
+        e.printStackTrace();
+    }catch (RuntimeException e){
+        Toast.makeText(getContext(), "Failed to receive", Toast.LENGTH_SHORT);
+    }*/
         super.onActivityCreated(savedInstanceState);
-        historyAdapter = new HistoryAdapter(getContext(),R.layout.component_history,  projects);
+        historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, projects);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
         TestData.addTestProjects(projects);
@@ -94,13 +91,9 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     private void setViews() {
         resultListView = (ListView) rootView.findViewById(R.id.result_list_view);
-        totalScore = (TextView) rootView.findViewById(R.id.total_score_label);
         totalScoreValue = (TextView) rootView.findViewById(R.id.total_score_value);
-        avgScore = (TextView) rootView.findViewById(R.id.avg_score_label);
         avgScoreValue = (TextView) rootView.findViewById(R.id.avg_score_value);
-        achievments = (TextView) rootView.findViewById(R.id.achievements_label);
         achievementsValue = (TextView) rootView.findViewById(R.id.achievements_value);
-        gamesPlayed = (TextView) rootView.findViewById(R.id.games_played_label);
         gamesPlayedValue = (TextView) rootView.findViewById(R.id.games_played_value);
         avatar = (RelativeLayout) rootView.findViewById(R.id.avatar_layout);
     }
@@ -166,7 +159,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         return params;
     }
 
-    private void setOnClickListeners(){
+    private void setOnClickListeners() {
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //TODO remove tests

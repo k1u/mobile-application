@@ -34,7 +34,7 @@ public class Project implements Parcelable {
     private int rank;
 
     public Project() {
-
+        //Empty for initial creation
     }
 
     public Project(Parcel in) {

@@ -44,7 +44,6 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
         resultListView.setOnItemClickListener(this);
 
         TestData.addTestProjects(projects);
-        //TEST
         projectAdapter.notifyDataSetChanged();
     }
 

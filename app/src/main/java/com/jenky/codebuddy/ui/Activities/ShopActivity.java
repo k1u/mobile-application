@@ -7,14 +7,18 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ShopAdapter;
+import com.jenky.codebuddy.util.Preferences;
 
-public class ShopActivity extends AppCompatActivity {
+public class ShopActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private Toolbar toolbar;
+    private Button logOut;
 
 
     @Override
@@ -42,6 +46,7 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        logOut = (Button) findViewById(R.id.log_out);
     }
 
     private void setTabs() {
@@ -50,5 +55,16 @@ public class ShopActivity extends AppCompatActivity {
                 ShopActivity.this));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.log_out:
+                Preferences.logOut(ShopActivity.this);
+                finish();
+                break;
+        }
     }
 }

@@ -45,4 +45,8 @@
     <string name="apply">Apply</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="helmets">Helmets</string>
+    <string name="shirts">Shirts</string>
+    <string name="legs">Legs</string>
+    <string name="blocks">Blocks</string>
 </resources>

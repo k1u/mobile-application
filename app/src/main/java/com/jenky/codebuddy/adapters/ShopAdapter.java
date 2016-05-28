@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 
+import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.ui.fragments.BlockFragment;
 import com.jenky.codebuddy.ui.fragments.HelmetFragment;
 import com.jenky.codebuddy.ui.fragments.LegsFragment;
@@ -19,13 +20,17 @@ import com.jenky.codebuddy.ui.fragments.ShirtFragment;
 public class ShopAdapter extends FragmentPagerAdapter {
     final int pageCount = 4;
 
-    private String tabTitles[] = new String[] { "Helmets", "Shirts", "Legs", "Blocks" };
-    private Context context;
+    private String tabTitles[];
 
     public ShopAdapter(FragmentManager fm, Context context) {
-        super(fm);
-        this.context = context;
+            super(fm);
 
+        this.tabTitles = new String[] {
+                context.getString(R.string.helmets),
+                context.getString(R.string.shirts),
+                context.getString(R.string.legs),
+                context.getString(R.string.blocks)
+        };
     }
 
     @Override

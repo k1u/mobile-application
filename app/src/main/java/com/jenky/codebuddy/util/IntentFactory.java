@@ -3,6 +3,7 @@ package com.jenky.codebuddy.util;
 import android.content.Context;
 import android.content.Intent;
 
+import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.jenky.codebuddy.ui.activities.TowerActivity;
@@ -22,5 +23,9 @@ public class IntentFactory {
 
     public static Intent getTowerIntent(Context context) {
         return new Intent(context, TowerActivity.class);
+    }
+
+    public static Intent getLogInIntent(Context context) {
+        return new Intent(context, LogInActivity.class);
     }
 }

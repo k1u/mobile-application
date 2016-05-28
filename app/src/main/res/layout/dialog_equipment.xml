@@ -26,14 +26,14 @@
 
 
         <Button
-            android:id="@+id/helmetPrevious"
+            android:id="@+id/helmet_previous"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
         <LinearLayout
-            android:id="@+id/helmetLayout"
+            android:id="@+id/helmet_layout"
             android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/helmetNext"
+            android:id="@+id/helmet_next"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -59,14 +59,14 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/shirtPrevious"
+            android:id="@+id/shirt_previous"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
         <LinearLayout
-            android:id="@+id/shirtLayout"
+            android:id="@+id/shirt_layout"
             android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
@@ -76,7 +76,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/shirtNext"
+            android:id="@+id/shirt_next"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -92,7 +92,7 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/legsPrevious"
+            android:id="@+id/legs_previous"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -100,7 +100,7 @@
 
         <LinearLayout
 
-            android:id="@+id/legsLayout"
+            android:id="@+id/legs_layout"
             android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
@@ -110,7 +110,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/legsNext"
+            android:id="@+id/legs_next"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -126,14 +126,14 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/blockPrevious"
+            android:id="@+id/block_previous"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/previous" />
 
         <LinearLayout
-            android:id="@+id/blockLayout"
+            android:id="@+id/block_layout"
             android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
@@ -143,7 +143,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/blockNext"
+            android:id="@+id/block_next"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"

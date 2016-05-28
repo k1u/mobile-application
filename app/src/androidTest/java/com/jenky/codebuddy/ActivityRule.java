@@ -1,27 +1,10 @@
 package com.jenky.codebuddy;
-/*
- * Copyright (C) 2015 Jake Wharton
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -79,21 +62,25 @@ public class ActivityRule<T extends Activity> implements TestRule {
 
     private Instrumentation fetchInstrumentation() {
         Instrumentation result = instrumentation;
-        return result != null ? result
-                : (instrumentation = InstrumentationRegistry.getInstrumentation());
+        if (result != null) {
+            return result;
+        } else{
+            return InstrumentationRegistry.getInstrumentation();
+        }
     }
 
     @SuppressWarnings("unchecked") // Guarded by generics at the constructor.
     private void launchActivity() {
-        if (activity != null) return;
+        if (activity != null)
+            return;
 
-        Instrumentation instrumentation = fetchInstrumentation();
+        Instrumentation instrument = fetchInstrumentation();
 
-        String targetPackage = instrumentation.getTargetContext().getPackageName();
+        String targetPackage = instrument.getTargetContext().getPackageName();
         Intent intent = getLaunchIntent(targetPackage, activityClass);
 
-        activity = (T) instrumentation.startActivitySync(intent);
-        instrumentation.waitForIdleSync();
+        activity = (T) instrument.startActivitySync(intent);
+        instrument.waitForIdleSync();
     }
 }
 

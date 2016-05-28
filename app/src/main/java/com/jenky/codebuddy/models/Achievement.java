@@ -26,7 +26,7 @@ public class Achievement implements Parcelable{
     private double complete;
 
     public Achievement() {
-
+        //Empty for initial creation
     }
 
     public Achievement(Parcel in) {
@@ -98,8 +98,8 @@ public class Achievement implements Parcelable{
         return complete;
     }
 
-    public void setComplete_percentage(double complete_percentage) {
-        this.complete = complete_percentage;
+    public void setComplete_percentage(double completePercentage) {
+        this.complete = completePercentage;
     }
 
 

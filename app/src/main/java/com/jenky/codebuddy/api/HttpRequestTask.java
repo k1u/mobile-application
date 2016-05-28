@@ -9,21 +9,17 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by Fabian on 28-4-2016.
  */
-public class HttpRequestTask {
+class HttpRequestTask {
+
+    private HttpRequestTask(){
+        //not called
+    }
 
     public static Object connect(String url, Class c) {
-
-        try {
-            Object obj = c.newInstance();
+            Object obj;
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             obj = restTemplate.getForObject(url, c);
             return obj;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

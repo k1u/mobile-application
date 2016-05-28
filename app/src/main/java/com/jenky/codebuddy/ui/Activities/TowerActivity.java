@@ -53,8 +53,8 @@ public class TowerActivity extends AppCompatActivity {
     }
 
     private void setViews() {
-        vScroll = (VerticalScroll) findViewById(R.id.vScroll);
-        hScroll = (HorizontalScroll) findViewById(R.id.hScroll);
+        vScroll = (VerticalScroll) findViewById(R.id.vertical_scroll);
+        hScroll = (HorizontalScroll) findViewById(R.id.horizontal_scroll);
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
         toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -23,7 +23,7 @@ public class Tower implements Parcelable {
     private String block;
 
     public Tower() {
-
+        //Empty for initial creation
     }
 
     public Tower(Parcel in) {
