@@ -2,6 +2,7 @@ package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,6 +161,8 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 blockLayout.addView(blockImages.get(index));
                 break;
             default:
+                Log.e("replaceImage", getString(R.string.unknown_id));
+                break;
         }
     }
 

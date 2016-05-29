@@ -8,7 +8,8 @@
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:background="?attr/colorPrimaryDark"
-    tools:ignore="Overdraw">
+    tools:ignore="Overdraw"
+    >
 
     <Button
         android:id="@+id/log_out"
@@ -17,6 +18,23 @@
         android:layout_height="30dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/logout"
-        android:gravity="right"/>
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="right"
+        android:textColor="@color/white"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:src="@drawable/jenky_coin"/>
+
+
 
 </android.support.v7.widget.Toolbar>

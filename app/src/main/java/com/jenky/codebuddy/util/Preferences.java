@@ -15,7 +15,7 @@ public class Preferences {
     public static void logOut(Context context) {
         Intent intent = IntentFactory.getLogInIntent(context);
         context.startActivity(intent);
-        //TODO delete sessionToke
+        //TODO delete sessionToken
     }
 
     public Preferences(Context appContext) {
@@ -32,6 +32,8 @@ public class Preferences {
         token = preferences.getString(sessionToken, "");
         return token;
     }
+
+
 }
 
 

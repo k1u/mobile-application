@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit();
             drawer.closeDrawers();
         } catch (Exception e) {
-            Log.e("SetFragment()", e.toString());
+            Log.e("SetFragment", e.toString());
         }
     }
 
@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return params;
     }
 
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -198,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             default:
+                Log.e("onClick", getString(R.string.unknown_id));
+                break;
         }
     }
 
