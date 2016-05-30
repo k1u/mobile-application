@@ -33,7 +33,15 @@ public class Preferences {
         return token;
     }
 
+    public void reset() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 
+    public Boolean hasCredentials() {
+        return (AppContext.instance().getPreferences().getToken() == null || AppContext.instance().getPreferences().getToken().equals(""));
+    }
 }
 
 

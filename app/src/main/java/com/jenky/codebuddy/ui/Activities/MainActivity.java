@@ -28,28 +28,29 @@ import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
 import com.jenky.codebuddy.util.Preferences;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView nvDrawer;
     private LinearLayout nvHeader;
-    private TextView username;
+    private TextView username,
+            jenkey_coins;
     private RelativeLayout avatar;
-    private ImageView head;
-    private ImageView shirt;
-    private ImageView legs;
+    private ImageView head,
+            shirt,
+            legs;
     private Button logOut;
     private final Converters converters = new Converters(this);
 
-
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViews();
         setSupportActionBar(toolbar);
-        setDefaultValues();
+        setValues();
         selectDefaultDrawerItem();
         setTestAvater();
     }
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
         }
     }
-
 
 
     @Override
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
+        jenkey_coins = (TextView) findViewById(R.id.jenkey_coins);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
@@ -154,11 +155,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         username = (TextView) nvHeader.findViewById(R.id.username);
         avatar = (RelativeLayout) nvHeader.findViewById(R.id.avatar);
         setupDrawerContent(nvDrawer);
-
         logOut.setOnClickListener(this);
     }
 
-    private void setDefaultValues() {
+    private void setValues() {
+        //TODO get profile Values
         username.setText("JTLie");
     }
 
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         legs.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_legs2));
         head.setLayoutParams(getParams(4, 0, 0, 0));
         shirt.setLayoutParams(getParams(0, 36, 0, 0));
-        legs.setLayoutParams(getParams(11,67,0,0));
+        legs.setLayoutParams(getParams(11, 67, 0, 0));
         avatar.addView(head);
         avatar.addView(shirt);
         avatar.addView(legs);
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.log_out:
                 Preferences.logOut(MainActivity.this);
                 finish();
