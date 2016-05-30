@@ -44,7 +44,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         buttonLogIn.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -53,10 +52,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 logIn();
                 break;
             case R.id.sign_up:
-                signUp();
+                goToSignUp();
                 break;
             default:
-                Log.e("onClick()", getString(R.string.unknown_id));
+                Log.e("onClick", getString(R.string.unknown_id));
                 break;
         }
     }
@@ -72,7 +71,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         //TODO create login method
     }
 
-    private void signUp(){
-        //TODO create signup method
+    private void goToSignUp(){
+        Intent intent = IntentFactory.getSignUpIntent(this);
+        startActivity(intent);
     }
 }

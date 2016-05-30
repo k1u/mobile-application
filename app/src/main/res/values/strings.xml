@@ -50,4 +50,9 @@
     <string name="legs">Legs</string>
     <string name="blocks">Blocks</string>
     <string name="unknown_id">Unknown Id</string>
+    <string name="github_email">Github Email</string>
+    <string name="send_verifivation_code">Send verification code</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="invalid_mail">Invalid e-mail address</string>
 </resources>

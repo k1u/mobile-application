@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
@@ -50,22 +51,34 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/content_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/email"
                     android:layout_width="@dimen/log_in_views_width"
                     android:layout_height="wrap_content"
-                    android:hint="@string/username"
-                    android:inputType="text"
+                    android:hint="@string/github_email"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <EditText
+                <Button
+                    android:id="@+id/send_code"
+                    android:layout_width="@dimen/log_in_views_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/default_button"
+                    android:padding="5dp"
+                    android:text="@string/send_verifivation_code"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- <EditText
                     android:id="@+id/password"
                     android:layout_width="@dimen/log_in_views_width"
                     android:layout_height="wrap_content"
@@ -73,34 +86,17 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textSize="20sp" />-->
 
-            </LinearLayout>
+            <!--   <Button
+                   android:id="@+id/sign_up"
+                   android:layout_width="@dimen/log_in_views_width"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:background="@drawable/default_button"
+                   android:text="@string/sign_up"
+                   android:textColor="@color/white" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/log_in"
-                    android:layout_width="@dimen/log_in_views_width"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/default_button"
-                    android:text="@string/log_in"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/sign_up"
-                    android:layout_width="@dimen/log_in_views_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/default_button"
-                    android:text="@string/sign_up"
-                    android:textColor="@color/white" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
