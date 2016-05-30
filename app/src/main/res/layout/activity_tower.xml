@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <com.jenky.codebuddy.customViews.VerticalScroll
-        android:id="@+id/vScroll"
+        android:id="@+id/vertical_scroll"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <com.jenky.codebuddy.customViews.HorizontalScroll
-            android:id="@+id/hScroll"
+            android:id="@+id/horizontal_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -26,13 +26,7 @@
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal">
 
-                <!--    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/background1" />-->
-
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:id="@+id/linear_layout_towers"
@@ -41,25 +35,11 @@
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     android:paddingBottom="24dp">
-<!--
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="bottom"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/test_block" />
-
-
-                    </LinearLayout>-->
                 </LinearLayout>
             </RelativeLayout>
         </com.jenky.codebuddy.customViews.HorizontalScroll>
     </com.jenky.codebuddy.customViews.VerticalScroll>
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/tower_toolbar"

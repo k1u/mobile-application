@@ -6,15 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ShopAdapter;
+import com.jenky.codebuddy.util.Preferences;
 
-public class ShopActivity extends AppCompatActivity {
+public class ShopActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private Toolbar toolbar;
+    private Button logOut;
 
 
     @Override
@@ -22,18 +27,17 @@ public class ShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         setTitle(getString(R.string.shop));
-        // Get the ViewPager and set it's PagerAdapter so that it can display items
         setViews();
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTabs();
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
@@ -43,9 +47,7 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        logOut = (Button) findViewById(R.id.log_out);
     }
 
     private void setTabs() {
@@ -54,5 +56,19 @@ public class ShopActivity extends AppCompatActivity {
                 ShopActivity.this));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.log_out:
+                Preferences.logOut(ShopActivity.this);
+                finish();
+                break;
+            default:
+                Log.e("onClick", getString(R.string.unknown_id));
+                break;
+        }
     }
 }

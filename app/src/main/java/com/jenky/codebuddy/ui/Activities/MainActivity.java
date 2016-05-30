@@ -11,7 +11,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,47 +26,51 @@ import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
+import com.jenky.codebuddy.util.Preferences;
 
-public class MainActivity extends AppCompatActivity {
-    private DrawerLayout mDrawer;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView nvDrawer;
     private LinearLayout nvHeader;
-    private TextView username;
+    private TextView username,
+            jenkey_coins;
     private RelativeLayout avatar;
-    private ImageView head;
-    private ImageView shirt;
-    private ImageView legs;
+    private ImageView head,
+            shirt,
+            legs;
+    private Button logOut;
     private final Converters converters = new Converters(this);
 
-
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViews();
-        setDefaultValues();
+        setSupportActionBar(toolbar);
+        setValues();
         selectDefaultDrawerItem();
         setTestAvater();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
+                drawer.openDrawer(GravityCompat.START);
                 return true;
+            default:
+                return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
         }
-        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    // `onPostCreate` called when activity start-up is complete after `onStart()`
-    // NOTE! Make sure to override the method with only a single `Bundle` argument
+
     @Override
     protected void onPostCreate(Bundle state) {
         super.onPostCreate(state);
@@ -74,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
-
     }
 
 
@@ -91,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
-        Class fragmentClass = null;
+    private void selectDrawerItem(MenuItem menuItem) {
+        Class fragmentClass;
         if (menuItem.getItemId() == R.id.shop) {
             goToShop();
         } else {
@@ -107,49 +112,54 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.achievements:
                     fragmentClass = AchievementFragment.class;
                     break;
+                default:
+                    fragmentClass = ProfileFragment.class;
+                    break;
             }
             setFragment(fragmentClass);
         }
         menuItem.setChecked(true);
     }
 
-    public void selectDefaultDrawerItem() {
+    private void selectDefaultDrawerItem() {
         setFragment(ProfileFragment.class);
         nvDrawer.getMenu().getItem(0).setChecked(true);
         setTitle(R.string.profile);
     }
 
-    public void setFragment(Class fragmentClass) {
-        Fragment fragment = null;
+    private void setFragment(Class fragmentClass) {
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit();
+            drawer.closeDrawers();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("SetFragment", e.toString());
         }
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        mDrawer.closeDrawers();
     }
 
-    public void goToShop() {
+    private void goToShop() {
         Intent intent = IntentFactory.getShopIntent(this);
         startActivity(intent);
     }
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        logOut = (Button) findViewById(R.id.log_out);
+        jenkey_coins = (TextView) findViewById(R.id.jenkey_coins);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
-        mDrawer.addDrawerListener(drawerToggle);
+        drawer.addDrawerListener(drawerToggle);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         nvHeader = (LinearLayout) nvDrawer.getHeaderView(0);
         username = (TextView) nvHeader.findViewById(R.id.username);
         avatar = (RelativeLayout) nvHeader.findViewById(R.id.avatar);
         setupDrawerContent(nvDrawer);
+        logOut.setOnClickListener(this);
     }
 
-    private void setDefaultValues() {
+    private void setValues() {
+        //TODO get profile Values
         username.setText("JTLie");
     }
 
@@ -160,49 +170,41 @@ public class MainActivity extends AppCompatActivity {
         head.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_head2));
         shirt.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_shirt2));
         legs.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_legs2));
-        head.setLayoutParams(getHeadParams());
-        shirt.setLayoutParams(getShirtParams());
-        legs.setLayoutParams(getLegsParams());
+        head.setLayoutParams(getParams(4, 0, 0, 0));
+        shirt.setLayoutParams(getParams(0, 36, 0, 0));
+        legs.setLayoutParams(getParams(11, 67, 0, 0));
         avatar.addView(head);
         avatar.addView(shirt);
         avatar.addView(legs);
     }
 
-    private RelativeLayout.LayoutParams getHeadParams() {
+    private RelativeLayout.LayoutParams getParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(
-                converters.getInDp(4),
-                0,
-                0,
-                0
+                converters.getInDp(marginLeft),
+                converters.getInDp(marginTop),
+                converters.getInDp(marginRight),
+                converters.getInDp(marginBottom)
         );
         return params;
     }
 
-    private RelativeLayout.LayoutParams getShirtParams() {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                0,
-                converters.getInDp(36),
-                0,
-                0
-        );
-        return params;
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.log_out:
+                Preferences.logOut(MainActivity.this);
+                finish();
+                break;
+            default:
+                Log.e("onClick", getString(R.string.unknown_id));
+                break;
+        }
     }
 
-    private RelativeLayout.LayoutParams getLegsParams() {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(11),
-                converters.getInDp(67),
-                0,
-                0
-        );
-        return params;
-    }
 }
 
 

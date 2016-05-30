@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +44,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         buttonLogIn.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -52,7 +52,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 logIn();
                 break;
             case R.id.sign_up:
-                signUp();
+                goToSignUp();
+                break;
+            default:
+                Log.e("onClick", getString(R.string.unknown_id));
                 break;
         }
     }
@@ -68,7 +71,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         //TODO create login method
     }
 
-    private void signUp(){
-        //TODO create signup method
+    private void goToSignUp(){
+        Intent intent = IntentFactory.getSignUpIntent(this);
+        startActivity(intent);
     }
 }

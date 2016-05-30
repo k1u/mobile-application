@@ -137,6 +137,6 @@ public class TestData {
         item2.setPrice(rand.nextInt(50) + 1);
         item2.setImage("http://i.imgur.com/1B02FqW.png");
         items.add(item2);
-
     }
+
 }

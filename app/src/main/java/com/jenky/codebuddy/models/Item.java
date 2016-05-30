@@ -25,7 +25,7 @@ public class Item implements Parcelable {
 
 
     public Item() {
-
+        //Empty for initial creation
     }
 
     public Item(Parcel in) {

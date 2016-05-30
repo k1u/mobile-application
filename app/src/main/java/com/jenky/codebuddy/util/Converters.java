@@ -2,6 +2,7 @@ package com.jenky.codebuddy.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 
 
@@ -18,8 +19,8 @@ public class Converters {
 
     private Context context;
 
-    public Converters(Context Context) {
-        this.context = Context;
+    public Converters(Context context) {
+        this.context = context;
     }
 
     public static String ddMMyyyyToString(Calendar calendar) {
@@ -33,7 +34,7 @@ public class Converters {
         try {
             cal.setTime(format.parse(string));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Converters", e.toString());
         }
         return cal;
     }
@@ -44,4 +45,6 @@ public class Converters {
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return Math.round(value * displayMetrics.density);
     }
+
+
 }

@@ -53,8 +53,8 @@ public class TowerActivity extends AppCompatActivity {
     }
 
     private void setViews() {
-        vScroll = (VerticalScroll) findViewById(R.id.vScroll);
-        hScroll = (HorizontalScroll) findViewById(R.id.hScroll);
+        vScroll = (VerticalScroll) findViewById(R.id.vertical_scroll);
+        hScroll = (HorizontalScroll) findViewById(R.id.horizontal_scroll);
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -68,8 +68,8 @@ public class TowerActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        //Lets user scroll on both axis at the same time
         float curX, curY;
-
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
@@ -110,9 +110,7 @@ public class TowerActivity extends AppCompatActivity {
     }
 
     private void drawBackground(double towerAmount) {
-
         int backgroundAmount = (int) Math.ceil(towerAmount / towerPerBackground);
-
         for (int i = 0; i < backgroundAmount; i++) {
             backgroundLinearLayout.addView(getBackgroundImage());
         }
@@ -135,7 +133,6 @@ public class TowerActivity extends AppCompatActivity {
         background.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
         background.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.background1));
-
         return background;
     }
 
@@ -175,7 +172,6 @@ public class TowerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
