@@ -8,19 +8,16 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.api.HttpRequestTask;
-import com.jenky.codebuddy.api.SignUpApi;
-import com.jenky.codebuddy.util.Converters;
 
-import org.apache.http.HttpRequest;
+import com.jenky.codebuddy.util.Converters;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +25,7 @@ import java.util.regex.Pattern;
 /**
  * Created by JTLie on 30-5-2016.
  */
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Toolbar toolbar;
     private EditText editTextEmail,
@@ -53,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setViews();
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
+
     }
 
     @Override
@@ -68,18 +66,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void sendCode() {
-        if(validate(editTextEmail.getText().toString())) {
-            try {
-                HttpRequestTask.sendPost();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            setVerifyLayout();
-        }else {
-            Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void setVerifyLayout() {
         contentLayout.removeAllViews();
@@ -164,4 +150,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Matcher matcher = emailRegex.matcher(emailStr);
         return matcher.find();
     }
+
+    private void sendCode() {
+        if (validate(editTextEmail.getText().toString())) {
+
+
+            setVerifyLayout();
+        } else {
+            Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

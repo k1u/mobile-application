@@ -45,7 +45,7 @@ public class Preferences {
     }
 
     public Boolean hasCredentials() {
-        return (AppContext.instance().getPreferences().getToken() == null || AppContext.instance().getPreferences().getToken().equals(""));
+        return (AppController.getInstance().getPreferences().getToken() == null || AppController.getInstance().getPreferences().getToken().equals(""));
     }
 }
 

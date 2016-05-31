@@ -11,7 +11,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
+import com.jenky.codebuddy.util.Preferences;
+
+import org.json.JSONObject;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,9 +68,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     private void logIn(){
         if(editTextUsername.getText().toString().toLowerCase().equals("jtlie") && (editTextPassword.getText().toString().equals("test123"))){
-            Intent intent = IntentFactory.getMainIntent(this);
-            startActivity(intent);
-            finish();
+
+            Request.getToken(tokenCallback, editTextUsername.getText().toString(), editTextPassword.getText().toString());
         }else{
             Toast.makeText(getApplication(), "Wrong Login", Toast.LENGTH_SHORT).show();
         }
@@ -75,4 +80,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = IntentFactory.getSignUpIntent(this);
         startActivity(intent);
     }
+
+    private Callback tokenCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO settoken
+           // AppController.getInstance().getPreferences().setToken();
+            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
+            startActivity(intent);
+            finish();
+        }
+    };
 }

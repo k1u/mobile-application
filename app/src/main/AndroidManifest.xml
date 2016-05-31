@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
+        android:name=".util.AppController"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_scheme"
         android:icon="@drawable/ic_launcher"

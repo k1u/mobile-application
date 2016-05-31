@@ -27,7 +27,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
     }
 
     /**
-     * Get the running instance of the specified activity. This will launch it if it is not already
+     * Get the running getInstance of the specified activity. This will launch it if it is not already
      * running.
      */
     public final T get() {
@@ -36,7 +36,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
     }
 
     /**
-     * Get the {@link Instrumentation} instance for this test.
+     * Get the {@link Instrumentation} getInstance for this test.
      */
     public final Instrumentation instrumentation() {
         launchActivity();
