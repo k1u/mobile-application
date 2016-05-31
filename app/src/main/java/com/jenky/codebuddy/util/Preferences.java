@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
  * Created by Jason on 19-May-16.
  */
 public class Preferences {
+    public static final String serverUrl = "https://jenky.azurewebsites.net/";
     public static final String sessionToken = "api_token";
     public SharedPreferences preferences;
 
@@ -31,6 +32,10 @@ public class Preferences {
         String token;
         token = preferences.getString(sessionToken, "");
         return token;
+    }
+
+    public static String getServerUrl() {
+        return serverUrl;
     }
 
     public void reset() {

@@ -26,6 +26,7 @@ import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
+
 import com.jenky.codebuddy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

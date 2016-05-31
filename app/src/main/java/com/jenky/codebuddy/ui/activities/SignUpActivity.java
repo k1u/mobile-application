@@ -16,7 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.api.HttpRequestTask;
+import com.jenky.codebuddy.api.SignUpApi;
 import com.jenky.codebuddy.util.Converters;
+
+import org.apache.http.HttpRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +70,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sendCode() {
         if(validate(editTextEmail.getText().toString())) {
-            //TODO send code to mail
+            try {
+                HttpRequestTask.sendPost();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             setVerifyLayout();
         }else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();

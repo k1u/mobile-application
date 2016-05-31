@@ -2,6 +2,7 @@ package com.jenky.codebuddy;
 
 import android.app.Activity;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.assertion.PositionAssertions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
@@ -39,5 +40,23 @@ public class MainActivityTest {
                 .check(ViewAssertions.matches(withText(R.string.achievements)));
         onView(withId(R.id.games_played_label))
                 .check(ViewAssertions.matches(withText(R.string.games_played)));
+    }
+
+    @Test
+    public void  checkViewPosition(){
+        onView(withId(R.id.total_score_label))
+                .check(PositionAssertions.isAbove(withId(R.id.avg_score_label)));
+        onView(withId(R.id.avg_score_label))
+                .check(PositionAssertions.isAbove(withId(R.id.achievements_label)));
+        onView(withId(R.id.achievements_label))
+                .check(PositionAssertions.isAbove(withId(R.id.games_played_label)));
+        onView(withId(R.id.total_score_label))
+                .check(PositionAssertions.isLeftOf(withId(R.id.total_score_value)));
+        onView(withId(R.id.avg_score_label))
+                .check(PositionAssertions.isLeftOf(withId(R.id.avg_score_value)));
+        onView(withId(R.id.achievements_label))
+                .check(PositionAssertions.isLeftOf(withId(R.id.achievements_value)));
+        onView(withId(R.id.games_played_label))
+                .check(PositionAssertions.isLeftOf(withId(R.id.games_played_value)));
     }
 }
