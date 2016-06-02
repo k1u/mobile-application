@@ -55,4 +55,7 @@
     <string name="verification_code">Verification Code</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="invalid_mail">Invalid e-mail address</string>
+    <string name="purchase_alert">Are you sure you wanna buy this item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

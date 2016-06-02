@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Jason on 19-May-16.
  */
@@ -15,6 +18,8 @@ public class Preferences {
 
     public static void logOut(Context context) {
         Intent intent = IntentFactory.getLogInIntent(context);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
         //TODO delete sessionToken
     }
@@ -28,9 +33,9 @@ public class Preferences {
         preferences.edit().putString(sessionToken, token).apply();
     }
 
-    public String getToken() {
-        String token;
-        token = preferences.getString(sessionToken, "");
+    public Map<String,String> getToken() {
+        Map<String, String> token = new HashMap<>();
+        token.put("token", sessionToken);
         return token;
     }
 

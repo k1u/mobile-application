@@ -10,19 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
-import com.jenky.codebuddy.util.Preferences;
 
 import org.json.JSONObject;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText
-            editTextUsername,
+            editTextEmail,
             editTextPassword;
 
     private Button
@@ -30,6 +30,24 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             buttonSignUp;
 
     private Toolbar toolbar;
+
+    private Callback tokenCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO set token
+            // AppController.getInstance().getPreferences().setToken();
+            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
+            intent.putExtra("username", editTextEmail.getText().toString());
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        public void onFailed(VolleyError error){
+            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +60,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        editTextUsername = (EditText) findViewById(R.id.username);
+        editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonLogIn = (Button) findViewById(R.id.log_in);
         buttonSignUp = (Button) findViewById(R.id.sign_up);
@@ -67,13 +85,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logIn(){
-        if(editTextUsername.getText().toString().toLowerCase().equals("jtlie") && (editTextPassword.getText().toString().equals("test123"))){
-
-            Request.getToken(tokenCallback, editTextUsername.getText().toString(), editTextPassword.getText().toString());
+        if(editTextEmail.getText().toString().toLowerCase().equals("jtlie") && (editTextPassword.getText().toString().equals("test123"))){
+            Request.getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
+            //TODO move intent to tokenCallback success
+            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
+            intent.putExtra("username", editTextEmail.getText().toString());
+            startActivity(intent);
+            finish();
         }else{
             Toast.makeText(getApplication(), "Wrong Login", Toast.LENGTH_SHORT).show();
         }
-        //TODO create login method
     }
 
     private void goToSignUp(){
@@ -81,14 +102,5 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-    private Callback tokenCallback = new Callback() {
-        @Override
-        public void onSuccess(JSONObject result) {
-            //TODO settoken
-           // AppController.getInstance().getPreferences().setToken();
-            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
-            startActivity(intent);
-            finish();
-        }
-    };
+
 }

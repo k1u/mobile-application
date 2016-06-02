@@ -13,9 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -52,20 +57,46 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
             legsIndex = 0,
             blockIndex = 0;
 
+    private Callback getEequipmentCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO fill itemArrayList
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+    };
+
+    private Callback setEquipmentCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO create toast
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.dialog_equipment, container,
                 false);
+        //TODO remove getItems
         getItems();
+        Request.getEquipment(getEequipmentCallback);
         setViews(rootView);
+        //TODO move createImages() to getEequipmentCallback success
         createImages(itemList);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return rootView;
     }
 
     private void getItems() {
-        //TODO get Items from server
         itemList = getArguments().getParcelableArrayList("items");
     }
 
@@ -230,7 +261,13 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 getDialog().cancel();
                 break;
             case R.id.apply:
-                //TODO send Ids to server
+                Request.setEquipment(setEquipmentCallback,
+                        helmetLayout.getChildAt(0).getTag().toString(),
+                        shirtLayout.getChildAt(0).getTag().toString(),
+                        legsLayout.getChildAt(0).getTag().toString(),
+                        blockLayout.getChildAt(0).getTag().toString());
+
+                //TODO remove Toast
                 Toast.makeText(getContext(),
                         helmetLayout.getChildAt(0).getTag().toString() + ", " +
                                 shirtLayout.getChildAt(0).getTag().toString() + ", " +

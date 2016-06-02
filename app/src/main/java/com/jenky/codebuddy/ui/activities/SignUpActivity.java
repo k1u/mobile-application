@@ -1,7 +1,10 @@
 package com.jenky.codebuddy.ui.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -15,9 +18,17 @@ import android.widget.LinearLayout;
 
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
+import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.IntentFactory;
+
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * Created by JTLie on 30-5-2016.
  */
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private EditText editTextEmail,
@@ -42,6 +53,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private final Converters converters = new Converters(this);
     public static final Pattern emailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    private Callback codeCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            setVerifyLayout();
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,8 +178,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void sendCode() {
         if (validate(editTextEmail.getText().toString())) {
 
+            Request.getSignUp(codeCallback, editTextEmail.getText().toString());
 
-            setVerifyLayout();
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();
         }

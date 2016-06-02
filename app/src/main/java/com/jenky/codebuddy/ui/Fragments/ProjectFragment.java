@@ -55,6 +55,7 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
 
     private void gotoTowers(Project project) {
             Intent intent = IntentFactory.getTowerIntent(getActivity());
+            intent.putExtra("projectId", project.getId());
             startActivity(intent);
 
     }

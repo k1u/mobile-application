@@ -1,16 +1,21 @@
 package com.jenky.codebuddy.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.customViews.HorizontalScroll;
 import com.jenky.codebuddy.customViews.VerticalScroll;
 import com.jenky.codebuddy.models.Tower;
@@ -22,6 +27,8 @@ import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -40,6 +47,19 @@ public class TowerActivity extends AppCompatActivity {
     private final Converters converters = new Converters(this);
     private Toolbar toolbar;
 
+    private Callback towerCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            drawActivity();
+            // AppController.getInstance().getPreferences().setToken();
+        }
+
+        @Override
+        public void onFailed(VolleyError error){
+            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+        }
+    };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +68,9 @@ public class TowerActivity extends AppCompatActivity {
         setViews();
         setActionBar();
         scrollDown(vScroll);
+        //TODO remove Test data
         TestData.addTestTowers(towers);
-        drawActivity();
+        Request.getTower(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
     private void setViews() {
@@ -178,6 +199,4 @@ public class TowerActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 }

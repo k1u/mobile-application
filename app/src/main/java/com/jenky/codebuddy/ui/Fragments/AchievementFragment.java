@@ -7,10 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.AchievementAdapter;
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Achievement;
 import com.jenky.codebuddy.util.TestData;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,6 +28,19 @@ public class AchievementFragment extends Fragment {
     private ArrayList<Achievement> achievements = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
+
+    private Callback achievementCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO process results
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +55,8 @@ public class AchievementFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         achievmentAdapter = new AchievementAdapter(getContext(), R.layout.component_project,achievements);
         resultListView.setAdapter(achievmentAdapter);
+        Request.getAchievements(achievementCallback);
+        //TODO remove test data
         TestData.addTestAchievments(achievements);
         achievmentAdapter.notifyDataSetChanged();
     }

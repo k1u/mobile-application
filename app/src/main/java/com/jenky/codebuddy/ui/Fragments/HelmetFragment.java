@@ -10,7 +10,9 @@ import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ItemAdapter;
+import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.jenky.codebuddy.util.TestData;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by Jason on 12-May-16.
  */
-public class HelmetFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class HelmetFragment extends Fragment  {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
@@ -40,20 +42,13 @@ public class HelmetFragment extends Fragment implements AdapterView.OnItemClickL
         super.onCreate(savedInstanceState);
         itemAdapter = new ItemAdapter(getContext(), R.layout.component_item, items);
         resultListView.setAdapter(itemAdapter);
-        resultListView.setOnItemClickListener(this);
+
         items.clear();
+        //TODO remove Test Data
         TestData.addTestHelmets(items);
+        ShopActivity activity = (ShopActivity) getActivity();
+        items = activity.getItems();
         itemAdapter.notifyDataSetChanged();
     }
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Item item = items.get(position);
-        purchaseItem(item);
-    }
-
-    private void purchaseItem(Item item) {
-        //TODO Request Item Purchase
-    }
 }

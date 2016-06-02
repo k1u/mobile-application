@@ -47,6 +47,7 @@
             android:textStyle="italic" />
 
         <Button
+            android:id="@+id/purchase"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/purchase" />

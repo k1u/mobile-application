@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -15,12 +14,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
@@ -35,14 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView nvDrawer;
     private LinearLayout nvHeader;
-    private TextView username,
-            jenkey_coins;
-    private RelativeLayout avatar;
-    private ImageView head,
-            shirt,
-            legs;
+    private TextView usernameTextView;
     private Button logOut;
     private final Converters converters = new Converters(this);
+    private String username;
+
+
 
     @Override
 
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         setValues();
         selectDefaultDrawerItem();
-        setTestAvater();
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -147,37 +144,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
-        jenkey_coins = (TextView) findViewById(R.id.jenkey_coins);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         nvHeader = (LinearLayout) nvDrawer.getHeaderView(0);
-        username = (TextView) nvHeader.findViewById(R.id.username);
-        avatar = (RelativeLayout) nvHeader.findViewById(R.id.avatar);
+        usernameTextView = (TextView) nvHeader.findViewById(R.id.email);
         setupDrawerContent(nvDrawer);
         logOut.setOnClickListener(this);
     }
 
     private void setValues() {
-        //TODO get profile Values
-        username.setText("JTLie");
+       username = getIntent().getStringExtra("username");
+        usernameTextView.setText(username);
     }
 
-    private void setTestAvater() {
-        head = new ImageView(this);
-        shirt = new ImageView(this);
-        legs = new ImageView(this);
-        head.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_head2));
-        shirt.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_shirt2));
-        legs.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.test_legs2));
-        head.setLayoutParams(getParams(4, 0, 0, 0));
-        shirt.setLayoutParams(getParams(0, 36, 0, 0));
-        legs.setLayoutParams(getParams(11, 67, 0, 0));
-        avatar.addView(head);
-        avatar.addView(shirt);
-        avatar.addView(legs);
-    }
+
 
     private RelativeLayout.LayoutParams getParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,

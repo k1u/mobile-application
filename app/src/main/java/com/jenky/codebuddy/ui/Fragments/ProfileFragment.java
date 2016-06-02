@@ -13,12 +13,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
+import com.jenky.codebuddy.api.Callback;
+import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -43,7 +49,31 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             achievementsValue,
             gamesPlayedValue;
     private View rootView;
+    private Player player;
 
+    private Callback playerCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO result into player
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+    };
+
+    private Callback historyCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            //TODO process results
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,27 +85,20 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-/*        try {
-            Project project = new ProjectApi().execute().get();
-        projects.add(project);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    } catch (ExecutionException e) {
-        e.printStackTrace();
-    }catch (RuntimeException e){
-        Toast.makeText(getContext(), "Failed to receive", Toast.LENGTH_SHORT);
-    }*/
         super.onActivityCreated(savedInstanceState);
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, projects);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
-        TestData.addTestProjects(projects);
         converters = new Converters(getActivity());
-        addTestStats();
+
         setOnClickListeners();
-        //TODO Fill array adapter
-
-
+        //TODO remove test Data
+        TestData.addTestProjects(projects);
+        player = TestData.testPlayer();
+        Request.getPlayer(playerCallback);
+        Request.getHistory(historyCallback);
+        //TODO move addStats() to okayerCallback
+        addStats();
     }
 
 
@@ -99,11 +122,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     }
 
 
-    private void addTestStats() {
-        totalScoreValue.setText("75433");
-        avgScoreValue.setText("6372");
-        achievementsValue.setText("12");
-        gamesPlayedValue.setText("11");
+    private void addStats() {
+        totalScoreValue.setText(Integer.toString(player.getTotal_score()));
+        avgScoreValue.setText(Integer.toString(player.getAvg_score()));
+        achievementsValue.setText(Integer.toString(player.getAchievements()));
+        gamesPlayedValue.setText(Integer.toString(player.getGames_played()));
         setTestAvater();
     }
 
@@ -163,12 +186,13 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //TODO remove tests
+
                 TestData.addTestHelmets(itemList);
                 TestData.addTestShirts(itemList);
                 TestData.addTestLegs(itemList);
                 TestData.addTestBlocks(itemList);
                 EquipmentFragment equipmentFragment = new EquipmentFragment();
-                // Show DialogFragment
+
                 FragmentManager fm = getFragmentManager();
                 Bundle args = new Bundle();
                 args.putParcelableArrayList("items", itemList);
@@ -177,4 +201,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             }
         });
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.jenky.codebuddy.util;
 
 import com.jenky.codebuddy.models.Achievement;
 import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.models.Tower;
 
@@ -13,6 +14,18 @@ import java.util.Random;
  * Created by JTLie on 22-5-2016.
  */
 public class TestData {
+
+    public static Player testPlayer(){
+        Player player = new Player();
+        player.setId(1);
+        player.setName("JTLie");
+        player.setAchievements(41);
+        player.setAvg_score(1234);
+        player.setTotal_score(5678);
+        player.setGames_played(32);
+        player.setJenkyCoins(568);
+        return player;
+    }
 
     public static void addTestTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < 60; i++) {
