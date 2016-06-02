@@ -2,7 +2,6 @@ package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,6 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
             blockNext,
             cancel,
             apply;
-
     private View rootView;
     private ArrayList<ImageView> helmetImages = new ArrayList<>();
     private ArrayList<ImageView> shirtImages = new ArrayList<>();
@@ -57,7 +55,8 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
             legsIndex = 0,
             blockIndex = 0;
 
-    private Callback getEequipmentCallback = new Callback() {
+
+    private Callback getEquipmentCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
             //TODO fill itemArrayList
@@ -88,9 +87,9 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 false);
         //TODO remove getItems
         getItems();
-        Request.getEquipment(getEequipmentCallback);
+        Request.getEquipment(getEquipmentCallback);
         setViews(rootView);
-        //TODO move createImages() to getEequipmentCallback success
+        //TODO move createImages() to getEquipmentCallback success
         createImages(itemList);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return rootView;
@@ -138,6 +137,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
     }
 
     private void setCurrentEquipment() {
+
         helmetLayout.addView(helmetImages.get(0));
         shirtLayout.addView(shirtImages.get(0));
         legsLayout.addView(legsImages.get(0));
@@ -173,28 +173,9 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         apply.setOnClickListener(this);
     }
 
-    private void replaceImage(LinearLayout layout, int index) {
-        switch (layout.getId()) {
-            case R.id.helmet_layout:
-                helmetLayout.removeAllViews();
-                helmetLayout.addView(helmetImages.get(index));
-                break;
-            case R.id.shirt_layout:
-                shirtLayout.removeAllViews();
-                shirtLayout.addView(shirtImages.get(index));
-                break;
-            case R.id.legs_layout:
-                legsLayout.removeAllViews();
-                legsLayout.addView(legsImages.get(index));
-                break;
-            case R.id.block_layout:
-                blockLayout.removeAllViews();
-                blockLayout.addView(blockImages.get(index));
-                break;
-            default:
-                Log.e("replaceImage", getString(R.string.unknown_id));
-                break;
-        }
+    private void replaceImage(LinearLayout layout, ImageView image) {
+        layout.removeAllViews();
+        layout.addView(image);
     }
 
     @Override
@@ -206,56 +187,56 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 if (helmetIndex < 0) {
                     helmetIndex = helmetImages.size() - 1;
                 }
-                replaceImage(helmetLayout, helmetIndex);
+                replaceImage(helmetLayout, helmetImages.get(helmetIndex));
                 break;
             case R.id.helmet_next:
                 helmetIndex++;
                 if (helmetIndex == helmetImages.size()) {
                     helmetIndex = 0;
                 }
-                replaceImage(helmetLayout, helmetIndex);
+                replaceImage(helmetLayout,helmetImages.get(helmetIndex));
                 break;
             case R.id.shirt_previous:
                 shirtIndex++;
                 if (shirtIndex == shirtImages.size()) {
                     shirtIndex = 0;
                 }
-                replaceImage(shirtLayout, shirtIndex);
+                replaceImage(shirtLayout, shirtImages.get(shirtIndex));
                 break;
             case R.id.shirt_next:
                 shirtIndex++;
                 if (shirtIndex == shirtImages.size()) {
                     shirtIndex = 0;
                 }
-                replaceImage(shirtLayout, shirtIndex);
+                replaceImage(shirtLayout, shirtImages.get(shirtIndex));
                 break;
             case R.id.legs_previous:
                 legsIndex--;
                 if (legsIndex < 0) {
                     legsIndex = legsImages.size() - 1;
                 }
-                replaceImage(legsLayout, legsIndex);
+                replaceImage(legsLayout, legsImages.get(legsIndex));
                 break;
             case R.id.legs_next:
                 legsIndex++;
                 if (legsIndex == legsImages.size()) {
                     legsIndex = 0;
                 }
-                replaceImage(legsLayout, legsIndex);
+                replaceImage(legsLayout, legsImages.get(legsIndex));
                 break;
             case R.id.block_previous:
                 blockIndex--;
                 if (blockIndex < 0) {
                     blockIndex = blockImages.size() - 1;
                 }
-                replaceImage(blockLayout, blockIndex);
+                replaceImage(blockLayout, blockImages.get(blockIndex));
                 break;
             case R.id.block_next:
                 blockIndex++;
                 if (blockIndex == blockImages.size()) {
                     blockIndex = 0;
                 }
-                replaceImage(blockLayout, blockIndex);
+                replaceImage(blockLayout, blockImages.get(blockIndex));
                 break;
             case R.id.cancel:
                 getDialog().cancel();
@@ -276,5 +257,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 getDialog().cancel();
                 break;
         }
+
     }
+
 }

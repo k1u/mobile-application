@@ -17,6 +17,7 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,12 +35,17 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private Callback tokenCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            //TODO set token
-            // AppController.getInstance().getPreferences().setToken();
-            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
-            intent.putExtra("username", editTextEmail.getText().toString());
-            startActivity(intent);
-            finish();
+            try {
+                AppController.getInstance().getPreferences().setToken(result.getString("token"));
+                Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
+                intent.putExtra("username", editTextEmail.getText().toString());
+                startActivity(intent);
+                finish();
+            } catch (JSONException e) {
+                Toast.makeText(AppController.getInstance(), "Something went wrong", Toast.LENGTH_SHORT);
+                e.printStackTrace();
+            }
+
         }
 
         @Override
@@ -85,16 +91,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logIn(){
-        if(editTextEmail.getText().toString().toLowerCase().equals("jtlie") && (editTextPassword.getText().toString().equals("test123"))){
+
             Request.getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
             //TODO move intent to tokenCallback success
-            Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
-            intent.putExtra("username", editTextEmail.getText().toString());
-            startActivity(intent);
-            finish();
-        }else{
-            Toast.makeText(getApplication(), "Wrong Login", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void goToSignUp(){

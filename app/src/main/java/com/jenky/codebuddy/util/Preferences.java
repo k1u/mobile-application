@@ -21,7 +21,6 @@ public class Preferences {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
-        //TODO delete sessionToken
     }
 
     public Preferences(Context appContext) {
@@ -33,10 +32,8 @@ public class Preferences {
         preferences.edit().putString(sessionToken, token).apply();
     }
 
-    public Map<String,String> getToken() {
-        Map<String, String> token = new HashMap<>();
-        token.put("token", sessionToken);
-        return token;
+    public String getToken() {
+        return preferences.getString(sessionToken, "");
     }
 
     public static String getServerUrl() {

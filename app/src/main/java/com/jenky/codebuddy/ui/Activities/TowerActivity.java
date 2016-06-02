@@ -50,7 +50,7 @@ public class TowerActivity extends AppCompatActivity {
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            drawActivity();
+
             // AppController.getInstance().getPreferences().setToken();
         }
 
@@ -70,6 +70,10 @@ public class TowerActivity extends AppCompatActivity {
         scrollDown(vScroll);
         //TODO remove Test data
         TestData.addTestTowers(towers);
+
+        //TODO move draw Activity to towerCallback  success
+        drawActivity();
+
         Request.getTower(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 

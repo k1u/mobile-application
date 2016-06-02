@@ -24,19 +24,20 @@
         android:padding="10dp">
 
 
-
         <Button
             android:id="@+id/helmet_previous"
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/previous" />
+            android:background="@drawable/previous"
+            android:onClick="check" />
 
         <LinearLayout
             android:id="@+id/helmet_layout"
             android:layout_width="150dp"
             android:layout_height="fill_parent"
             android:gravity="center"
+
             android:orientation="vertical">
 
 
@@ -47,7 +48,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/next" />
+            android:background="@drawable/next"
+            android:onClick="onClick" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,7 +65,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/previous" />
+            android:background="@drawable/previous"
+            android:onClick="onClick" />
 
         <LinearLayout
             android:id="@+id/shirt_layout"
@@ -80,7 +83,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/next" />
+            android:background="@drawable/next"
+            android:onClick="onClick" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +100,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/previous" />
+            android:background="@drawable/previous"
+            android:onClick="onClick" />
 
         <LinearLayout
 
@@ -114,7 +119,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/next" />
+            android:background="@drawable/next"
+            android:onClick="onClick" />
     </LinearLayout>
 
     <LinearLayout
@@ -130,7 +136,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/previous" />
+            android:background="@drawable/previous"
+            android:onClick="onClick" />
 
         <LinearLayout
             android:id="@+id/block_layout"
@@ -147,7 +154,8 @@
             android:layout_width="35dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/next" />
+            android:background="@drawable/next"
+            android:onClick="onClick" />
     </LinearLayout>
 
     <LinearLayout
@@ -163,7 +171,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/default_button"
-
+            android:onClick="onClick"
             android:text="@string/cancel" />
 
         <Button
@@ -174,6 +182,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:background="@drawable/default_button"
+            android:onClick="onClick"
             android:text="@string/apply"
             android:textColor="@color/white" />
     </LinearLayout>

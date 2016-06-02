@@ -8,6 +8,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
 
+import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 
 import org.hamcrest.Matchers;
@@ -18,6 +19,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -32,6 +34,7 @@ public class MainActivityTest {
 
     @Test
     public void  checkViewContent(){
+        //goToMainActivty();
         onView(withId(R.id.total_score_label))
                 .check(ViewAssertions.matches(withText(R.string.total_score)));
         onView(withId(R.id.avg_score_label))
@@ -59,4 +62,14 @@ public class MainActivityTest {
         onView(withId(R.id.games_played_label))
                 .check(PositionAssertions.isLeftOf(withId(R.id.games_played_value)));
     }
+
+    public void goToMainActivty(){
+        onView(withId(R.id.email))
+                .perform(typeText("hoi"));
+        onView(withId(R.id.password))
+                .perform(typeText("doei"));
+        onView(withId(R.id.log_in))
+                .perform(click());
+    }
+
 }

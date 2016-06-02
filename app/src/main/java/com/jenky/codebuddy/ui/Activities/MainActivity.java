@@ -23,6 +23,7 @@ import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
 
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String username;
 
 
-
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         setValues();
         selectDefaultDrawerItem();
-
+        Log.e("Token", AppController.getInstance().getPreferences().getToken());
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -155,10 +155,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setValues() {
-       username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
         usernameTextView.setText(username);
     }
-
 
 
     private RelativeLayout.LayoutParams getParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {

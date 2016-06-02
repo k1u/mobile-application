@@ -2,12 +2,15 @@ package com.jenky.codebuddy.api;
 
 import android.telecom.Call;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.util.AppController;
 
 import org.json.JSONException;
@@ -21,7 +24,7 @@ import java.util.Map;
  */
 public class Request {
 
-    public static final String api = "http://codebuddyjenky.azure.net/";
+    public static final String api = "http://codebuddyjenky.azurewebsites.net/";
 
     public static void executeRequest(String method, String url, final Callback callback) {
         //Expect response in json format
@@ -56,6 +59,7 @@ public class Request {
                 methodId = 0;
                 break;
         }
+        Log.i("Request",method+": "+ url);
         final JsonObjectRequest jsonObjReq = new JsonObjectRequest(methodId,
                 url, null,
                 new Response.Listener<JSONObject>() {
@@ -72,6 +76,9 @@ public class Request {
                 if (error.networkResponse != null) {
                     switch (error.networkResponse.statusCode) {
                         case 401:
+                            callback.onFailedWrongCredentials();
+                            break;
+                        case 403:
                             callback.onFailedUnauthorized();
                             break;
                         default:
@@ -84,9 +91,16 @@ public class Request {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return AppController.getInstance().getPreferences().getToken();
+                Map<String, String> headers = new HashMap<>();
+                headers.put("token", AppController.getInstance().getPreferences().getToken());
+                return headers;
             }
         };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
@@ -100,7 +114,7 @@ public class Request {
     public static void getPlayer(Callback callback) {
         //TODO replace URL with real URL
         executeRequest("get",
-                api,
+                api+ "tokentest",
                 callback);
     }
 
