@@ -31,8 +31,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
-
+        setContext(getApplicationContext());
         preferences = new Preferences(context);
     }
 
@@ -46,6 +45,10 @@ public class AppController extends Application {
         }
 
         return requestQueue;
+    }
+
+    public static void setContext(Context appContext){
+        context = appContext;
     }
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {

@@ -20,13 +20,14 @@ import java.util.ArrayList;
 /**
  * Created by Jason on 12-May-16.
  */
-public class HelmetFragment extends Fragment  {
+public class ShopFragment extends Fragment  {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
+    private String type;
 
-    public static HelmetFragment newInstance() {
-        return new HelmetFragment();
+    public ShopFragment(String type) {
+        this.type = type;
     }
 
     @Override
@@ -45,7 +46,20 @@ public class HelmetFragment extends Fragment  {
 
         items.clear();
         //TODO remove Test Data
-        TestData.addTestHelmets(items);
+        switch(type) {
+            case "helmet":
+                TestData.addTestHelmets(items);
+                break;
+            case "shirt":
+                TestData.addTestShirts(items);
+                break;
+            case "legs":
+                TestData.addTestLegs(items);
+                break;
+            case "block":
+                TestData.addTestBlocks(items);
+                break;
+        }
         ShopActivity activity = (ShopActivity) getActivity();
         items = activity.getItems();
         itemAdapter.notifyDataSetChanged();

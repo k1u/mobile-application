@@ -1,4 +1,4 @@
-package com.jenky.codebuddy.customViews;
+package com.jenky.codebuddy.custom;
 
 /**
  * Created by JTLie on 20-5-2016.

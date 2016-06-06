@@ -7,20 +7,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.ui.fragments.BlockFragment;
-import com.jenky.codebuddy.ui.fragments.HelmetFragment;
-import com.jenky.codebuddy.ui.fragments.LegsFragment;
-import com.jenky.codebuddy.ui.fragments.ShirtFragment;
-
+import com.jenky.codebuddy.ui.fragments.ShopFragment;
 
 
 /**
  * Created by Jason on 12-May-16.
  */
 public class ShopAdapter extends FragmentPagerAdapter {
-    final int pageCount = 4;
+    final static int pageCount = 4;
 
-    private String tabTitles[];
+    private String[] tabTitles;
 
     public ShopAdapter(FragmentManager fm, Context context) {
             super(fm);
@@ -42,18 +38,17 @@ public class ShopAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return HelmetFragment.newInstance();
+                return new ShopFragment("helmet");
             case 1:
-                return ShirtFragment.newInstance();
+                return new ShopFragment("shirt");
             case 2:
-                return LegsFragment.newInstance();
+                return new ShopFragment("legs");
             case 3:
-                return BlockFragment.newInstance();
+                return new ShopFragment("block");
             default:
-                return HelmetFragment.newInstance();
+                return new ShopFragment("helmet");
         }
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position

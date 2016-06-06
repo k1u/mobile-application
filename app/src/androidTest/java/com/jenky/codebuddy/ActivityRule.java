@@ -4,10 +4,25 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.action.CoordinatesProvider;
+import android.support.test.espresso.action.GeneralClickAction;
+import android.support.test.espresso.action.Press;
+import android.support.test.espresso.action.Tap;
+import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import org.hamcrest.Matcher;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static org.hamcrest.CoreMatchers.is;
 
 public class ActivityRule<T extends Activity> implements TestRule {
     private final Class<T> activityClass;
@@ -82,5 +97,48 @@ public class ActivityRule<T extends Activity> implements TestRule {
         activity = (T) instrument.startActivitySync(intent);
         instrument.waitForIdleSync();
     }
+
+    public static ViewAction clickXY(final int x, final int y){
+        return new GeneralClickAction(
+                Tap.SINGLE,
+                new CoordinatesProvider() {
+                    @Override
+                    public float[] calculateCoordinates(View view) {
+
+                        final int[] screenPos = new int[2];
+                        view.getLocationOnScreen(screenPos);
+
+                        final float screenX = (float) screenPos[0] + x;
+                        final float screenY = (float) screenPos[1] + y;
+                        float[] coordinates = {screenX, screenY};
+                        return coordinates;
+                    }
+                },
+                Press.FINGER);
+    }
+
+    public static ViewInteraction matchToolbarTitle(
+            CharSequence title) {
+        return onView(isAssignableFrom(Toolbar.class))
+                .check(matches(withToolbarTitle(is(title))));
+    }
+
+
+
+    private static Matcher<Object> withToolbarTitle(
+            final Matcher<CharSequence> textMatcher) {
+        return new BoundedMatcher<Object, Toolbar>(Toolbar.class) {
+            @Override
+            public void describeTo(org.hamcrest.Description description) {
+                description.appendText("with toolbar title: ");
+                textMatcher.describeTo(description);
+            }
+
+            @Override public boolean matchesSafely(Toolbar toolbar) {
+                return textMatcher.matches(toolbar.getTitle());
+            }
+        };
+    }
+
 }
 

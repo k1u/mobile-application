@@ -20,7 +20,7 @@ public class Tower implements Parcelable {
     private int score;
     private int height;
     private Player player;
-    private String block;
+
 
     public Tower() {
         //Empty for initial creation
@@ -30,7 +30,7 @@ public class Tower implements Parcelable {
         score = in.readInt();
         height = in.readInt();
         player = in.readParcelable(Player.class.getClassLoader());
-        block = in.readString();
+
     }
 
 
@@ -40,7 +40,7 @@ public class Tower implements Parcelable {
         dest.writeInt(score);
         dest.writeInt(height);
         dest.writeParcelable(player, 0);
-        dest.writeString(block);
+
     }
 
     @Override
@@ -73,11 +73,5 @@ public class Tower implements Parcelable {
         this.player = player;
     }
 
-    public String getBlock() {
-        return block;
-    }
 
-    public void setBlock(String block) {
-        this.block = block;
-    }
 }

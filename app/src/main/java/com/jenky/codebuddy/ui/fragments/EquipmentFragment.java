@@ -2,6 +2,7 @@ package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,18 +67,21 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         public void onFailed(VolleyError error) {
 
         }
+
+
     };
 
     private Callback setEquipmentCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            //TODO create toast
+
         }
 
         @Override
         public void onFailed(VolleyError error) {
 
         }
+
     };
 
     @Override

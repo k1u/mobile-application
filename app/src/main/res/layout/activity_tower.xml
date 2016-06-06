@@ -4,12 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <com.jenky.codebuddy.customViews.VerticalScroll
+    <com.jenky.codebuddy.custom.VerticalScroll
         android:id="@+id/vertical_scroll"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <com.jenky.codebuddy.customViews.HorizontalScroll
+        <com.jenky.codebuddy.custom.HorizontalScroll
             android:id="@+id/horizontal_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -37,8 +37,8 @@
                     android:paddingBottom="24dp">
                 </LinearLayout>
             </RelativeLayout>
-        </com.jenky.codebuddy.customViews.HorizontalScroll>
-    </com.jenky.codebuddy.customViews.VerticalScroll>
+        </com.jenky.codebuddy.custom.HorizontalScroll>
+    </com.jenky.codebuddy.custom.VerticalScroll>
 
     <include
         android:id="@+id/toolbar"

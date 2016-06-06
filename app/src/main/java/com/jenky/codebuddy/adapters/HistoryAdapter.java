@@ -11,23 +11,22 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by JTLie on 25-4-2016.
  */
 public class HistoryAdapter extends ArrayAdapter {
-    public HistoryAdapter(Context context, int resource, ArrayList<Project> items) {
+    public HistoryAdapter(Context context, int resource, List<Project> items) {
         super(context, resource, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        //getResultsFromServer();
+
         final Project project = (Project) getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        final ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

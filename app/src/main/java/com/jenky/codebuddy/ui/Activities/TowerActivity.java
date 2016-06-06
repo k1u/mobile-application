@@ -1,6 +1,5 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +15,9 @@ import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
-import com.jenky.codebuddy.customViews.HorizontalScroll;
-import com.jenky.codebuddy.customViews.VerticalScroll;
+import com.jenky.codebuddy.custom.HorizontalScroll;
+import com.jenky.codebuddy.custom.VerticalScroll;
+import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
@@ -34,16 +34,18 @@ import java.util.ArrayList;
 
 public class TowerActivity extends AppCompatActivity {
 
-    private float mx, my;
+    private float xCoordinate,
+            yCoordinate;
     private ScrollView vScroll;
     private HorizontalScrollView hScroll;
-    private LinearLayout backgroundLinearLayout, globalTowerLayout;
+    private LinearLayout backgroundLinearLayout,
+            globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
-    private final int towerPerBackground = 7;
-    private final int towerMagrinLeft = 20;
-    private final int towerMagrinRight = 0;
-    private final int towerMagrinTop = 0;
-    private final int towerMagrinBottom = 0;
+    private final static int towerPerBackground = 7;
+    private final static int towerMagrinLeft = 20;
+    private final static int towerMagrinRight = 0;
+    private final static int towerMagrinTop = 0;
+    private final static int towerMagrinBottom = 0;
     private final Converters converters = new Converters(this);
     private Toolbar toolbar;
 
@@ -51,13 +53,14 @@ public class TowerActivity extends AppCompatActivity {
         @Override
         public void onSuccess(JSONObject result) {
 
-            // AppController.getInstance().getPreferences().setToken();
+            //TODO fill tower array
         }
 
         @Override
-        public void onFailed(VolleyError error){
+        public void onFailed(VolleyError error) {
             Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
         }
+
     };
 
 
@@ -94,27 +97,24 @@ public class TowerActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //Lets user scroll on both axis at the same time
-        float curX, curY;
-        switch (event.getAction()) {
 
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mx = event.getX();
-                my = event.getY();
+                xCoordinate = event.getX();
+                yCoordinate = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                curX = event.getX();
-                curY = event.getY();
-                vScroll.scrollBy((int) (mx - curX), (int) (my - curY));
-                hScroll.scrollBy((int) (mx - curX), (int) (my - curY));
-                mx = curX;
-                my = curY;
+                vScroll.scrollBy((int) (xCoordinate - event.getX()), (int) (yCoordinate - event.getY()));
+                hScroll.scrollBy((int) (xCoordinate - event.getX()), (int) (yCoordinate - event.getY()));
+                xCoordinate = event.getX();
+                yCoordinate = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                curX = event.getX();
-                curY = event.getY();
-                vScroll.scrollBy((int) (mx - curX), (int) (my - curY));
-                hScroll.scrollBy((int) (mx - curX), (int) (my - curY));
+                vScroll.scrollBy((int) (xCoordinate -  event.getX()), (int) (yCoordinate - event.getY()));
+                hScroll.scrollBy((int) (xCoordinate -  event.getX()), (int) (yCoordinate - event.getY()));
                 break;
+            default:
+                Log.e("Motion error"," Motion not recongnized");
         }
         return true;
     }
@@ -145,13 +145,42 @@ public class TowerActivity extends AppCompatActivity {
         for (int i = 0; i < towers.size(); i++) {
             Tower tower = towers.get(i);
             LinearLayout towerLayout = getTowerLayout();
+            towerLayout.addView(drawAvatar(towers.get(i).getPlayer()));
             for (int j = 0; j < tower.getHeight(); j++) {
-                towerLayout.addView(getTowerBlock(tower.getBlock()));
+                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock()));
             }
             globalTowerLayout.addView(towerLayout);
         }
     }
 
+    private RelativeLayout drawAvatar(Player player) {
+        RelativeLayout avatarLayout = new RelativeLayout(this);
+
+        ImageView head = new ImageView(this);
+        ImageView shirt = new ImageView(this);
+        ImageView legs = new ImageView(this);
+        Picasso.with(this)
+                .load(player.getHead())
+                .placeholder(R.drawable.test_head2)
+                .into(head);
+        Picasso.with(this)
+                .load(player.getShirt())
+                .placeholder(R.drawable.test_shirt2)
+                .into(shirt);
+        Picasso.with(this)
+                .load(player.getLegs())
+                .placeholder(R.drawable.test_legs2)
+                .into(legs);
+
+        head.setLayoutParams(avatarParams(10, 0, 0, 0));
+        shirt.setLayoutParams(avatarParams(7, 24, 0, 0));
+        legs.setLayoutParams(avatarParams(12, 45, 0, 0));
+
+        avatarLayout.addView(head);
+        avatarLayout.addView(shirt);
+        avatarLayout.addView(legs);
+        return avatarLayout;
+    }
 
     private ImageView getBackgroundImage() {
         ImageView background = new ImageView(this);
@@ -175,11 +204,24 @@ public class TowerActivity extends AppCompatActivity {
                 converters.getInDp(towerMagrinRight),
                 converters.getInDp(towerMagrinBottom)
         );
-        params.gravity = (Gravity.BOTTOM);
+        params.gravity = Gravity.BOTTOM;
         linearLayout.setLayoutParams(params);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         return linearLayout;
+    }
+
+    private RelativeLayout.LayoutParams avatarParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(
+                converters.getInDp(marginLeft),
+                converters.getInDp(marginTop),
+                converters.getInDp(marginRight),
+                converters.getInDp(marginBottom));
+        return params;
     }
 
     private ImageView getTowerBlock(String blockUrl) {
@@ -188,6 +230,7 @@ public class TowerActivity extends AppCompatActivity {
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
         Picasso.with(this)
                 .load(blockUrl)
+                .fit()
                 .placeholder(R.drawable.test_block)
                 .into(block);
         return block;

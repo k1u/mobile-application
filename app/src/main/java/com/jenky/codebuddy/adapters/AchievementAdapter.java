@@ -13,23 +13,22 @@ import com.jenky.codebuddy.models.Achievement;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by JTLie on 25-4-2016.
  */
 public class AchievementAdapter extends ArrayAdapter {
-    public AchievementAdapter(Context context, int resource, ArrayList<Achievement> items) {
+    public AchievementAdapter(Context context, int resource, List<Achievement> items) {
         super(context, resource, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        //getResultsFromServer();
+
         final Achievement achievement = (Achievement) getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        final ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -46,7 +45,6 @@ public class AchievementAdapter extends ArrayAdapter {
         viewHolder.description.setText(achievement.getDescription());
         viewHolder.completion.setText(String.format(Locale.getDefault(),"%.2f", achievement.getComplete_percentage()));
 
-        // Populate the data into the template view using the data object
         return convertView;
     }
 

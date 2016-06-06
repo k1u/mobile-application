@@ -15,22 +15,20 @@ import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JTLie on 25-4-2016.
  */
 public class ItemAdapter extends ArrayAdapter {
-    public ItemAdapter(Context context, int resource, ArrayList<Item> items) {
+    public ItemAdapter(Context context, int resource, List<Item> items) {
         super(context, resource, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        //getResultsFromServer();
         final Item item = (Item) getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        final ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

@@ -11,6 +11,8 @@
     tools:ignore="Overdraw"
     >
 
+
+
     <Button
         android:id="@+id/log_out"
         android:layout_gravity="right"
@@ -19,5 +21,16 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/logout"
         />
+
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/white" />
 
 </android.support.v7.widget.Toolbar>

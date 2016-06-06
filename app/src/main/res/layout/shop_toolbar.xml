@@ -2,40 +2,53 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimaryDark"
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    android:background="?attr/colorPrimaryDark"
-    tools:ignore="Overdraw"
-    >
+    tools:ignore="Overdraw">
 
     <Button
         android:id="@+id/log_out"
-        android:layout_gravity="right"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_gravity="right"
         android:layout_marginRight="10dp"
-        android:background="@drawable/logout"
-        />
+        android:background="@drawable/logout" />
 
-    <TextView
-        android:id="@+id/jenkey_coins"
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:layout_marginRight="20dp"
         android:layout_gravity="right"
-        android:textColor="@color/white"/>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:gravity="right"
-        android:layout_gravity="right"
-        android:src="@drawable/jenky_coin"/>
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/white" />
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:gravity="right"
+            android:src="@drawable/jenky_coin" />
+        <TextView
+            android:id="@+id/jenkey_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="60dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </android.support.v7.widget.Toolbar>

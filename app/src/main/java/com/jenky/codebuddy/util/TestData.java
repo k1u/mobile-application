@@ -20,19 +20,23 @@ public class TestData {
         player.setId(1);
         player.setName("JTLie");
         player.setAchievements(41);
-        player.setAvg_score(1234);
-        player.setTotal_score(5678);
-        player.setGames_played(32);
+        player.setAvgScore(1234);
+        player.setTotalScore(5678);
+        player.setGamesPlayed(32);
         player.setJenkyCoins(568);
-        return player;
-    }
+        player.setHead("http://i.imgur.com/UCGB5Rn.png");
+        player.setShirt("http://i.imgur.com/cAcMw06.png");
+            player.setLegs("http://i.imgur.com/THzZGs7.png");
+    player.setBlock("http://i.imgur.com/8jMc9dy.png");
+    return player;
+}
 
     public static void addTestTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < 60; i++) {
             Tower tower = new Tower();
             tower.setHeight(i + 1);
             tower.setScore(i * 1000);
-            tower.setBlock("http://i.imgur.com/b80yEkL.png");
+            tower.setPlayer(testPlayer());
             towers.add(tower);
         }
     }
@@ -46,7 +50,6 @@ public class TestData {
             achievement.setDescription("description" + i);
             achievements.add(achievement);
         }
-
     }
 
 

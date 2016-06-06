@@ -58,4 +58,6 @@
     <string name="purchase_alert">Are you sure you wanna buy this item?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="invalid_password">Password needs to have alteast 8 characters, contain 1 letter and 1 digit</string>
+    <string name="mismatch_password">Passwords don\'t match</string>
 </resources>

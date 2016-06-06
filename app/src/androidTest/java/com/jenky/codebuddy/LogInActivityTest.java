@@ -1,25 +1,18 @@
 package com.jenky.codebuddy;
 
-import android.app.Activity;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.PositionAssertions;
 import android.support.test.espresso.assertion.ViewAssertions;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.FragmentManager;
-
 import com.jenky.codebuddy.ui.activities.LogInActivity;
-import com.jenky.codebuddy.ui.activities.MainActivity;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -30,10 +23,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class LogInActivityTest {
 
-    @Rule public final ActivityRule<LogInActivity> main = new ActivityRule<>(LogInActivity.class);
 
+    @Rule public ActivityRule<LogInActivity> logIn = new ActivityRule<>(LogInActivity.class);
     @Test
-    public void  checkViewContent(){
+    public void  LogInTest(){
+        checkLoginContent();
+        checkLogInPositions();
+        goToMainActivity();
+    }
+
+    public void checkLoginContent(){
         onView(withId(R.id.email))
                 .check(ViewAssertions.matches(withHint(R.string.github_email)));
         onView(withId(R.id.password))
@@ -44,13 +43,23 @@ public class LogInActivityTest {
                 .check(ViewAssertions.matches(withText(R.string.sign_up)));
     }
 
-    @Test
-         public void  checkViewPosition(){
+    public void  checkLogInPositions(){
         onView(withId(R.id.email))
                 .check(PositionAssertions.isAbove(withId(R.id.password)));
         onView(withId(R.id.password))
                 .check(PositionAssertions.isAbove(withId(R.id.log_in)));
         onView(withId(R.id.log_in))
                 .check(PositionAssertions.isAbove(withId(R.id.sign_up)));
+    }
+
+    public static void goToMainActivity(){
+        onView(withId(R.id.email))
+                .perform(typeText("hoi"));
+        closeSoftKeyboard();
+        onView(withId(R.id.password))
+                .perform(typeText("doei"));
+        closeSoftKeyboard();
+        onView(withId(R.id.log_in))
+                .perform(click());
     }
 }

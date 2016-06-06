@@ -1,21 +1,16 @@
 package com.jenky.codebuddy.api;
 
-import android.telecom.Call;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.util.AppController;
-
-import org.json.JSONException;
+import com.android.volley.Request.Method;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,153 +19,143 @@ import java.util.Map;
  */
 public class Request {
 
-    public static final String api = "http://codebuddyjenky.azurewebsites.net/";
+    private Request(){
 
-    public static void executeRequest(String method, String url, final Callback callback) {
+    }
+
+    public static final String api = "http://codebuddyjenky.azurewebsites.net/";
+    public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders) {
         //Expect response in json format
-        final String tag_json_obj = "json_obj_req";
-        int methodId;
-        switch (method) {
-            case "get":
-                methodId = 0;
-                break;
-            case "post":
-                methodId = 1;
-                break;
-            case "put":
-                methodId = 2;
-                break;
-            case "delete":
-                methodId = 3;
-                break;
-            case "head":
-                methodId = 4;
-                break;
-            case "options":
-                methodId = 5;
-                break;
-            case "trace":
-                methodId = 6;
-                break;
-            case "patch":
-                methodId = 7;
-                break;
-            default:
-                methodId = 0;
-                break;
-        }
-        Log.i("Request",method+": "+ url);
-        final JsonObjectRequest jsonObjReq = new JsonObjectRequest(methodId,
-                url, null,
+        final String tag = "json_obj_req";
+        Log.i("Request", methodId + ": " + url);
+        final JsonObjectRequest jsonObjReq = new JsonObjectRequest(methodId, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        callback.onSuccess(response);
-
+                            callback.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("HttpError", "Error: " + error.getMessage());
-                if (error.networkResponse != null) {
-                    switch (error.networkResponse.statusCode) {
-                        case 401:
-                            callback.onFailedWrongCredentials();
-                            break;
-                        case 403:
-                            callback.onFailedUnauthorized();
-                            break;
-                        default:
-                            callback.onFailed(error);
-                    }
-                }
+                Toast.makeText(AppController.getInstance(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                callback.onFailed(error);
             }
         }) {
-
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
+                if (extraHeaders != null) {
+                    headers.putAll(extraHeaders);
+                }
                 headers.put("token", AppController.getInstance().getPreferences().getToken());
                 return headers;
             }
         };
+        jsonObjReq.setRetryPolicy(new
+                        DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        );
+        AppController.getInstance().
+
+                addToRequestQueue(jsonObjReq, tag);
     }
 
     public static void getLogIn(Callback callback, String email, String password) {
-        //TODO replace URL with real URL
-        executeRequest("post",
-                api + "login?email=" + email + "&password=" + password,
-                callback);
+        Map<String, String> credentials = new HashMap<>();
+        credentials.put("email", email);
+        credentials.put("password", password);
+        executeRequest(Method.POST,
+                api + "login",
+                callback,
+                credentials);
     }
 
     public static void getPlayer(Callback callback) {
         //TODO replace URL with real URL
-        executeRequest("get",
-                api+ "tokentest",
-                callback);
+        executeRequest(Method.GET,
+                api + "tokentest",
+                callback,
+                null);
     }
 
     public static void getHistory(Callback callback) {
         //TODO replace URL with real URL
-        executeRequest("get",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
     public static void getSignUp(Callback callback, String email) {
+        Map<String, String> credentials = new HashMap<>();
+        credentials.put("email", email);
         //TODO replace URL with real URL
-        executeRequest("post",
-                api,
-                callback);
+        executeRequest(Method.POST,
+                api + "signup",
+                callback,
+                credentials);
+    }
+
+    public static void setVerify(Callback callback, String code, String password) {
+        Map<String, String> verification = new HashMap<>();
+        verification.put("verificationcode", code);
+        verification.put("password", password);
+        //TODO replace URL with real URL
+        executeRequest(Method.POST,
+                api + "verify",
+                callback,
+                verification);
     }
 
     public static void getAchievements(Callback callback) {
         //TODO replace URL with real URL
-        executeRequest("get",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
     public static void getTower(Callback callback, int projectId) {
         //TODO replace URL with real URL
-        executeRequest("post",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
     public static void getPurchase(Callback callback, int itemId) {
         //TODO replace URL with real URL
-        executeRequest("post",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
     public static void getShop(Callback callback) {
         //TODO replace URL with real URL
-        executeRequest("get",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
     public static void getEquipment(Callback callback) {
         //TODO replace URL with real URL
-        executeRequest("get",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 
-    public static void setEquipment(Callback callback, String headId, String shirtId, String legsId, String BlockId) {
+    public static void setEquipment(Callback callback, String headId, String shirtId, String legsId, String blockId) {
         //TODO replace URL with real URL
-        executeRequest("get",
+        executeRequest(Method.GET,
                 api,
-                callback);
+                callback,
+                null);
     }
 }

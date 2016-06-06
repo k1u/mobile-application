@@ -66,18 +66,14 @@ public class Project implements Parcelable {
         init(new JSONObject(jsonString));
         return this;
     }
-
     public Project init(JSONObject json) throws JSONException {
-
         return this;
     }*/
-
 /*    public Project setContext(Context context) {
         mContext = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return this;
     }
-
 */
 
     public String getName() {

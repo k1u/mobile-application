@@ -1,10 +1,7 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -23,10 +20,7 @@ import com.jenky.codebuddy.R;
 
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
-import com.jenky.codebuddy.models.Item;
-import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
-import com.jenky.codebuddy.util.IntentFactory;
 
 import org.json.JSONObject;
 
@@ -41,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Toolbar toolbar;
     private EditText editTextEmail,
             editTextCode,
-            editTextUsername,
             editTextPassword,
             editTextPassConfirm;
     private Button buttonSendCode,
@@ -54,16 +47,37 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public static final Pattern emailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    public static final Pattern passwordRegex =
+            Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", Pattern.CASE_INSENSITIVE);
+
+    private Callback verifyCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) {
+            Toast.makeText(SignUpActivity.this, "Password has been set", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onFailed(VolleyError error) {
+
+        }
+
+
+    };
+
     private Callback codeCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
+            Toast.makeText(SignUpActivity.this, "Request has been send. You should receive a email shortly", Toast.LENGTH_SHORT).show();
             setVerifyLayout();
         }
 
         @Override
         public void onFailed(VolleyError error) {
-            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+
         }
+
+
     };
 
 
@@ -82,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         int id = v.getId();
         switch (id) {
             case R.id.send_code:
-                sendCode();
+                sendEmail();
                 break;
             default:
                 Log.e("onClick", getString(R.string.unknown_id));
@@ -94,7 +108,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void setVerifyLayout() {
         contentLayout.removeAllViews();
         editTextCode = new EditText(this);
-        editTextUsername = new EditText(this);
         editTextPassword = new EditText(this);
         editTextPassConfirm = new EditText(this);
         buttonSignUp = new Button(this);
@@ -102,24 +115,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (checkPassword()) {
+                    Request.setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                }
             }
         });
         contentLayout.addView(editTextCode);
-        contentLayout.addView(editTextUsername);
         contentLayout.addView(editTextPassword);
         contentLayout.addView(editTextPassConfirm);
         contentLayout.addView(buttonSignUp);
+    }
+
+    private boolean checkPassword() {
+        if((validateRegex(editTextPassword.getText().toString(), passwordRegex))){
+            Toast.makeText(SignUpActivity.this, R.string.invalid_password, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!editTextPassword.getText().toString().equals(editTextPassConfirm.getText().toString()))
+        {
+            Toast.makeText(SignUpActivity.this, R.string.mismatch_password, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+            return true;
     }
 
     private void setViewStyling() {
         editTextCode.setLayoutParams(getViewParams());
         editTextCode.setHint(R.string.verification_code);
         editTextCode.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-
-        editTextUsername.setLayoutParams(getViewParams());
-        editTextUsername.setHint(R.string.username);
-        editTextUsername.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
         editTextPassword.setLayoutParams(getViewParams());
         editTextPassword.setHint(R.string.password);
@@ -142,12 +165,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         buttonSignUp.setBackground(ContextCompat.getDrawable(this, R.drawable.default_button));
         buttonSignUp.setTextColor(ContextCompat.getColor(this, R.color.white));
         buttonSignUp.setText(getResources().getString(R.string.sign_up));
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO send signup request
-            }
-        });
     }
 
     private void setViews() {
@@ -170,16 +187,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return params;
     }
 
-    public static boolean validate(String emailStr) {
-        Matcher matcher = emailRegex.matcher(emailStr);
+    public static boolean validateRegex(String emailStr, Pattern pattern) {
+        Matcher matcher = pattern.matcher(emailStr);
         return matcher.find();
     }
 
-    private void sendCode() {
-        if (validate(editTextEmail.getText().toString())) {
-
+    private void sendEmail() {
+        if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
             Request.getSignUp(codeCallback, editTextEmail.getText().toString());
-
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();
         }

@@ -12,23 +12,21 @@ import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.Converters;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by Jason on 26-Apr-16.
  */
 public class ProjectAdapter extends ArrayAdapter {
-    public ProjectAdapter(Context context, int resource, ArrayList<Project> items) {
+    public ProjectAdapter(Context context, int resource, List<Project> items) {
         super(context, resource, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        //getResultsFromServer();
         final Project project = (Project) getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        final ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -44,8 +42,6 @@ public class ProjectAdapter extends ArrayAdapter {
         viewHolder.name.setText(project.getName());
         viewHolder.createdOn.setText(Converters.ddMMyyyyToString(project.getCreatedOn()));
         viewHolder.members.setText(String.format(Locale.getDefault(), "%d", project.getMembers()));
-
-        // Populate the data into the template view using the data object
         return convertView;
     }
 

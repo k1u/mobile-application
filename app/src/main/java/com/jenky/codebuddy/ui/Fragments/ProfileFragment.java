@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         public void onFailed(VolleyError error) {
 
         }
+
     };
 
     @Override
@@ -123,10 +124,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
 
     private void addStats() {
-        totalScoreValue.setText(Integer.toString(player.getTotal_score()));
-        avgScoreValue.setText(Integer.toString(player.getAvg_score()));
+        totalScoreValue.setText(Integer.toString(player.getTotalScore()));
+        avgScoreValue.setText(Integer.toString(player.getAvgScore()));
         achievementsValue.setText(Integer.toString(player.getAchievements()));
-        gamesPlayedValue.setText(Integer.toString(player.getGames_played()));
+        gamesPlayedValue.setText(Integer.toString(player.getGamesPlayed()));
         setTestAvater();
     }
 

@@ -50,6 +50,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
             //TODO Toast a error
             Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
         }
+
+
     };
 
 
@@ -63,6 +65,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         public void onFailed(VolleyError error) {
             Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
         }
+
+
     };
 
     @Override
@@ -94,7 +98,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
         jenkyCoins = (TextView) findViewById(R.id.jenkey_coins);
-        jenkyCoins.setText("7864");
+        jenkyCoins.setText("78643423432432432");
     }
 
     private void setTabs() {
