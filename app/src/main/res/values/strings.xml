@@ -63,4 +63,5 @@
     <string name="already_have_a_code">Already have a code</string>
     <string name="branch">Branch</string>
     <string name="default_error">Something went wrong</string>
+    <string name="commited_on">Commited on:</string>
 </resources>

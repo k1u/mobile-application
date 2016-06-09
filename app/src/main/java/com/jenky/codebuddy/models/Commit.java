@@ -2,13 +2,14 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.Calendar;
-
 
 /**
  * Created by JTLie on 25-4-2016.
  */
+
 public class Commit implements Parcelable {
     public static final Parcelable.Creator<Commit> CREATOR = new Parcelable.Creator<Commit>() {
         public Commit createFromParcel(Parcel in) {
@@ -19,14 +20,9 @@ public class Commit implements Parcelable {
         }
     };
 
-/*    private Context mContext;
-    private LayoutInflater inflater;*/
-
-
-
     private int id;
-    private String name;
     private int score;
+    private String name;
     private String branch;
     private Calendar createdOn;
 
@@ -54,20 +50,10 @@ public class Commit implements Parcelable {
     public int describeContents() {
         return 0;
     }
-/*
-    public Project init(String jsonString) throws JSONException {
-        init(new JSONObject(jsonString));
+
+    public Commit init(JSONObject json) throws JSONException {
         return this;
     }
-    public Project init(JSONObject json) throws JSONException {
-        return this;
-    }*/
-/*    public Project setContext(Context context) {
-        mContext = context;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return this;
-    }
-*/
 
     public String getName() {
         return name;
@@ -92,7 +78,6 @@ public class Commit implements Parcelable {
     public void setBranch(String branch) {
         this.branch = branch;
     }
-
 
     public Calendar getCreatedOn() {
         return createdOn;

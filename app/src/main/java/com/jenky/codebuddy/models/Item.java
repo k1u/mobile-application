@@ -2,11 +2,13 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by JTLie on 25-4-2016.
  */
+
 public class Item implements Parcelable {
     public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
         public Item createFromParcel(Parcel in) {
@@ -23,7 +25,6 @@ public class Item implements Parcelable {
     private String type;
     private double price;
 
-
     public Item() {
         //Empty for initial creation
     }
@@ -35,7 +36,6 @@ public class Item implements Parcelable {
         type = in.readString();
         price = in.readDouble();
     }
-
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -49,6 +49,10 @@ public class Item implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public Item init(JSONObject json) throws JSONException {
+        return this;
     }
 
     public int getId() {

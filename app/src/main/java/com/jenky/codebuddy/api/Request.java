@@ -25,14 +25,12 @@ import java.util.Map;
  * Created by JTLie on 31-5-2016.
  */
 public class Request {
-
+    public static final String API = "Https://Codebuddyjenky.herokuapp.com/";
     static ProgressBar progressBar;
 
-    public Request(ProgressBar progressBar) {
-        this.progressBar = progressBar;
+    private Request(ProgressBar progressBar) {
+        Request.progressBar = progressBar;
     }
-
-    public static final String api = "Https://Codebuddyjenky.herokuapp.com/";
 
     public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders) {
         //Expect response in json format
@@ -43,22 +41,18 @@ public class Request {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            switch (response.getInt("responseCode")) {
-                                case 200:
-                                    callback.onSuccess(response);
-                                    break;
-                                default:
-                                    callback.onFailed(response);
-                                    break;
+                            if (response.getInt("responseCode") == 200) {
+                                callback.onSuccess(response);
+                            }else {
+                                callback.onFailed(response);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(AppController.getInstance(), R.string.default_error, Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
+                            Log.e("JSONException", e.getMessage(), e);
                         }
                         if (progressBar != null) {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -97,32 +91,23 @@ public class Request {
         credentials.put("email", email);
         credentials.put("password", password);
         executeRequest(Method.POST,
-                api + "login",
+                API + "login",
                 callback,
                 credentials);
     }
 
-    public static void getProfile(Callback callback) {
-        //TODO replace URL with real URL
+    public  void getProfile(Callback callback) {
         executeRequest(Method.GET,
-                api + "profile",
+                API + "profile",
                 callback,
                 null);
     }
 
-    public static void getHistory(Callback callback) {
-        //TODO replace URL with real URL
-        executeRequest(Method.GET,
-                api,
-                callback,
-                null);
-    }
-
-    public static void getSignUp(Callback callback, String email) {
+    public  void getSignUp(Callback callback, String email) {
         Map<String, String> credentials = new HashMap<>();
         credentials.put("email", email);
         executeRequest(Method.POST,
-                api + "signup",
+                API + "signup",
                 callback,
                 credentials);
     }
@@ -131,63 +116,55 @@ public class Request {
         Map<String, String> verification = new HashMap<>();
         verification.put("verificationcode", code);
         verification.put("password", password);
-        //TODO replace URL with real URL
         executeRequest(Method.POST,
-                api + "signup/verify",
+                API + "signup/verify",
                 callback,
                 verification);
     }
 
     public static void getAchievements(Callback callback) {
-        //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api,
+                API +"achievements",
                 callback,
                 null);
     }
 
-    public static void getTower(Callback callback, int projectId) {
-        //TODO replace URL with real URL
+    public static void getTowers(Callback callback, int projectId) {
         executeRequest(Method.GET,
-                api,
+                API +"project/"+projectId,
                 callback,
                 null);
     }
 
     public static void getPurchase(Callback callback, int itemId) {
-        //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api,
+                API +"shop/buy/"+itemId,
                 callback,
                 null);
     }
 
     public static void getShop(Callback callback) {
-        //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api,
+                API +"shop",
                 callback,
                 null);
     }
 
     public static void getEquipment(Callback callback) {
-        //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api,
+                API +"equipment",
                 callback,
                 null);
     }
 
     public static void setEquipment(Callback callback, String headId, String shirtId, String legsId, String blockId) {
-        //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api,
+                API +"equipment/equip?head="+headId+"&"+"shirt="+shirtId+"&"+"legs="+legsId+"&"+"block="+blockId,
                 callback,
                 null);
     }
 
-    public static Request getRequestHandler(ProgressBar progressBar){
-        Request request = new Request(progressBar);
-        return request;
+    public static Request getRequest(ProgressBar progressBar){
+        return new Request(progressBar);
     }
 }

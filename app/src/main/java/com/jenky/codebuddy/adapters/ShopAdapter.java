@@ -4,8 +4,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.ui.fragments.ShopFragment;
 
@@ -14,10 +12,8 @@ import com.jenky.codebuddy.ui.fragments.ShopFragment;
  * Created by Jason on 12-May-16.
  */
 public class ShopAdapter extends FragmentPagerAdapter {
-    final static int pageCount = 4;
-
+    static final int PAGE_COUNT = 4;
     private String[] tabTitles;
-
     public ShopAdapter(FragmentManager fm, Context context) {
             super(fm);
 
@@ -31,7 +27,7 @@ public class ShopAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return pageCount;
+        return PAGE_COUNT;
     }
 
     @Override

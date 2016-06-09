@@ -27,13 +27,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class LogInActivityTest {
 
 
-    @Rule public ActivityRule<LogInActivity> logIn = new ActivityRule<>(LogInActivity.class);
+    @Rule public ActivityRule<LogInActivity> activityRule = new ActivityRule<>(LogInActivity.class);
     @Test
-    public void  LogInTest(){
+    public void  logInTest(){
         AppController.getInstance().getPreferences().reset();
         checkLoginContent();
         checkLogInPositions();
-        goToMainActivity();
+        logIn();
     }
 
     public void checkLoginContent(){
@@ -56,7 +56,7 @@ public class LogInActivityTest {
                 .check(PositionAssertions.isAbove(withId(R.id.sign_up)));
     }
 
-    public static void goToMainActivity(){
+    public static void logIn(){
         onView(withId(R.id.email))
                 .perform(typeText("jtlie@live.nl"));
         closeSoftKeyboard();

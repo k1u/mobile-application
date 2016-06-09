@@ -7,15 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Achievement;
-
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 /**
  * Created by JTLie on 25-4-2016.
  */
@@ -25,10 +20,10 @@ public class AchievementAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View view, ViewGroup parent) {
         final Achievement achievement = (Achievement) getItem(position);
         final ViewHolder viewHolder;
+        View convertView = view;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

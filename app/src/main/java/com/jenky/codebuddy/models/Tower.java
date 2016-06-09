@@ -2,10 +2,13 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by JTLie on 20-5-2016.
  */
+
 public class Tower implements Parcelable {
     public static final Parcelable.Creator<Tower> CREATOR = new Parcelable.Creator<Tower>() {
         public Tower createFromParcel(Parcel in) {
@@ -21,7 +24,6 @@ public class Tower implements Parcelable {
     private int height;
     private Player player;
 
-
     public Tower() {
         //Empty for initial creation
     }
@@ -36,11 +38,9 @@ public class Tower implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeInt(score);
         dest.writeInt(height);
         dest.writeParcelable(player, 0);
-
     }
 
     @Override
@@ -48,6 +48,9 @@ public class Tower implements Parcelable {
         return 0;
     }
 
+    public Tower init(JSONObject json) throws JSONException {
+        return this;
+    }
 
     public int getScore() {
         return score;
@@ -72,6 +75,5 @@ public class Tower implements Parcelable {
     public void setPlayer(Player player) {
         this.player = player;
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,19 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.IntentFactory;
-
 import com.jenky.codebuddy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final Converters converters = new Converters(this);
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
@@ -40,13 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout nvHeader;
     private TextView usernameTextView;
     private Button logOut;
-    private final Converters converters = new Converters(this);
     private String username;
     private ProgressBar progressBar;
 
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -71,20 +65,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     @Override
     protected void onPostCreate(Bundle state) {
         super.onPostCreate(state);
         drawerToggle.syncState();
     }
 
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
-
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -135,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit();
             drawer.closeDrawers();
         } catch (Exception e) {
-            Log.e("SetFragment", e.toString());
+            Log.e("SetFragment", e.getMessage(), e);
         }
     }
 
@@ -156,13 +147,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupDrawerContent(nvDrawer);
         logOut.setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void setValues() {
         username =  AppController.getInstance().getPreferences().getUserName();
         usernameTextView.setText(username);
     }
-
 
     private RelativeLayout.LayoutParams getParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -175,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
         return params;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -190,9 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
-
-
 }
 
 

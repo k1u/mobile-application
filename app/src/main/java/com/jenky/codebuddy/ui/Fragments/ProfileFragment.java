@@ -19,9 +19,9 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
+import com.jenky.codebuddy.models.Commit;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Player;
-import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
@@ -38,28 +38,27 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private HistoryAdapter historyAdapter;
-    private ArrayList<Project> projects = new ArrayList<>();
+    private ArrayList<Commit> commits = new ArrayList<>();
     private ArrayList<Item> itemList = new ArrayList<>();
     private ListView resultListView;
     private RelativeLayout avatar;
-    private ImageView head,
-            shirt,
-            legs;
+    private ImageView head;
+    private ImageView shirt;
+    private ImageView legs;
     private Converters converters;
-    private TextView
-            totalScoreValue,
-            avgScoreValue,
-            achievementsValue,
-            gamesPlayedValue;
+    private TextView totalScoreValue;
+    private TextView avgScoreValue;
+    private TextView achievementsValue;
+    private TextView gamesPlayedValue;
     private View rootView;
     private Player player;
 
     private Callback playerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-
             //TODO result into player
         }
+
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
@@ -76,30 +75,30 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, projects);
+        historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, commits);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
         converters = new Converters(getActivity());
 
         setOnClickListeners();
         //TODO remove test Data
-        TestData.addTestProjects(projects);
+        TestData.addTestCommits(commits);
         player = TestData.testPlayer();
         getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-        Request.getRequestHandler((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getProfile(playerCallback);
-        //TODO move addStats() to okayerCallback
+        Request.getRequest((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getProfile(playerCallback);
+        //TODO move addStats() to playerCallback
         addStats();
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Project project = projects.get(position);
-        gotoProjectStats(project);
+        Commit commit = commits.get(position);
+        gotoProjectStats(commit);
     }
 
-    private void gotoProjectStats(Project project) {
-        //TODO Ga naar Project Activity (Towers)
+    private void gotoProjectStats(Commit commit) {
+        //TODO go to StatsActivity
     }
 
     private void setViews() {
@@ -176,13 +175,12 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //TODO remove tests
-
                 TestData.addTestHelmets(itemList);
                 TestData.addTestShirts(itemList);
                 TestData.addTestLegs(itemList);
                 TestData.addTestBlocks(itemList);
-                EquipmentFragment equipmentFragment = new EquipmentFragment();
 
+                EquipmentFragment equipmentFragment = new EquipmentFragment();
                 FragmentManager fm = getFragmentManager();
                 Bundle args = new Bundle();
                 args.putParcelableArrayList("items", itemList);

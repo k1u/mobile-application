@@ -2,7 +2,6 @@ package com.jenky.codebuddy.util;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
@@ -13,6 +12,10 @@ import com.jenky.codebuddy.ui.activities.TowerActivity;
  * Created by Jason on 14-Apr-16.
  */
 public class IntentFactory {
+
+    private IntentFactory(){
+        //Prevent instantiation
+    }
 
     public static Intent getMainIntent(Context context) {
         return new Intent(context, MainActivity.class);

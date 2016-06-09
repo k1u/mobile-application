@@ -70,26 +70,55 @@
 
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/row_2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
         android:baselineAligned="false"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/branch_label"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/branch"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/branch_text"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/branch_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/branch"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/branch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="italic" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/date_label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/commited_on"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="italic" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

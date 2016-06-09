@@ -1,13 +1,14 @@
 package com.jenky.codebuddy.models;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by JTLie on 25-4-2016.
  */
+
 public class Achievement implements Parcelable{
     public static final Parcelable.Creator<Achievement> CREATOR = new Parcelable.Creator<Achievement>() {
         public Achievement createFromParcel(Parcel in) {
@@ -18,6 +19,7 @@ public class Achievement implements Parcelable{
             return new Achievement[size];
         }
     };
+
     private int id;
     private String name;
     private String image;
@@ -38,7 +40,6 @@ public class Achievement implements Parcelable{
         complete = in.readDouble();
     }
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -52,6 +53,10 @@ public class Achievement implements Parcelable{
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public Achievement init(JSONObject json) throws JSONException {
+        return this;
     }
 
     public int getId() {
@@ -101,6 +106,4 @@ public class Achievement implements Parcelable{
     public void setComplete_percentage(double completePercentage) {
         this.complete = completePercentage;
     }
-
-
 }

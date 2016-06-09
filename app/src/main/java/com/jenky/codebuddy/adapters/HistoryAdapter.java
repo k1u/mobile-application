@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.models.Project;
+import com.jenky.codebuddy.models.Commit;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,29 +16,30 @@ import java.util.Locale;
  * Created by JTLie on 25-4-2016.
  */
 public class HistoryAdapter extends ArrayAdapter {
-    public HistoryAdapter(Context context, int resource, List<Project> items) {
+    public HistoryAdapter(Context context, int resource, List<Commit> items) {
         super(context, resource, items);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
 
-        final Project project = (Project) getItem(position);
+        final Commit project = (Commit) getItem(position);
         final ViewHolder viewHolder;
+        View convertView = view;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.component_history, parent, false);
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
-            viewHolder.rank = (TextView) convertView.findViewById(R.id.branch_text);
+            viewHolder.branch = (TextView) convertView.findViewById(R.id.branch_text);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.project.setText(project.getName());
         viewHolder.score.setText(String.format(Locale.getDefault(), "%d", project.getScore()));
-        viewHolder.rank.setText(String.format(Locale.getDefault(), "%d", project.getRank()));
+        viewHolder.branch.setText(project.getBranch());
 
         // Populate the data into the template view using the data object
         return convertView;
@@ -48,7 +48,6 @@ public class HistoryAdapter extends ArrayAdapter {
     private static class ViewHolder {
         TextView project;
         TextView score;
-
-        TextView rank;
+        TextView branch;
     }
 }

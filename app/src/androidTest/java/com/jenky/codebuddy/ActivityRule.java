@@ -110,8 +110,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
 
                         final float screenX = (float) screenPos[0] + x;
                         final float screenY = (float) screenPos[1] + y;
-                        float[] coordinates = {screenX, screenY};
-                        return coordinates;
+                        return new float[] {screenX, screenY};
                     }
                 },
                 Press.FINGER);

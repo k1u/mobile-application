@@ -1,6 +1,7 @@
 package com.jenky.codebuddy.util;
 
 import com.jenky.codebuddy.models.Achievement;
+import com.jenky.codebuddy.models.Commit;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Project;
@@ -49,7 +50,7 @@ public class TestData {
         }
     }
 
-    public static void addTestAchievments(ArrayList<Achievement> achievements) {
+    public static void addTestAchievements(ArrayList<Achievement> achievements) {
         for (int i = 0; i < 10; i++) {
             Achievement achievement = new Achievement();
             achievement.setName("name" + i);
@@ -74,6 +75,20 @@ public class TestData {
             cal.add(Calendar.DAY_OF_MONTH, i * -4);
             project.setCreatedOn(cal);
             projects.add(project);
+        }
+    }
+
+    public static void addTestCommits(ArrayList<Commit> commits) {
+        for (int i = 0; i < 3; i++) {
+            Commit commit = new Commit();
+            commit.setName("Commit " + (i + 1));
+            commit.setId(i + 1);
+            commit.setScore(i * 625 + 849);
+            commit.setBranch("Test Branch " + i);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, i * -4);
+            commit.setCreatedOn(cal);
+            commits.add(commit);
         }
     }
 

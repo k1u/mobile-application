@@ -6,6 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by JTLie on 20-5-2016.
  */
+
 public class Player implements Parcelable{
     public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
         public Player createFromParcel(Parcel in) {
@@ -29,8 +30,6 @@ public class Player implements Parcelable{
     private int gamesPlayed;
     private int jenkyCoins;
 
-
-
     public Player(){
         //Empty for initial creation
     }
@@ -49,7 +48,6 @@ public class Player implements Parcelable{
         jenkyCoins = in.readInt();
     }
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -63,7 +61,6 @@ public class Player implements Parcelable{
         dest.writeInt(achievements);
         dest.writeInt(gamesPlayed);
         dest.writeInt(jenkyCoins);
-
     }
 
     @Override

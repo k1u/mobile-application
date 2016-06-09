@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by Jason on 19-May-16.
  */
 public class Preferences {
-    public static final String serverUrl = "https://jenky.azurewebsites.net/";
-    public static final String sessionToken = "token";
-    public static final String userName = "user_name";
-    public SharedPreferences preferences;
+    public static final String SESSION_TOKEN = "token";
+    public static final String USER_NAME = "user_name";
+    private SharedPreferences sharedPreferences;
 
     public static void logOut(Context context) {
         Intent intent = IntentFactory.getLogInIntent(context);
@@ -26,37 +22,35 @@ public class Preferences {
     }
 
     public Preferences(Context appContext) {
-        preferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
     }
 
 
     public void setToken(String token) {
-        preferences.edit().putString(sessionToken, token).apply();
+        sharedPreferences.edit().putString(SESSION_TOKEN, token).apply();
     }
 
     public String getToken() {
-        return preferences.getString(sessionToken, "");
+        return sharedPreferences.getString(SESSION_TOKEN, "");
     }
     public void setUserName(String mUserName) {
-        preferences.edit().putString(userName, mUserName).apply();
+        sharedPreferences.edit().putString(USER_NAME, mUserName).apply();
     }
 
     public String getUserName() {
-        return preferences.getString(userName, "");
+        return sharedPreferences.getString(USER_NAME, "");
     }
 
-    public static String getServerUrl() {
-        return serverUrl;
-    }
+
 
     public void reset() {
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
     }
 
     public Boolean hasCredentials() {
-        return (AppController.getInstance().getPreferences().getToken() == null || AppController.getInstance().getPreferences().getToken().equals(""));
+        return AppController.getInstance().getPreferences().getToken() == null || AppController.getInstance().getPreferences().getToken().equals("");
     }
 }
 

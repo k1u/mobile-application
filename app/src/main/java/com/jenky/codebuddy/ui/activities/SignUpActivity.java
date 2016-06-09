@@ -1,6 +1,5 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,25 +8,18 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
-
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,17 +29,17 @@ import java.util.regex.Pattern;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
-    private EditText editTextEmail,
-            editTextCode,
-            editTextPassword,
-            editTextPassConfirm;
-    private Button buttonSendCode,
-            buttonSignUp,
-            verifyLayout;
+    private EditText editTextEmail;
+    private EditText editTextCode;
+    private EditText editTextPassword;
+    private EditText editTextPassConfirm;
+    private Button buttonSendCode;
+    private Button buttonSignUp;
+    private Button verifyLayout;
     private LinearLayout contentLayout;
-    private final int viewWidth = 200;
-    private final int textSize = 20;
-    private final int buttonPadding = 5;
+    private int viewWidth = 200;
+    private int textSize = 20;
+    private int buttonPadding = 5;
     private ProgressBar progressBar;
     private final Converters converters = new Converters(this);
     public static final Pattern emailRegex =
@@ -62,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignUpActivity.this, "Password has been set", Toast.LENGTH_SHORT).show();
             finish();
         }
+
         public void onFailed(JSONObject result) throws JSONException {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
@@ -75,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignUpActivity.this, "Request has been send. You should receive a email shortly", Toast.LENGTH_SHORT).show();
             setVerifyLayout();
         }
+
         public void onFailed(JSONObject result) throws JSONException {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
@@ -87,7 +81,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         setViews();
-
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
 
@@ -121,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (checkPassword()) {
-                    Request.getRequestHandler(progressBar).setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                    Request.getRequest(progressBar).setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
                     progressBar.setVisibility(View.VISIBLE);
                 }
             }
@@ -133,16 +126,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean checkPassword() {
-        if((validateRegex(editTextPassword.getText().toString(), passwordRegex))){
+        if (validateRegex(editTextPassword.getText().toString(), passwordRegex)) {
             Toast.makeText(SignUpActivity.this, R.string.invalid_password, Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else if(!editTextPassword.getText().toString().equals(editTextPassConfirm.getText().toString()))
-        {
+        } else if (!editTextPassword.getText().toString().equals(editTextPassConfirm.getText().toString())) {
             Toast.makeText(SignUpActivity.this, R.string.mismatch_password, Toast.LENGTH_SHORT).show();
             return false;
         }
-            return true;
+        return true;
     }
 
     private void setViewStyling() {
@@ -208,7 +199,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sendEmail() {
         if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
-            Request.getRequestHandler(progressBar).getSignUp(codeCallback, editTextEmail.getText().toString());
+            Request.getRequest(progressBar).getSignUp(codeCallback, editTextEmail.getText().toString());
             progressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();

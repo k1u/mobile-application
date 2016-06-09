@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.AchievementAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -58,7 +57,9 @@ public class AchievementFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         achievementAdapter = new AchievementAdapter(getContext(), R.layout.component_project,achievements);
         resultListView.setAdapter(achievementAdapter);
-        Request.getRequestHandler((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getAchievements(achievementCallback);
+        Request.getRequest((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getAchievements(achievementCallback);
+        //TODO remove test
+        TestData.addTestAchievements(achievements);
         achievementAdapter.notifyDataSetChanged();
     }
 
