@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public class Preferences {
     public static final String serverUrl = "https://jenky.azurewebsites.net/";
-    public static final String sessionToken = "api_token";
+    public static final String sessionToken = "token";
+    public static final String userName = "user_name";
     public SharedPreferences preferences;
 
     public static void logOut(Context context) {
@@ -21,6 +22,7 @@ public class Preferences {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
+        AppController.getInstance().getPreferences().reset();
     }
 
     public Preferences(Context appContext) {
@@ -34,6 +36,13 @@ public class Preferences {
 
     public String getToken() {
         return preferences.getString(sessionToken, "");
+    }
+    public void setUserName(String mUserName) {
+        preferences.edit().putString(userName, mUserName).apply();
+    }
+
+    public String getUserName() {
+        return preferences.getString(userName, "");
     }
 
     public static String getServerUrl() {

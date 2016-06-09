@@ -19,6 +19,7 @@ import com.jenky.codebuddy.custom.HorizontalScroll;
 import com.jenky.codebuddy.custom.VerticalScroll;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Tower;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
@@ -27,7 +28,9 @@ import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,19 +51,15 @@ public class TowerActivity extends AppCompatActivity {
     private final static int towerMagrinBottom = 0;
     private final Converters converters = new Converters(this);
     private Toolbar toolbar;
-
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
 
             //TODO fill tower array
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-            Log.i("Request failed", Integer.toString(error.networkResponse.statusCode));
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
     };
 
 
@@ -70,6 +69,7 @@ public class TowerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
         setViews();
+
         setActionBar();
         scrollDown(vScroll);
         //TODO remove Test data
@@ -147,7 +147,7 @@ public class TowerActivity extends AppCompatActivity {
             LinearLayout towerLayout = getTowerLayout();
             towerLayout.addView(drawAvatar(towers.get(i).getPlayer()));
             for (int j = 0; j < tower.getHeight(); j++) {
-                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock()));
+                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock().getImage()));
             }
             globalTowerLayout.addView(towerLayout);
         }
@@ -160,15 +160,15 @@ public class TowerActivity extends AppCompatActivity {
         ImageView shirt = new ImageView(this);
         ImageView legs = new ImageView(this);
         Picasso.with(this)
-                .load(player.getHead())
+                .load(player.getHead().getImage())
                 .placeholder(R.drawable.test_head2)
                 .into(head);
         Picasso.with(this)
-                .load(player.getShirt())
+                .load(player.getShirt().getImage())
                 .placeholder(R.drawable.test_shirt2)
                 .into(shirt);
         Picasso.with(this)
-                .load(player.getLegs())
+                .load(player.getLegs().getImage())
                 .placeholder(R.drawable.test_legs2)
                 .into(legs);
 

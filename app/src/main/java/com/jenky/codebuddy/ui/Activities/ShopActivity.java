@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
@@ -24,6 +25,7 @@ import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -36,7 +38,6 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private Button logOut;
     private TextView jenkyCoins;
     private ArrayList<Item> items = new ArrayList<>();
-
     private  Callback itemCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
@@ -44,14 +45,10 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
             //TODO add jenky Coins
             setTabs();
         }
-
         @Override
-        public void onFailed(VolleyError error) {
-            //TODO Toast a error
-            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
-
     };
 
 
@@ -60,13 +57,9 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         public void onSuccess(JSONObject result) {
             //TODO notify user
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
-
     };
 
     @Override
@@ -78,7 +71,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Request.getShop(itemCallback);
+        Request.getRequestHandler(null).getShop(itemCallback);
         //TODO remove setTabs() >>> goes to itemCallback.success
         setTabs();
     }
@@ -124,7 +117,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void purchaseItem(Item item) {
-        Request.getPurchase(purchaseCallback, item.getId());
+        Request.getRequestHandler(null).getPurchase(purchaseCallback, item.getId());
     }
 
     public static void purchaseAlert(final Context context, final Item item){

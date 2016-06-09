@@ -198,6 +198,4 @@ public class MainActivityTest {
         onView(withId(R.id.cancel))
                 .check(matches(isClickable()));
     }
-
-
 }

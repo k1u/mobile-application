@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,7 +32,7 @@ public class HistoryAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.component_history, parent, false);
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
-            viewHolder.rank = (TextView) convertView.findViewById(R.id.rank_text);
+            viewHolder.rank = (TextView) convertView.findViewById(R.id.branch_text);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

@@ -18,8 +18,10 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
+import com.jenky.codebuddy.util.AppController;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -62,13 +64,9 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         public void onSuccess(JSONObject result) {
             //TODO fill itemArrayList
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
-
     };
 
     private Callback setEquipmentCallback = new Callback() {
@@ -77,9 +75,8 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
 
         }
 
-        @Override
-        public void onFailed(VolleyError error) {
-
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
 
     };
@@ -91,7 +88,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 false);
         //TODO remove getItems
         getItems();
-        Request.getEquipment(getEquipmentCallback);
+        Request.getRequestHandler(null).getEquipment(getEquipmentCallback);
         setViews(rootView);
         //TODO move createImages() to getEquipmentCallback success
         createImages(itemList);
@@ -246,11 +243,11 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 getDialog().cancel();
                 break;
             case R.id.apply:
-                Request.setEquipment(setEquipmentCallback,
-                        helmetLayout.getChildAt(0).getTag().toString(),
-                        shirtLayout.getChildAt(0).getTag().toString(),
-                        legsLayout.getChildAt(0).getTag().toString(),
-                        blockLayout.getChildAt(0).getTag().toString());
+                Request.getRequestHandler(null).setEquipment(setEquipmentCallback,
+                         helmetLayout.getChildAt(0).getTag().toString(),
+                         shirtLayout.getChildAt(0).getTag().toString(),
+                         legsLayout.getChildAt(0).getTag().toString(),
+                         blockLayout.getChildAt(0).getTag().toString());
 
                 //TODO remove Toast
                 Toast.makeText(getContext(),

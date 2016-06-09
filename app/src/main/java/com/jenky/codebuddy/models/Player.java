@@ -19,10 +19,10 @@ public class Player implements Parcelable{
 
     private int id;
     private String name;
-    private String head;
-    private String shirt;
-    private String legs;
-    private String block;
+    private Item head;
+    private Item shirt;
+    private Item legs;
+    private Item block;
     private int totalScore;
     private int avgScore;
     private int achievements;
@@ -38,16 +38,15 @@ public class Player implements Parcelable{
     public Player(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        head = in.readString();
-        shirt = in.readString();
-        legs = in.readString();
-        block = in.readString();
+        head = in.readParcelable(Item.class.getClassLoader());
+        shirt = in.readParcelable(Item.class.getClassLoader());
+        legs = in.readParcelable(Item.class.getClassLoader());
+        block = in.readParcelable(Item.class.getClassLoader());
         totalScore = in.readInt();
         avgScore = in.readInt();
         achievements = in.readInt();
         gamesPlayed = in.readInt();
         jenkyCoins = in.readInt();
-
     }
 
 
@@ -55,10 +54,10 @@ public class Player implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeString(head);
-        dest.writeString(shirt);
-        dest.writeString(legs);
-        dest.writeString(block);
+        dest.writeParcelable(head, 0);
+        dest.writeParcelable(shirt, 0);
+        dest.writeParcelable(legs, 0);
+        dest.writeParcelable(block, 0);
         dest.writeInt(totalScore);
         dest.writeInt(avgScore);
         dest.writeInt(achievements);
@@ -88,27 +87,27 @@ public class Player implements Parcelable{
         this.name = name;
     }
 
-    public String getHead() {
+    public Item getHead() {
         return head;
     }
 
-    public void setHead(String head) {
+    public void setHead(Item head) {
         this.head = head;
     }
 
-    public String getShirt() {
+    public Item getShirt() {
         return shirt;
     }
 
-    public void setShirt(String shirt) {
+    public void setShirt(Item shirt) {
         this.shirt = shirt;
     }
 
-    public String getLegs() {
+    public Item getLegs() {
         return legs;
     }
 
-    public void setLegs(String legs) {
+    public void setLegs(Item legs) {
         this.legs = legs;
     }
 
@@ -152,11 +151,11 @@ public class Player implements Parcelable{
         this.jenkyCoins = jenkyCoins;
     }
 
-    public String getBlock() {
+    public Item getBlock() {
         return block;
     }
 
-    public void setBlock(String block) {
+    public void setBlock(Item block) {
         this.block = block;
     }
 }

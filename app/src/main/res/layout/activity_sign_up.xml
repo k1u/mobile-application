@@ -87,26 +87,18 @@
                     android:padding="5dp"
                     android:text="@string/send_verifivation_code"
                     android:textColor="@color/white" />
-            </LinearLayout>
 
-            <!-- <EditText
-                    android:id="@+id/password"
+                <Button
+                    android:id="@+id/got_code"
                     android:layout_width="@dimen/log_in_views_width"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />-->
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/default_button"
+                    android:padding="5dp"
+                    android:text="@string/already_have_a_code"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
-            <!--   <Button
-                   android:id="@+id/sign_up"
-                   android:layout_width="@dimen/log_in_views_width"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="5dp"
-                   android:background="@drawable/default_button"
-                   android:text="@string/sign_up"
-                   android:textColor="@color/white" />-->
 
         </LinearLayout>
     </ScrollView>

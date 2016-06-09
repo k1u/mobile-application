@@ -5,12 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ItemAdapter;
-import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.jenky.codebuddy.util.TestData;

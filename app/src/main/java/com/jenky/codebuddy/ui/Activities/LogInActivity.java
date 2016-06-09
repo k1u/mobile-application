@@ -37,40 +37,33 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private Toolbar toolbar;
 
     private ProgressBar progressBar;
-
     private Callback tokenCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result)   {
-            try {
-                progressBar.setVisibility(View.INVISIBLE);
-                AppController.getInstance().getPreferences().setToken(result.getString("token"));
-                Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
-                intent.putExtra("username", editTextEmail.getText().toString());
-                startActivity(intent);
-                finish();
-            } catch (JSONException e) {
-                Toast.makeText(AppController.getInstance(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                Log.e("Request error", e.getMessage());
-            }
-
+        public void onSuccess(JSONObject result) throws JSONException {
+                AppController.getInstance().getPreferences().setToken(result.getString("responseMessage"));
+                AppController.getInstance().getPreferences().setUserName(editTextEmail.getText().toString());
+                logIn();
         }
 
         @Override
-        public void onFailed(VolleyError error){
-            progressBar.setVisibility(View.INVISIBLE);
-            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+
         }
-
-
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
-        setViews();
-        setSupportActionBar(toolbar);
-        setTitle(R.string.app_name);
+        if(AppController.getInstance().getPreferences().getToken().isEmpty() || AppController.getInstance().getPreferences().getToken() == null) {
+            setContentView(R.layout.activity_log_in);
+            setViews();
+            setSupportActionBar(toolbar);
+            setTitle(R.string.app_name);
+        }
+        else{
+            logIn();
+        }
     }
 
     private void setViews() {
@@ -80,7 +73,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         buttonLogIn = (Button) findViewById(R.id.log_in);
         buttonSignUp = (Button) findViewById(R.id.sign_up);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-
         buttonSignUp.setOnClickListener(this);
         buttonLogIn.setOnClickListener(this);
     }
@@ -90,7 +82,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id){
             case R.id.log_in:
-                logIn();
+                progressBar.setVisibility(View.VISIBLE);
+                Request.getRequestHandler(progressBar).getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
                 break;
             case R.id.sign_up:
                 goToSignUp();
@@ -102,14 +95,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logIn(){
-            progressBar.setVisibility(View.VISIBLE);
-            Request.getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
+        Intent intent = IntentFactory.getMainIntent(AppController.getInstance());
+        startActivity(intent);
+        finish();
     }
 
     private void goToSignUp(){
         Intent intent = IntentFactory.getSignUpIntent(this);
         startActivity(intent);
     }
-
 
 }

@@ -80,17 +80,16 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/rank_label"
+            android:id="@+id/branch_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rank"
+            android:text="@string/branch"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/rank_text"
+            android:id="@+id/branch_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic" />
-
     </LinearLayout>
 </LinearLayout>

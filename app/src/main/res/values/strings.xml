@@ -60,4 +60,7 @@
     <string name="no">No</string>
     <string name="invalid_password">Password needs to have alteast 8 characters, contain 1 letter and 1 digit</string>
     <string name="mismatch_password">Passwords don\'t match</string>
+    <string name="already_have_a_code">Already have a code</string>
+    <string name="branch">Branch</string>
+    <string name="default_error">Something went wrong</string>
 </resources>

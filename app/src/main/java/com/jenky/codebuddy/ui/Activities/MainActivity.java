@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button logOut;
     private final Converters converters = new Converters(this);
     private String username;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         setValues();
         selectDefaultDrawerItem();
-        Log.e("Token", AppController.getInstance().getPreferences().getToken());
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -154,10 +155,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         usernameTextView = (TextView) nvHeader.findViewById(R.id.email);
         setupDrawerContent(nvDrawer);
         logOut.setOnClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
     private void setValues() {
-        username = getIntent().getStringExtra("username");
+        username =  AppController.getInstance().getPreferences().getUserName();
         usernameTextView.setText(username);
     }
 

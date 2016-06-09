@@ -1,16 +1,23 @@
 package com.jenky.codebuddy.api;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.util.AppController;
 import com.android.volley.Request.Method;
+
+import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +25,15 @@ import java.util.Map;
  * Created by JTLie on 31-5-2016.
  */
 public class Request {
-    private Request(){
 
+    static ProgressBar progressBar;
+
+    public Request(ProgressBar progressBar) {
+        this.progressBar = progressBar;
     }
-    public static final String api = "http://codebuddyjenky.azurewebsites.net/";
+
+    public static final String api = "Https://Codebuddyjenky.herokuapp.com/";
+
     public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders) {
         //Expect response in json format
         final String tag = "json_obj_req";
@@ -30,14 +42,32 @@ public class Request {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                            callback.onSuccess(response);
+                        try {
+                            switch (response.getInt("responseCode")) {
+                                case 200:
+                                    callback.onSuccess(response);
+                                    break;
+                                default:
+                                    callback.onFailed(response);
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(AppController.getInstance(), R.string.default_error, Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("HttpError", "Error: " + error.getMessage());
-                Toast.makeText(AppController.getInstance(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                callback.onFailed(error);
+                Toast.makeText(AppController.getInstance(), R.string.default_error, Toast.LENGTH_SHORT).show();
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
             }
         }) {
             @Override
@@ -72,10 +102,10 @@ public class Request {
                 credentials);
     }
 
-    public static void getPlayer(Callback callback) {
+    public static void getProfile(Callback callback) {
         //TODO replace URL with real URL
         executeRequest(Method.GET,
-                api + "tokentest",
+                api + "profile",
                 callback,
                 null);
     }
@@ -91,7 +121,6 @@ public class Request {
     public static void getSignUp(Callback callback, String email) {
         Map<String, String> credentials = new HashMap<>();
         credentials.put("email", email);
-        //TODO replace URL with real URL
         executeRequest(Method.POST,
                 api + "signup",
                 callback,
@@ -104,7 +133,7 @@ public class Request {
         verification.put("password", password);
         //TODO replace URL with real URL
         executeRequest(Method.POST,
-                api + "verify",
+                api + "signup/verify",
                 callback,
                 verification);
     }
@@ -155,5 +184,10 @@ public class Request {
                 api,
                 callback,
                 null);
+    }
+
+    public static Request getRequestHandler(ProgressBar progressBar){
+        Request request = new Request(progressBar);
+        return request;
     }
 }

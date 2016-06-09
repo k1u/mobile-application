@@ -1,5 +1,6 @@
 package com.jenky.codebuddy.ui.activities;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -20,8 +22,10 @@ import com.jenky.codebuddy.R;
 
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.regex.Matcher;
@@ -38,11 +42,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextPassword,
             editTextPassConfirm;
     private Button buttonSendCode,
-            buttonSignUp;
+            buttonSignUp,
+            verifyLayout;
     private LinearLayout contentLayout;
     private final int viewWidth = 200;
     private final int textSize = 20;
     private final int buttonPadding = 5;
+    private ProgressBar progressBar;
     private final Converters converters = new Converters(this);
     public static final Pattern emailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -54,30 +60,25 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void onSuccess(JSONObject result) {
             Toast.makeText(SignUpActivity.this, "Password has been set", Toast.LENGTH_SHORT).show();
-
+            finish();
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-
+        public void onFailed(JSONObject result) throws JSONException {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
-
     };
 
     private Callback codeCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(SignUpActivity.this, "Request has been send. You should receive a email shortly", Toast.LENGTH_SHORT).show();
             setVerifyLayout();
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-
+        public void onFailed(JSONObject result) throws JSONException {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-
-
     };
 
 
@@ -86,6 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         setViews();
+
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
 
@@ -97,6 +99,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         switch (id) {
             case R.id.send_code:
                 sendEmail();
+                break;
+            case R.id.got_code:
+                setVerifyLayout();
                 break;
             default:
                 Log.e("onClick", getString(R.string.unknown_id));
@@ -116,7 +121,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (checkPassword()) {
-                    Request.setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                    Request.getRequestHandler(progressBar).setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -142,18 +148,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void setViewStyling() {
         editTextCode.setLayoutParams(getViewParams());
         editTextCode.setHint(R.string.verification_code);
+        editTextPassword.setMaxLines(1);
         editTextCode.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
         editTextPassword.setLayoutParams(getViewParams());
         editTextPassword.setHint(R.string.password);
         editTextPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        editTextPassword.setMaxLines(1);
+        editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         editTextPassConfirm.setLayoutParams(getViewParams());
         editTextPassConfirm.setHint(R.string.confirm_password);
         editTextPassConfirm.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        editTextPassConfirm.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
+        editTextPassword.setMaxLines(1);
+        editTextPassConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         buttonSignUp.setLayoutParams(getViewParams());
         buttonSignUp.setPadding(
@@ -162,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 converters.getInDp(buttonPadding),
                 converters.getInDp(buttonPadding)
         );
+
         buttonSignUp.setBackground(ContextCompat.getDrawable(this, R.drawable.default_button));
         buttonSignUp.setTextColor(ContextCompat.getColor(this, R.color.white));
         buttonSignUp.setText(getResources().getString(R.string.sign_up));
@@ -173,6 +184,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextEmail = (EditText) findViewById(R.id.email);
         buttonSendCode = (Button) findViewById(R.id.send_code);
         buttonSendCode.setOnClickListener(this);
+        verifyLayout = (Button) findViewById(R.id.got_code);
+        verifyLayout.setOnClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
     public LinearLayout.LayoutParams getViewParams() {
@@ -194,7 +208,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sendEmail() {
         if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
-            Request.getSignUp(codeCallback, editTextEmail.getText().toString());
+            Request.getRequestHandler(progressBar).getSignUp(codeCallback, editTextEmail.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();
         }

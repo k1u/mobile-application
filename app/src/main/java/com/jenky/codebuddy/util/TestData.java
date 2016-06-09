@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class TestData {
 
-    public static Player testPlayer(){
+    public static Player testPlayer() {
         Player player = new Player();
         player.setId(1);
         player.setName("JTLie");
@@ -24,12 +24,20 @@ public class TestData {
         player.setTotalScore(5678);
         player.setGamesPlayed(32);
         player.setJenkyCoins(568);
-        player.setHead("http://i.imgur.com/UCGB5Rn.png");
-        player.setShirt("http://i.imgur.com/cAcMw06.png");
-            player.setLegs("http://i.imgur.com/THzZGs7.png");
-    player.setBlock("http://i.imgur.com/8jMc9dy.png");
-    return player;
-}
+        Item head = new Item();
+        head.setImage("http://i.imgur.com/UCGB5Rn.png");
+        Item shirt = new Item();
+        shirt.setImage("http://i.imgur.com/cAcMw06.png");
+        Item legs = new Item();
+        legs.setImage("http://i.imgur.com/UCGB5Rn.png");
+        Item block = new Item();
+        block.setImage("http://i.imgur.com/8jMc9dy.png");
+        player.setHead(head);
+        player.setShirt(shirt);
+        player.setLegs(legs);
+        player.setBlock(block);
+        return player;
+    }
 
     public static void addTestTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < 20; i++) {

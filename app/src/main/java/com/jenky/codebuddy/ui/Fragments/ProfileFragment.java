@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -21,9 +22,11 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Project;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Converters;
 import com.jenky.codebuddy.util.TestData;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -54,26 +57,12 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private Callback playerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
+
             //TODO result into player
         }
-
-        @Override
-        public void onFailed(VolleyError error) {
-
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
-    };
-
-    private Callback historyCallback = new Callback() {
-        @Override
-        public void onSuccess(JSONObject result) {
-            //TODO process results
-        }
-
-        @Override
-        public void onFailed(VolleyError error) {
-
-        }
-
     };
 
     @Override
@@ -96,8 +85,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         //TODO remove test Data
         TestData.addTestProjects(projects);
         player = TestData.testPlayer();
-        Request.getPlayer(playerCallback);
-        Request.getHistory(historyCallback);
+        getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+        Request.getRequestHandler((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getProfile(playerCallback);
         //TODO move addStats() to okayerCallback
         addStats();
     }
