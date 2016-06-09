@@ -32,9 +32,9 @@ public class TestData {
 }
 
     public static void addTestTowers(ArrayList<Tower> towers) {
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 20; i++) {
             Tower tower = new Tower();
-            tower.setHeight(i + 1);
+            tower.setHeight(i * 30 + 1);
             tower.setScore(i * 1000);
             tower.setPlayer(testPlayer());
             towers.add(tower);

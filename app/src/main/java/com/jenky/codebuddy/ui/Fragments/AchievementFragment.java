@@ -2,7 +2,6 @@ package com.jenky.codebuddy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
  */
 public class AchievementFragment extends Fragment {
 
-    private AchievementAdapter achievmentAdapter;
+    private AchievementAdapter achievementAdapter;
     private ArrayList<Achievement> achievements = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
@@ -54,12 +53,10 @@ public class AchievementFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        achievmentAdapter = new AchievementAdapter(getContext(), R.layout.component_project,achievements);
-        resultListView.setAdapter(achievmentAdapter);
+        achievementAdapter = new AchievementAdapter(getContext(), R.layout.component_project,achievements);
+        resultListView.setAdapter(achievementAdapter);
         Request.getAchievements(achievementCallback);
-        //TODO remove test data
-        TestData.addTestAchievments(achievements);
-        achievmentAdapter.notifyDataSetChanged();
+        achievementAdapter.notifyDataSetChanged();
     }
 
 

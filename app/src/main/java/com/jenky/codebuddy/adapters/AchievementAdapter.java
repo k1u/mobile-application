@@ -44,7 +44,6 @@ public class AchievementAdapter extends ArrayAdapter {
         viewHolder.name.setText(achievement.getName());
         viewHolder.description.setText(achievement.getDescription());
         viewHolder.completion.setText(String.format(Locale.getDefault(),"%.2f", achievement.getComplete_percentage()));
-
         return convertView;
     }
 

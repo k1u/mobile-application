@@ -33,7 +33,6 @@ public class HistoryAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.component_history, parent, false);
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
-
             viewHolder.rank = (TextView) convertView.findViewById(R.id.rank_text);
             convertView.setTag(viewHolder);
         } else {
@@ -41,11 +40,7 @@ public class HistoryAdapter extends ArrayAdapter {
         }
         viewHolder.project.setText(project.getName());
         viewHolder.score.setText(String.format(Locale.getDefault(), "%d", project.getScore()));
-
         viewHolder.rank.setText(String.format(Locale.getDefault(), "%d", project.getRank()));
-
-
-
 
         // Populate the data into the template view using the data object
         return convertView;

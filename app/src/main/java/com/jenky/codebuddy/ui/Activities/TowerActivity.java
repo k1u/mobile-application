@@ -58,7 +58,7 @@ public class TowerActivity extends AppCompatActivity {
 
         @Override
         public void onFailed(VolleyError error) {
-            Log.e("Request failed", Integer.toString(error.networkResponse.statusCode));
+            Log.i("Request failed", Integer.toString(error.networkResponse.statusCode));
         }
 
     };
@@ -66,6 +66,7 @@ public class TowerActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
         setViews();
@@ -73,11 +74,10 @@ public class TowerActivity extends AppCompatActivity {
         scrollDown(vScroll);
         //TODO remove Test data
         TestData.addTestTowers(towers);
-
         //TODO move draw Activity to towerCallback  success
         drawActivity();
+        //Request.getTower(towerCallback, getIntent().getIntExtra("projectId", -1));
 
-        Request.getTower(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
     private void setViews() {
@@ -86,6 +86,7 @@ public class TowerActivity extends AppCompatActivity {
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
     }
 
     private void setActionBar() {
@@ -97,7 +98,6 @@ public class TowerActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //Lets user scroll on both axis at the same time
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 xCoordinate = event.getX();
@@ -114,7 +114,7 @@ public class TowerActivity extends AppCompatActivity {
                 hScroll.scrollBy((int) (xCoordinate -  event.getX()), (int) (yCoordinate - event.getY()));
                 break;
             default:
-                Log.e("Motion error"," Motion not recongnized");
+
         }
         return true;
     }
@@ -172,9 +172,9 @@ public class TowerActivity extends AppCompatActivity {
                 .placeholder(R.drawable.test_legs2)
                 .into(legs);
 
-        head.setLayoutParams(avatarParams(10, 0, 0, 0));
-        shirt.setLayoutParams(avatarParams(7, 24, 0, 0));
-        legs.setLayoutParams(avatarParams(12, 45, 0, 0));
+        head.setLayoutParams(getAvatarParams(10, 0, 0, 0));
+        shirt.setLayoutParams(getAvatarParams(7, 24, 0, 0));
+        legs.setLayoutParams(getAvatarParams(12, 45, 0, 0));
 
         avatarLayout.addView(head);
         avatarLayout.addView(shirt);
@@ -192,7 +192,6 @@ public class TowerActivity extends AppCompatActivity {
 
     private LinearLayout getTowerLayout() {
         LinearLayout linearLayout = new LinearLayout(this);
-
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -207,11 +206,11 @@ public class TowerActivity extends AppCompatActivity {
         params.gravity = Gravity.BOTTOM;
         linearLayout.setLayoutParams(params);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-
         return linearLayout;
     }
 
-    private RelativeLayout.LayoutParams avatarParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
+    private RelativeLayout.LayoutParams getAvatarParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -221,10 +220,12 @@ public class TowerActivity extends AppCompatActivity {
                 converters.getInDp(marginTop),
                 converters.getInDp(marginRight),
                 converters.getInDp(marginBottom));
+
         return params;
     }
 
     private ImageView getTowerBlock(String blockUrl) {
+        
         ImageView block = new ImageView(this);
         block.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
@@ -233,6 +234,7 @@ public class TowerActivity extends AppCompatActivity {
                 .fit()
                 .placeholder(R.drawable.test_block)
                 .into(block);
+        
         return block;
     }
 

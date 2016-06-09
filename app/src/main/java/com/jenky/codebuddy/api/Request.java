@@ -18,11 +18,9 @@ import java.util.Map;
  * Created by JTLie on 31-5-2016.
  */
 public class Request {
-
     private Request(){
 
     }
-
     public static final String api = "http://codebuddyjenky.azurewebsites.net/";
     public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders) {
         //Expect response in json format

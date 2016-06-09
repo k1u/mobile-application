@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-/**
- * Created by Jason on 26-May-16.
- */
 public class StatsActivity extends AppCompatActivity {
     Toolbar toolbar;
     LineChart chart;

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "746892718957",
+    "project_id": "code-buddy"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746892718957:android:45887de772c32bfc",
+        "android_client_info": {
+          "package_name": "com.jenky.codebuddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZmEbxS5-MgSNz_21ZQnV9Xs1wOZolZkY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
