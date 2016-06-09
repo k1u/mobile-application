@@ -8,31 +8,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText
-            editTextEmail,
-            editTextPassword;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
 
-    private Button
-            buttonLogIn,
-            buttonSignUp;
+    private Button buttonLogIn;
+    private Button buttonSignUp;
 
     private Toolbar toolbar;
 
@@ -44,18 +36,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 AppController.getInstance().getPreferences().setUserName(editTextEmail.getText().toString());
                 logIn();
         }
-
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(AppController.getInstance().getPreferences().getToken().isEmpty() || AppController.getInstance().getPreferences().getToken() == null) {
+        if(AppController.getInstance().getPreferences().hasCredentials()) {
             setContentView(R.layout.activity_log_in);
             setViews();
             setSupportActionBar(toolbar);
@@ -83,7 +73,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         switch (id){
             case R.id.log_in:
                 progressBar.setVisibility(View.VISIBLE);
-                Request.getRequestHandler(progressBar).getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                Request.getRequest(progressBar).getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
                 break;
             case R.id.sign_up:
                 goToSignUp();

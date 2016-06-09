@@ -6,12 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.Converters;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,9 +21,10 @@ public class ProjectAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
         final Project project = (Project) getItem(position);
         final ViewHolder viewHolder;
+        View convertView = view;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

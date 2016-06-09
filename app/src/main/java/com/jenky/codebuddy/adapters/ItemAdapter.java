@@ -8,13 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +23,10 @@ public class ItemAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
         final Item item = (Item) getItem(position);
         final ViewHolder viewHolder;
+        View convertView = view;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());

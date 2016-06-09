@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ItemAdapter;
-import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.jenky.codebuddy.util.TestData;
 
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 /**
  * Created by Jason on 12-May-16.
  */
-public class ShopFragment extends Fragment  {
+public class ShopFragment extends Fragment {
     private ItemAdapter itemAdapter;
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList items = new ArrayList<>();
     private ListView resultListView;
     private String type;
 
@@ -44,7 +43,7 @@ public class ShopFragment extends Fragment  {
 
         items.clear();
         //TODO remove Test Data
-        switch(type) {
+        switch (type) {
             case "helmet":
                 TestData.addTestHelmets(items);
                 break;
@@ -59,8 +58,7 @@ public class ShopFragment extends Fragment  {
                 break;
         }
         ShopActivity activity = (ShopActivity) getActivity();
-        items = activity.getItems();
+        items = (ArrayList) activity.getItems();
         itemAdapter.notifyDataSetChanged();
     }
-
 }

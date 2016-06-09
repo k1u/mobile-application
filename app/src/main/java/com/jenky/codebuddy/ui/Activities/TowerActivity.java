@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
@@ -37,26 +35,27 @@ import java.util.ArrayList;
 
 public class TowerActivity extends AppCompatActivity {
 
-    private float xCoordinate,
-            yCoordinate;
+
+    private static final int TOWER_PER_BACKGROUND = 7;
+    private static final int TOWER_MAGRIN_LEFT = 20;
+    private static final int TOWER_MAGRIN_RIGHT = 0;
+    private static final int TOWER_MAGRIN_TOP = 0;
+    private static final int TOWER_MAGRIN_BOTTOM = 0;
+    private float xCoordinate;
+    private float yCoordinate;
     private ScrollView vScroll;
     private HorizontalScrollView hScroll;
-    private LinearLayout backgroundLinearLayout,
-            globalTowerLayout;
+    private LinearLayout backgroundLinearLayout;
+    private LinearLayout globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
-    private final static int towerPerBackground = 7;
-    private final static int towerMagrinLeft = 20;
-    private final static int towerMagrinRight = 0;
-    private final static int towerMagrinTop = 0;
-    private final static int towerMagrinBottom = 0;
     private final Converters converters = new Converters(this);
     private Toolbar toolbar;
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-
             //TODO fill tower array
         }
+
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
@@ -65,19 +64,16 @@ public class TowerActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tower);
         setViews();
-
         setActionBar();
         scrollDown(vScroll);
         //TODO remove Test data
         TestData.addTestTowers(towers);
         //TODO move draw Activity to towerCallback  success
         drawActivity();
-        //Request.getTower(towerCallback, getIntent().getIntExtra("projectId", -1));
-
+        Request.getRequest(null).getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
     private void setViews() {
@@ -110,8 +106,8 @@ public class TowerActivity extends AppCompatActivity {
                 yCoordinate = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                vScroll.scrollBy((int) (xCoordinate -  event.getX()), (int) (yCoordinate - event.getY()));
-                hScroll.scrollBy((int) (xCoordinate -  event.getX()), (int) (yCoordinate - event.getY()));
+                vScroll.scrollBy((int) (xCoordinate - event.getX()), (int) (yCoordinate - event.getY()));
+                hScroll.scrollBy((int) (xCoordinate - event.getX()), (int) (yCoordinate - event.getY()));
                 break;
             default:
 
@@ -135,7 +131,7 @@ public class TowerActivity extends AppCompatActivity {
     }
 
     private void drawBackground(double towerAmount) {
-        int backgroundAmount = (int) Math.ceil(towerAmount / towerPerBackground);
+        int backgroundAmount = (int) Math.ceil(towerAmount / TOWER_PER_BACKGROUND);
         for (int i = 0; i < backgroundAmount; i++) {
             backgroundLinearLayout.addView(getBackgroundImage());
         }
@@ -198,10 +194,10 @@ public class TowerActivity extends AppCompatActivity {
                 RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         params.setMargins(
-                converters.getInDp(towerMagrinLeft),
-                converters.getInDp(towerMagrinTop),
-                converters.getInDp(towerMagrinRight),
-                converters.getInDp(towerMagrinBottom)
+                converters.getInDp(TOWER_MAGRIN_LEFT),
+                converters.getInDp(TOWER_MAGRIN_TOP),
+                converters.getInDp(TOWER_MAGRIN_RIGHT),
+                converters.getInDp(TOWER_MAGRIN_BOTTOM)
         );
         params.gravity = Gravity.BOTTOM;
         linearLayout.setLayoutParams(params);
@@ -225,7 +221,7 @@ public class TowerActivity extends AppCompatActivity {
     }
 
     private ImageView getTowerBlock(String blockUrl) {
-        
+
         ImageView block = new ImageView(this);
         block.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
@@ -234,7 +230,7 @@ public class TowerActivity extends AppCompatActivity {
                 .fit()
                 .placeholder(R.drawable.test_block)
                 .into(block);
-        
+
         return block;
     }
 

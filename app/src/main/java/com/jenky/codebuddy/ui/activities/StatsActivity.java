@@ -1,24 +1,18 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.util.Converters;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -49,7 +43,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private LineData getData() {
-        ArrayList<Entry> valsComp1 = new ArrayList<Entry>();
+        ArrayList<Entry> valsComp1 = new ArrayList<>();
         Entry c1e1 = new Entry(100.000f, 0);
         valsComp1.add(c1e1);
         Entry c1e2 = new Entry(50.000f, 1);

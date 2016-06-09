@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.VolleyError;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ShopAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -24,12 +21,10 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -71,7 +66,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Request.getRequestHandler(null).getShop(itemCallback);
+        Request.getRequest(null).getShop(itemCallback);
         //TODO remove setTabs() >>> goes to itemCallback.success
         setTabs();
     }
@@ -90,6 +85,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
+        logOut.setOnClickListener(this);
         jenkyCoins = (TextView) findViewById(R.id.jenkey_coins);
         jenkyCoins.setText("78643423432432432");
     }
@@ -117,7 +113,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void purchaseItem(Item item) {
-        Request.getRequestHandler(null).getPurchase(purchaseCallback, item.getId());
+        Request.getRequest(null).getPurchase(purchaseCallback, item.getId());
     }
 
     public static void purchaseAlert(final Context context, final Item item){
@@ -140,7 +136,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         alertDialog.show();
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 }
