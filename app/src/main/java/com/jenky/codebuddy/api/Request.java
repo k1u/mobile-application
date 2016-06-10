@@ -47,7 +47,7 @@ public class Request {
                                 callback.onFailed(response);
                             }
                         } catch (JSONException e) {
-                            Toast.makeText(AppController.getInstance(), R.string.default_error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AppController.getInstance(), R.string.default_error, Toast.LENGTH_LONG).show();
                             Log.e("JSONException", e.getMessage(), e);
                         }
                         if (progressBar != null) {
@@ -159,7 +159,7 @@ public class Request {
 
     public static void setEquipment(Callback callback, String headId, String shirtId, String legsId, String blockId) {
         executeRequest(Method.GET,
-                API +"equipment/equip?head="+headId+"&"+"shirt="+shirtId+"&"+"legs="+legsId+"&"+"block="+blockId,
+                API +"equipment/equip?helmet="+headId+"&"+"shirt="+shirtId+"&"+"legs="+legsId+"&"+"block="+blockId,
                 callback,
                 null);
     }

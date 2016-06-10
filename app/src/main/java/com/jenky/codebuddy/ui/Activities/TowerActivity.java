@@ -18,7 +18,7 @@ import com.jenky.codebuddy.custom.VerticalScroll;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +48,6 @@ public class TowerActivity extends AppCompatActivity {
     private LinearLayout backgroundLinearLayout;
     private LinearLayout globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
-    private final Converters converters = new Converters(this);
     private Toolbar toolbar;
     private Callback towerCallback = new Callback() {
         @Override
@@ -157,21 +156,23 @@ public class TowerActivity extends AppCompatActivity {
         ImageView legs = new ImageView(this);
         Picasso.with(this)
                 .load(player.getHead().getImage())
-                .placeholder(R.drawable.test_head2)
+                .fit()
+                .placeholder(R.drawable.default_head)
                 .into(head);
         Picasso.with(this)
                 .load(player.getShirt().getImage())
-                .placeholder(R.drawable.test_shirt2)
+                .fit()
+                .placeholder(R.drawable.default_shirt)
                 .into(shirt);
         Picasso.with(this)
                 .load(player.getLegs().getImage())
-                .placeholder(R.drawable.test_legs2)
+                .fit()
+                .placeholder(R.drawable.default_legs)
                 .into(legs);
 
-        head.setLayoutParams(getAvatarParams(10, 0, 0, 0));
-        shirt.setLayoutParams(getAvatarParams(7, 24, 0, 0));
-        legs.setLayoutParams(getAvatarParams(12, 45, 0, 0));
-
+        head.setLayoutParams(Utilities.getLayoutParams(this, 20, 22,10, 10, 0, 0));
+        shirt.setLayoutParams(Utilities.getLayoutParams(this, 24, 18,7, 28, 0, 0));
+        legs.setLayoutParams(Utilities.getLayoutParams(this, 17, 12,12, 45, 0, 0));
         avatarLayout.addView(head);
         avatarLayout.addView(shirt);
         avatarLayout.addView(legs);
@@ -180,8 +181,8 @@ public class TowerActivity extends AppCompatActivity {
 
     private ImageView getBackgroundImage() {
         ImageView background = new ImageView(this);
-        background.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        background.setScaleType(ImageView.ScaleType.FIT_XY);
+        background.setLayoutParams(Utilities.getLayoutParams(this, 700, 600, 0, 0, 0, 0));
         background.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.background1));
         return background;
     }
@@ -194,10 +195,10 @@ public class TowerActivity extends AppCompatActivity {
                 RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         params.setMargins(
-                converters.getInDp(TOWER_MAGRIN_LEFT),
-                converters.getInDp(TOWER_MAGRIN_TOP),
-                converters.getInDp(TOWER_MAGRIN_RIGHT),
-                converters.getInDp(TOWER_MAGRIN_BOTTOM)
+                Utilities.getInDp(this, TOWER_MAGRIN_LEFT),
+                Utilities.getInDp(this, TOWER_MAGRIN_TOP),
+                Utilities.getInDp(this, TOWER_MAGRIN_RIGHT),
+                Utilities.getInDp(this, TOWER_MAGRIN_BOTTOM)
         );
         params.gravity = Gravity.BOTTOM;
         linearLayout.setLayoutParams(params);
@@ -205,26 +206,11 @@ public class TowerActivity extends AppCompatActivity {
         return linearLayout;
     }
 
-    private RelativeLayout.LayoutParams getAvatarParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(
-                converters.getInDp(marginLeft),
-                converters.getInDp(marginTop),
-                converters.getInDp(marginRight),
-                converters.getInDp(marginBottom));
-
-        return params;
-    }
 
     private ImageView getTowerBlock(String blockUrl) {
 
         ImageView block = new ImageView(this);
-        block.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        block.setLayoutParams(Utilities.getLayoutParams(this, 45, 16, 0, 0, 0, 0));
         Picasso.with(this)
                 .load(blockUrl)
                 .fit()

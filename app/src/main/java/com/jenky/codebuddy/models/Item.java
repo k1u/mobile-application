@@ -52,6 +52,7 @@ public class Item implements Parcelable {
     }
 
     public Item init(JSONObject json) throws JSONException {
+
         return this;
     }
 

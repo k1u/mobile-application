@@ -12,7 +12,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.jenky.codebuddy.R;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -81,7 +82,7 @@ public class StatsActivity extends AppCompatActivity {
             valsComp1.add(c1e1);
         }
         for(int i = 0; i < dates.size(); i++){
-            xVals.add(Converters.ddMMyyyyToString(dates.get(i)));
+            xVals.add(Utilities.ddMMyyyyToString(dates.get(i)));
           }
 
         LineDataSet setComp1 = new LineDataSet(valsComp1, "Metric 1");

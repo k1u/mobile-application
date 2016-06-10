@@ -23,13 +23,13 @@ import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 import com.jenky.codebuddy.util.IntentFactory;
 import com.jenky.codebuddy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final Converters converters = new Converters(this);
+
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
@@ -155,17 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         usernameTextView.setText(username);
     }
 
-    private RelativeLayout.LayoutParams getParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(marginLeft),
-                converters.getInDp(marginTop),
-                converters.getInDp(marginRight),
-                converters.getInDp(marginBottom)
-        );
-        return params;
-    }
 
     @Override
     public void onClick(View v) {

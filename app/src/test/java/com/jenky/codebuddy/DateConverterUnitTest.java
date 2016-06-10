@@ -1,8 +1,6 @@
 package com.jenky.codebuddy;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import android.content.Context;
 
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 
 import junit.framework.Assert;
 
@@ -36,7 +34,7 @@ public class DateConverterUnitTest {
         }
 
         for (int j = 0; j < calendars.size(); j++){
-            Assert.assertTrue(Converters.ddMMyyyyToString(calendars.get(j)).matches("[0-9]{2}/[0-9]{2}/[0-9]{4}"));
+            Assert.assertTrue(Utilities.ddMMyyyyToString(calendars.get(j)).matches("[0-9]{2}/[0-9]{2}/[0-9]{4}"));
         }
     }
 }

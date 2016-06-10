@@ -51,7 +51,6 @@ public class ItemAdapter extends ArrayAdapter {
                 .load(item.getImage())
                 .placeholder(R.drawable.ic_launcher)
                 .into(viewHolder.image);
-        // Populate the data into the template view using the data object
         return convertView;
     }
 

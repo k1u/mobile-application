@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Commit;
+import com.jenky.codebuddy.util.Utilities;
 
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +24,7 @@ public class HistoryAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
-        final Commit project = (Commit) getItem(position);
+        final Commit commit = (Commit) getItem(position);
         final ViewHolder viewHolder;
         View convertView = view;
         if (convertView == null) {
@@ -33,13 +34,15 @@ public class HistoryAdapter extends ArrayAdapter {
             viewHolder.project = (TextView) convertView.findViewById(R.id.project_text);
             viewHolder.score = (TextView) convertView.findViewById(R.id.score_text);
             viewHolder.branch = (TextView) convertView.findViewById(R.id.branch_text);
+            viewHolder.createdOn = (TextView) convertView.findViewById(R.id.date_text);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.project.setText(project.getName());
-        viewHolder.score.setText(String.format(Locale.getDefault(), "%d", project.getScore()));
-        viewHolder.branch.setText(project.getBranch());
+        viewHolder.project.setText(commit.getName());
+        viewHolder.score.setText(String.format(Locale.getDefault(), "%d", commit.getScore()));
+        viewHolder.branch.setText(commit.getBranch());
+        viewHolder.createdOn.setText(Utilities.ddMMyyyyToString(commit.getCreatedOn()));
 
         // Populate the data into the template view using the data object
         return convertView;
@@ -49,5 +52,6 @@ public class HistoryAdapter extends ArrayAdapter {
         TextView project;
         TextView score;
         TextView branch;
+        TextView createdOn;
     }
 }

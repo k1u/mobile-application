@@ -12,12 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.regex.Matcher;
@@ -41,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private int textSize = 20;
     private int buttonPadding = 5;
     private ProgressBar progressBar;
-    private final Converters converters = new Converters(this);
+
     public static final Pattern emailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -137,31 +138,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setViewStyling() {
-        editTextCode.setLayoutParams(getViewParams());
+        editTextCode.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextCode.setHint(R.string.verification_code);
         editTextPassword.setMaxLines(1);
         editTextCode.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
-        editTextPassword.setLayoutParams(getViewParams());
+        editTextPassword.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextPassword.setHint(R.string.password);
         editTextPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         editTextPassword.setMaxLines(1);
         editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        editTextPassConfirm.setLayoutParams(getViewParams());
+        editTextPassConfirm.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextPassConfirm.setHint(R.string.confirm_password);
         editTextPassConfirm.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         editTextPassword.setMaxLines(1);
         editTextPassConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        buttonSignUp.setLayoutParams(getViewParams());
+        buttonSignUp.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         buttonSignUp.setPadding(
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding)
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding)
         );
 
         buttonSignUp.setBackground(ContextCompat.getDrawable(this, R.drawable.default_button));
@@ -178,18 +179,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         verifyLayout = (Button) findViewById(R.id.got_code);
         verifyLayout.setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-    }
-
-    public LinearLayout.LayoutParams getViewParams() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                converters.getInDp(viewWidth),
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(0),
-                converters.getInDp(5),
-                converters.getInDp(0),
-                converters.getInDp(0));
-        return params;
     }
 
     public static boolean validateRegex(String emailStr, Pattern pattern) {

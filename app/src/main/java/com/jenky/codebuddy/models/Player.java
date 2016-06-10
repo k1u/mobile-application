@@ -3,6 +3,10 @@ package com.jenky.codebuddy.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by JTLie on 20-5-2016.
  */
@@ -20,10 +24,10 @@ public class Player implements Parcelable{
 
     private int id;
     private String name;
-    private Item head;
-    private Item shirt;
-    private Item legs;
-    private Item block;
+    private Item head = new Item();
+    private Item shirt = new Item();
+    private Item legs  = new Item();
+    private Item block = new Item();
     private int totalScore;
     private int avgScore;
     private int achievements;
@@ -61,6 +65,19 @@ public class Player implements Parcelable{
         dest.writeInt(achievements);
         dest.writeInt(gamesPlayed);
         dest.writeInt(jenkyCoins);
+    }
+
+    public Player init(JSONObject json) throws JSONException {
+        totalScore = json.getInt("totalScore");
+        avgScore = (int) json.getDouble("avgScore");
+        achievements = json.getInt("achievementCount");
+        gamesPlayed = json.getInt("projectCount");
+        JSONArray equippedItems = json.getJSONArray("equippedItems");
+        for(int i = 0; i < equippedItems.length(); i++){
+            JSONObject item = equippedItems.getJSONObject(i);
+            //TODO sort items
+        }
+        return this;
     }
 
     @Override
