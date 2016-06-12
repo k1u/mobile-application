@@ -5,10 +5,6 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
-
 public class Achievement implements Parcelable{
     public static final Parcelable.Creator<Achievement> CREATOR = new Parcelable.Creator<Achievement>() {
         public Achievement createFromParcel(Parcel in) {

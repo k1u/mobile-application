@@ -17,7 +17,7 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.regex.Matcher;
@@ -41,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private int textSize = 20;
     private int buttonPadding = 5;
     private ProgressBar progressBar;
-    private final Converters converters = new Converters(this);
+
     public static final Pattern emailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (checkPassword()) {
-                    Request.getRequest(progressBar).setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                    Request.setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
                     progressBar.setVisibility(View.VISIBLE);
                 }
             }
@@ -137,31 +137,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setViewStyling() {
-        editTextCode.setLayoutParams(getViewParams());
+        editTextCode.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextCode.setHint(R.string.verification_code);
         editTextPassword.setMaxLines(1);
         editTextCode.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
-        editTextPassword.setLayoutParams(getViewParams());
+        editTextPassword.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextPassword.setHint(R.string.password);
         editTextPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         editTextPassword.setMaxLines(1);
         editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        editTextPassConfirm.setLayoutParams(getViewParams());
+        editTextPassConfirm.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         editTextPassConfirm.setHint(R.string.confirm_password);
         editTextPassConfirm.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         editTextPassword.setMaxLines(1);
         editTextPassConfirm.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        buttonSignUp.setLayoutParams(getViewParams());
+        buttonSignUp.setLayoutParams(Utilities.getLayoutParams(this, viewWidth, LinearLayout.LayoutParams.WRAP_CONTENT, 0,5,0,0));
         buttonSignUp.setPadding(
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding),
-                converters.getInDp(buttonPadding)
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding),
+                Utilities.getInDp(this, buttonPadding)
         );
 
         buttonSignUp.setBackground(ContextCompat.getDrawable(this, R.drawable.default_button));
@@ -180,26 +180,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
-    public LinearLayout.LayoutParams getViewParams() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                converters.getInDp(viewWidth),
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(0),
-                converters.getInDp(5),
-                converters.getInDp(0),
-                converters.getInDp(0));
-        return params;
-    }
-
     public static boolean validateRegex(String emailStr, Pattern pattern) {
         Matcher matcher = pattern.matcher(emailStr);
         return matcher.find();
     }
 
+    /**
+     *  Determines if user input is correct and sends it to the server.
+     */
     private void sendEmail() {
         if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
-            Request.getRequest(progressBar).getSignUp(codeCallback, editTextEmail.getText().toString());
+            Request.getSignUp(codeCallback, editTextEmail.getText().toString());
             progressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();

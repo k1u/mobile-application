@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
@@ -33,19 +34,29 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private Button logOut;
     private TextView jenkyCoins;
     private ArrayList<Item> items = new ArrayList<>();
+    private ProgressBar progressBar;
     private  Callback itemCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
             //TODO fill Item Array
             //TODO add jenky Coins
             setTabs();
+            progressBar.setVisibility(View.INVISIBLE);
         }
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+
+        private void setTabs() {
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            viewPager.setAdapter(new ShopAdapter(getSupportFragmentManager(),
+                    ShopActivity.this));
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+            tabLayout.setupWithViewPager(viewPager);
         }
     };
-
 
     private static Callback purchaseCallback = new Callback() {
         @Override
@@ -66,9 +77,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Request.getRequest(null).getShop(itemCallback);
-        //TODO remove setTabs() >>> goes to itemCallback.success
-        setTabs();
+        progressBar.setVisibility(View.VISIBLE);
+        Request.getShop(itemCallback);
     }
 
     @Override
@@ -87,16 +97,12 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         logOut = (Button) findViewById(R.id.log_out);
         logOut.setOnClickListener(this);
         jenkyCoins = (TextView) findViewById(R.id.jenkey_coins);
-        jenkyCoins.setText("78643423432432432");
+        //TODO remove test data
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
-    private void setTabs() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new ShopAdapter(getSupportFragmentManager(),
-                ShopActivity.this));
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -113,7 +119,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void purchaseItem(Item item) {
-        Request.getRequest(null).getPurchase(purchaseCallback, item.getId());
+        Request.getPurchase(purchaseCallback, item.getId());
     }
 
     public static void purchaseAlert(final Context context, final Item item){

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +20,15 @@ import com.jenky.codebuddy.util.IntentFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-
     private Button buttonLogIn;
     private Button buttonSignUp;
-
     private Toolbar toolbar;
-
     private ProgressBar progressBar;
+
     private Callback tokenCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
@@ -39,8 +39,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,28 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         buttonLogIn = (Button) findViewById(R.id.log_in);
         buttonSignUp = (Button) findViewById(R.id.sign_up);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
         buttonSignUp.setOnClickListener(this);
         buttonLogIn.setOnClickListener(this);
+        editTextEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Nothing to do
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Nothing to do
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String result = s.toString().replaceAll(" ", "");
+                if (!s.toString().equals(result)) {
+                    editTextEmail.setText(result);
+                    editTextEmail.setSelection(result.length());
+                }
+            }
+        });
     }
 
     @Override
@@ -73,7 +95,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         switch (id){
             case R.id.log_in:
                 progressBar.setVisibility(View.VISIBLE);
-                Request.getRequest(progressBar).getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                Request.getLogIn(tokenCallback, editTextEmail.getText().toString(), editTextPassword.getText().toString());
                 break;
             case R.id.sign_up:
                 goToSignUp();
@@ -94,5 +116,4 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = IntentFactory.getSignUpIntent(this);
         startActivity(intent);
     }
-
 }

@@ -3,18 +3,15 @@ package com.jenky.codebuddy.ui.fragments;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -23,18 +20,13 @@ import com.jenky.codebuddy.models.Commit;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
-import com.jenky.codebuddy.util.TestData;
-
+import com.jenky.codebuddy.util.Utilities;
+import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private HistoryAdapter historyAdapter;
@@ -45,7 +37,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private ImageView head;
     private ImageView shirt;
     private ImageView legs;
-    private Converters converters;
     private TextView totalScoreValue;
     private TextView avgScoreValue;
     private TextView achievementsValue;
@@ -55,12 +46,86 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
     private Callback playerCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result) {
-            //TODO result into player
+        public void onSuccess(JSONObject result) throws JSONException {
+            if(getActivity() != null) {
+                player = new Player().init(result);
+                addStats();
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
         }
 
         public void onFailed(JSONObject result) throws JSONException {
-            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            if(getActivity() != null) {
+                Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                historyAdapter.notifyDataSetChanged();
+                addStats();
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
+
+
+
+        private void addStats() {
+            totalScoreValue.setText(Integer.toString(player.getTotalScore()));
+            avgScoreValue.setText(Integer.toString(player.getAvgScore()));
+            achievementsValue.setText(Integer.toString(player.getAchievements()));
+            gamesPlayedValue.setText(Integer.toString(player.getGamesPlayed()));
+            setAvatar();
+        }
+
+        /**
+         * Create the Avatar of the player.
+         * It places the ImagesViews at the in the right places.
+         */
+        private void setAvatar() {
+            head = new ImageView(getActivity());
+            shirt = new ImageView(getActivity());
+            legs = new ImageView(getActivity());
+            Picasso.with(getActivity())
+                    .load(player.getHead().getImage())
+                    .fit()
+                    .placeholder(R.drawable.default_head)
+                    .into(head);
+            Picasso.with(getActivity())
+                    .load(player.getShirt().getImage())
+                    .fit()
+                    .placeholder(R.drawable.default_shirt)
+                    .into(shirt);
+            Picasso.with(getActivity())
+                    .load(player.getLegs().getImage())
+                    .fit()
+                    .placeholder(R.drawable.default_legs)
+                    .into(legs);
+            head.setLayoutParams(Utilities.getLayoutParams(getActivity(), 40, 44, 4, 0, 0, 0));
+            shirt.setLayoutParams(Utilities.getLayoutParams(getActivity(), 48, 36, 0, 36, 0, 0));
+            legs.setLayoutParams(Utilities.getLayoutParams(getActivity(), 34, 24, 11, 67, 0, 0));
+            avatar.addView(head);
+            avatar.addView(shirt);
+            avatar.addView(legs);
+        }
+
+    };
+
+    private Callback equipmentCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) throws JSONException {
+            if (getActivity() != null) {
+                //TODO add items to itemList
+                EquipmentFragment equipmentFragment = new EquipmentFragment();
+                FragmentManager fm = getFragmentManager();
+                Bundle args = new Bundle();
+                args.putParcelableArrayList("items", itemList);
+                equipmentFragment.setArguments(args);
+                equipmentFragment.show(fm, "Dialog Fragment");
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
+
+        public void onFailed(JSONObject result) throws JSONException {
+            if (getActivity() != null) {
+                Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
         }
     };
 
@@ -78,16 +143,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, commits);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
-        converters = new Converters(getActivity());
 
         setOnClickListeners();
-        //TODO remove test Data
-        TestData.addTestCommits(commits);
-        player = TestData.testPlayer();
         getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-        Request.getRequest((ProgressBar) getActivity().findViewById(R.id.progress_bar)).getProfile(playerCallback);
-        //TODO move addStats() to playerCallback
-        addStats();
+        Request.getProfile(playerCallback);
     }
 
 
@@ -110,82 +169,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         avatar = (RelativeLayout) rootView.findViewById(R.id.avatar_layout);
     }
 
-
-    private void addStats() {
-        totalScoreValue.setText(Integer.toString(player.getTotalScore()));
-        avgScoreValue.setText(Integer.toString(player.getAvgScore()));
-        achievementsValue.setText(Integer.toString(player.getAchievements()));
-        gamesPlayedValue.setText(Integer.toString(player.getGamesPlayed()));
-        setTestAvater();
-    }
-
-
-    private void setTestAvater() {
-        head = new ImageView(getActivity());
-        shirt = new ImageView(getActivity());
-        legs = new ImageView(getActivity());
-        head.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.test_head2));
-        shirt.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.test_shirt2));
-        legs.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.test_legs2));
-        head.setLayoutParams(getHeadParams());
-        shirt.setLayoutParams(getShirtParams());
-        legs.setLayoutParams(getLegsParams());
-        avatar.addView(head);
-        avatar.addView(shirt);
-        avatar.addView(legs);
-    }
-
-    private RelativeLayout.LayoutParams getHeadParams() {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(4),
-                0,
-                0,
-                0
-        );
-        return params;
-    }
-
-    private RelativeLayout.LayoutParams getShirtParams() {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                0,
-                converters.getInDp(36),
-                0,
-                0
-        );
-        return params;
-    }
-
-    private RelativeLayout.LayoutParams getLegsParams() {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(
-                converters.getInDp(11),
-                converters.getInDp(67),
-                0,
-                0
-        );
-        return params;
-    }
-
     private void setOnClickListeners() {
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                //TODO remove tests
-                TestData.addTestHelmets(itemList);
-                TestData.addTestShirts(itemList);
-                TestData.addTestLegs(itemList);
-                TestData.addTestBlocks(itemList);
-
-                EquipmentFragment equipmentFragment = new EquipmentFragment();
-                FragmentManager fm = getFragmentManager();
-                Bundle args = new Bundle();
-                args.putParcelableArrayList("items", itemList);
-                equipmentFragment.setArguments(args);
-                equipmentFragment.show(fm, "Dialog Fragment");
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                Request.getEquipment(equipmentCallback);
             }
         });
     }

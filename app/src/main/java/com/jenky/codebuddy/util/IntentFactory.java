@@ -9,7 +9,7 @@ import com.jenky.codebuddy.ui.activities.SignUpActivity;
 import com.jenky.codebuddy.ui.activities.TowerActivity;
 
 /**
- * Created by Jason on 14-Apr-16.
+ * Class which contains methods to receive different Intents
  */
 public class IntentFactory {
 

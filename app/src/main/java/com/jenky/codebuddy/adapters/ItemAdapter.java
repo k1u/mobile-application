@@ -14,9 +14,7 @@ import com.jenky.codebuddy.ui.activities.ShopActivity;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
+
 public class ItemAdapter extends ArrayAdapter {
     public ItemAdapter(Context context, int resource, List<Item> items) {
         super(context, resource, items);
@@ -51,7 +49,6 @@ public class ItemAdapter extends ArrayAdapter {
                 .load(item.getImage())
                 .placeholder(R.drawable.ic_launcher)
                 .into(viewHolder.image);
-        // Populate the data into the template view using the data object
         return convertView;
     }
 

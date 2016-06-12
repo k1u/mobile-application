@@ -11,9 +11,7 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Achievement;
 import java.util.List;
 import java.util.Locale;
-/**
- * Created by JTLie on 25-4-2016.
- */
+
 public class AchievementAdapter extends ArrayAdapter {
     public AchievementAdapter(Context context, int resource, List<Achievement> items) {
         super(context, resource, items);

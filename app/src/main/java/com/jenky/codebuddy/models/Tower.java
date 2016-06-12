@@ -5,9 +5,6 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by JTLie on 20-5-2016.
- */
 
 public class Tower implements Parcelable {
     public static final Parcelable.Creator<Tower> CREATOR = new Parcelable.Creator<Tower>() {
@@ -24,6 +21,7 @@ public class Tower implements Parcelable {
     private int height;
     private Player player;
 
+
     public Tower() {
         //Empty for initial creation
     }
@@ -32,8 +30,8 @@ public class Tower implements Parcelable {
         score = in.readInt();
         height = in.readInt();
         player = in.readParcelable(Player.class.getClassLoader());
-
     }
+
 
 
     @Override
@@ -48,7 +46,9 @@ public class Tower implements Parcelable {
         return 0;
     }
 
-    public Tower init(JSONObject json) throws JSONException {
+    public Tower init(JSONObject json, int highestScore) throws JSONException {
+        player.initTower(json);
+        height = calculateHeight(json.getInt("score"), highestScore);
         return this;
     }
 
@@ -76,4 +76,10 @@ public class Tower implements Parcelable {
         this.player = player;
     }
 
+
+    public static int calculateHeight(int score, int highestScore){
+        double divider;
+        divider =  Math.ceil(highestScore/24000.0);
+        return (int) Math.floor(score/(100*divider));
+    }
 }

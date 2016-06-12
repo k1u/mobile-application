@@ -5,10 +5,6 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
-
 public class Item implements Parcelable {
     public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
         public Item createFromParcel(Parcel in) {
@@ -52,6 +48,7 @@ public class Item implements Parcelable {
     }
 
     public Item init(JSONObject json) throws JSONException {
+
         return this;
     }
 

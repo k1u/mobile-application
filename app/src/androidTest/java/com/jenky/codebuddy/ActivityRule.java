@@ -13,12 +13,10 @@ import android.support.test.espresso.action.Tap;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import org.hamcrest.Matcher;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
@@ -79,7 +77,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
         Instrumentation result = instrumentation;
         if (result != null) {
             return result;
-        } else{
+        } else {
             return InstrumentationRegistry.getInstrumentation();
         }
     }
@@ -98,7 +96,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
         instrument.waitForIdleSync();
     }
 
-    public static ViewAction clickXY(final int x, final int y){
+    public static ViewAction clickXY(final int x, final int y) {
         return new GeneralClickAction(
                 Tap.SINGLE,
                 new CoordinatesProvider() {
@@ -110,7 +108,7 @@ public class ActivityRule<T extends Activity> implements TestRule {
 
                         final float screenX = (float) screenPos[0] + x;
                         final float screenY = (float) screenPos[1] + y;
-                        return new float[] {screenX, screenY};
+                        return new float[]{screenX, screenY};
                     }
                 },
                 Press.FINGER);
@@ -123,7 +121,6 @@ public class ActivityRule<T extends Activity> implements TestRule {
     }
 
 
-
     private static Matcher<Object> withToolbarTitle(
             final Matcher<CharSequence> textMatcher) {
         return new BoundedMatcher<Object, Toolbar>(Toolbar.class) {
@@ -133,11 +130,11 @@ public class ActivityRule<T extends Activity> implements TestRule {
                 textMatcher.describeTo(description);
             }
 
-            @Override public boolean matchesSafely(Toolbar toolbar) {
+            @Override
+            public boolean matchesSafely(Toolbar toolbar) {
                 return textMatcher.matches(toolbar.getTitle());
             }
         };
     }
-
 }
 

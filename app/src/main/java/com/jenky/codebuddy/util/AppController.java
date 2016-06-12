@@ -1,13 +1,9 @@
 package com.jenky.codebuddy.util;
 
-/**
- * Created by JTLie on 31-5-2016.
- */
 
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -56,17 +52,5 @@ public class AppController extends Application {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
     }
-
-    public <T> void addToRequestQueue(Request<T> req) {
-        req.setTag(TAG);
-        getRequestQueue().add(req);
-    }
-
-    public void cancelPendingRequests(Object tag) {
-        if (requestQueue != null) {
-            requestQueue.cancelAll(tag);
-        }
-    }
-
 }
 

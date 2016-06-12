@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
@@ -18,23 +17,18 @@ import com.jenky.codebuddy.custom.VerticalScroll;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
-import com.jenky.codebuddy.util.TestData;
+import com.jenky.codebuddy.util.Utilities;
 import com.squareup.picasso.Picasso;
-
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class TowerActivity extends AppCompatActivity {
-
 
     private static final int TOWER_PER_BACKGROUND = 7;
     private static final int TOWER_MAGRIN_LEFT = 20;
@@ -48,12 +42,12 @@ public class TowerActivity extends AppCompatActivity {
     private LinearLayout backgroundLinearLayout;
     private LinearLayout globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
-    private final Converters converters = new Converters(this);
     private Toolbar toolbar;
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            //TODO fill tower array
+            //TODO add towers
+            drawActivity();
         }
 
         public void onFailed(JSONObject result) throws JSONException {
@@ -69,11 +63,7 @@ public class TowerActivity extends AppCompatActivity {
         setViews();
         setActionBar();
         scrollDown(vScroll);
-        //TODO remove Test data
-        TestData.addTestTowers(towers);
-        //TODO move draw Activity to towerCallback  success
-        drawActivity();
-        Request.getRequest(null).getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
+        Request.getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
     private void setViews() {
@@ -93,7 +83,6 @@ public class TowerActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //Lets user scroll on both axis at the same time
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 xCoordinate = event.getX();
@@ -130,6 +119,10 @@ public class TowerActivity extends AppCompatActivity {
         drawTowers(towers);
     }
 
+    /**
+     * Draws a certain amount of background depending on the amount of towers
+     * @param towerAmount The amount of Towers for this View
+     */
     private void drawBackground(double towerAmount) {
         int backgroundAmount = (int) Math.ceil(towerAmount / TOWER_PER_BACKGROUND);
         for (int i = 0; i < backgroundAmount; i++) {
@@ -137,55 +130,77 @@ public class TowerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Add ImageViews to create the Towers
+     * @param towers List of Tower Objects
+     */
     private void drawTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < towers.size(); i++) {
             Tower tower = towers.get(i);
             LinearLayout towerLayout = getTowerLayout();
             towerLayout.addView(drawAvatar(towers.get(i).getPlayer()));
+            ImageView blockImage = getTowerBlock(tower.getPlayer().getBlock().getImage());
             for (int j = 0; j < tower.getHeight(); j++) {
-                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock().getImage()));
+                ImageView block = new ImageView(this);
+                block.setImageDrawable(blockImage.getDrawable());
+                towerLayout.addView(block);
             }
             globalTowerLayout.addView(towerLayout);
         }
     }
 
+    /**
+     * Gets the Images from the Player Object and draws them with
+     * the appropriate parameters.
+     * @param player Player Object it needs to draw
+     * @return The RelativeLayout with the Avatar ImageViews
+     */
     private RelativeLayout drawAvatar(Player player) {
         RelativeLayout avatarLayout = new RelativeLayout(this);
 
         ImageView head = new ImageView(this);
         ImageView shirt = new ImageView(this);
         ImageView legs = new ImageView(this);
-        Picasso.with(this)
-                .load(player.getHead().getImage())
-                .placeholder(R.drawable.test_head2)
+        Picasso.with(this).load(player.getHead().getImage())
+                .fit()
+                .placeholder(R.drawable.default_head)
                 .into(head);
         Picasso.with(this)
                 .load(player.getShirt().getImage())
-                .placeholder(R.drawable.test_shirt2)
+                .fit()
+                .placeholder(R.drawable.default_shirt)
                 .into(shirt);
         Picasso.with(this)
                 .load(player.getLegs().getImage())
-                .placeholder(R.drawable.test_legs2)
+                .fit()
+                .placeholder(R.drawable.default_legs)
                 .into(legs);
 
-        head.setLayoutParams(getAvatarParams(10, 0, 0, 0));
-        shirt.setLayoutParams(getAvatarParams(7, 24, 0, 0));
-        legs.setLayoutParams(getAvatarParams(12, 45, 0, 0));
-
+        head.setLayoutParams(Utilities.getLayoutParams(this, 20, 22,10, 10, 0, 0));
+        shirt.setLayoutParams(Utilities.getLayoutParams(this, 24, 18,7, 28, 0, 0));
+        legs.setLayoutParams(Utilities.getLayoutParams(this, 17, 12,12, 45, 0, 0));
         avatarLayout.addView(head);
         avatarLayout.addView(shirt);
         avatarLayout.addView(legs);
         return avatarLayout;
     }
 
+    /**
+     * Create a ImageView which containt the background Image and the appropriate parameters
+     * @return The Background Image
+     */
     private ImageView getBackgroundImage() {
         ImageView background = new ImageView(this);
-        background.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        background.setScaleType(ImageView.ScaleType.FIT_XY);
+        background.setLayoutParams(Utilities.getLayoutParams(this, 700, 600, 0, 0, 0, 0));
         background.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.background1));
         return background;
     }
 
+    /**
+     * @return a LinearLayout with the appropriate params
+     * for the Tower ImageViews to be placed it.
+     */
     private LinearLayout getTowerLayout() {
         LinearLayout linearLayout = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -194,10 +209,10 @@ public class TowerActivity extends AppCompatActivity {
                 RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         params.setMargins(
-                converters.getInDp(TOWER_MAGRIN_LEFT),
-                converters.getInDp(TOWER_MAGRIN_TOP),
-                converters.getInDp(TOWER_MAGRIN_RIGHT),
-                converters.getInDp(TOWER_MAGRIN_BOTTOM)
+                Utilities.getInDp(this, TOWER_MAGRIN_LEFT),
+                Utilities.getInDp(this, TOWER_MAGRIN_TOP),
+                Utilities.getInDp(this, TOWER_MAGRIN_RIGHT),
+                Utilities.getInDp(this, TOWER_MAGRIN_BOTTOM)
         );
         params.gravity = Gravity.BOTTOM;
         linearLayout.setLayoutParams(params);
@@ -205,32 +220,19 @@ public class TowerActivity extends AppCompatActivity {
         return linearLayout;
     }
 
-    private RelativeLayout.LayoutParams getAvatarParams(int marginLeft, int marginTop, int marginRight, int marginBottom) {
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(
-                converters.getInDp(marginLeft),
-                converters.getInDp(marginTop),
-                converters.getInDp(marginRight),
-                converters.getInDp(marginBottom));
-
-        return params;
-    }
-
+    /**
+     * Create a ImageView which contains the right image to build the tower.
+     * @param blockUrl url of the image it should load
+     * @return ImageView which contains the image form the url
+     */
     private ImageView getTowerBlock(String blockUrl) {
-
         ImageView block = new ImageView(this);
-        block.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        block.setLayoutParams(Utilities.getLayoutParams(this, 45, 16, 0, 0, 0, 0));
         Picasso.with(this)
                 .load(blockUrl)
                 .fit()
                 .placeholder(R.drawable.test_block)
                 .into(block);
-
         return block;
     }
 

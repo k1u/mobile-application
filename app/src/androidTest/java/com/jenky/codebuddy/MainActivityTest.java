@@ -1,22 +1,26 @@
 package com.jenky.codebuddy;
 
+
 import android.support.test.espresso.assertion.PositionAssertions;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.runner.AndroidJUnit4;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Converters;
-
+import com.jenky.codebuddy.util.Utilities;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.anything;
+
 
 /**
  * Created by JTLie on 28-5-2016.
@@ -24,12 +28,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    private final Converters converters = new Converters(AppController.getInstance());
 
-    @Rule public ActivityRule<MainActivity> main = new ActivityRule<>(MainActivity.class);
+    @Rule
+    public ActivityRule<MainActivity> main = new ActivityRule<>(MainActivity.class);
 
     @Test
-    public void  testNavigationMenu(){
+    public void testNavigationMenu() {
         openProfile();
         ActivityRule.matchToolbarTitle("Profile")
                 .check(matches(isDisplayed()));
@@ -45,13 +49,15 @@ public class MainActivityTest {
     }
 
     @Test
-    public void  testProfile(){
+    public void testProfile() {
         checkProfileContent();
         checkProfileLayout();
+        checkCommit();
+
     }
 
     @Test
-    public void  testEquipment(){
+    public void testEquipment() {
         onView(withId(R.id.avatar_layout))
                 .perform(click());
         checkEquipmentContent();
@@ -59,36 +65,48 @@ public class MainActivityTest {
         checkEquipmentClickable();
     }
 
-    private void openNavigationMenu(){
-        onView(withId(R.id.toolbar))
-                .perform(ActivityRule.clickXY(converters.getInDp(30), converters.getInDp(30)));
+    @Test
+    public void testAchievements() {
+        openAchievements();
+        checkAchievement();
     }
 
-    private void openProfile(){
+    @Test
+    public void testProjects() {
+        openProjects();
+        checkProject();
+    }
+
+    private void openNavigationMenu() {
+        onView(withId(R.id.toolbar))
+                .perform(ActivityRule.clickXY(Utilities.getInDp(AppController.getInstance(), 30), Utilities.getInDp(AppController.getInstance(), 30)));
+    }
+
+    private void openProfile() {
         openNavigationMenu();
         onView(withId(R.id.toolbar))
-                .perform(ActivityRule.clickXY(converters.getInDp(30), converters.getInDp(150)));
+                .perform(ActivityRule.clickXY(Utilities.getInDp(AppController.getInstance(), 30), Utilities.getInDp(AppController.getInstance(), 150)));
     }
 
-    private void openProjects(){
+    private void openProjects() {
         openNavigationMenu();
         onView(withId(R.id.toolbar))
-                .perform(ActivityRule.clickXY(converters.getInDp(30), converters.getInDp(200)));
+                .perform(ActivityRule.clickXY(Utilities.getInDp(AppController.getInstance(), 30), Utilities.getInDp(AppController.getInstance(), 200)));
     }
 
-    private void openAchievements(){
+    private void openAchievements() {
         openNavigationMenu();
         onView(withId(R.id.toolbar))
-                .perform(ActivityRule.clickXY(converters.getInDp(30), converters.getInDp(250)));
+                .perform(ActivityRule.clickXY(Utilities.getInDp(AppController.getInstance(), 30), Utilities.getInDp(AppController.getInstance(), 250)));
     }
 
-    private void openShop(){
+    private void openShop() {
         openNavigationMenu();
         onView(withId(R.id.toolbar))
-                .perform(ActivityRule.clickXY(converters.getInDp(30), converters.getInDp(280)));
+                .perform(ActivityRule.clickXY(Utilities.getInDp(AppController.getInstance(), 30), Utilities.getInDp(AppController.getInstance(), 280)));
     }
 
-    private void  checkProfileContent(){
+    private void checkProfileContent() {
         onView(withId(R.id.total_score_label))
                 .check(matches(withText(R.string.total_score)));
         onView(withId(R.id.avg_score_label))
@@ -102,7 +120,7 @@ public class MainActivityTest {
     }
 
 
-    private void checkProfileLayout(){
+    private void checkProfileLayout() {
         onView(withId(R.id.total_score_label))
                 .check(PositionAssertions.isAbove(withId(R.id.avg_score_label)));
         onView(withId(R.id.avg_score_label))
@@ -119,7 +137,7 @@ public class MainActivityTest {
                 .check(PositionAssertions.isLeftOf(withId(R.id.games_played_value)));
     }
 
-    private void  checkEquipmentContent(){
+    private void checkEquipmentContent() {
         onView(withId(R.id.cancel))
                 .check(matches(withText(R.string.cancel)));
         onView(withId(R.id.apply))
@@ -129,7 +147,7 @@ public class MainActivityTest {
     }
 
 
-    private void checkEquipmentLayout(){
+    private void checkEquipmentLayout() {
         onView(withId(R.id.title))
                 .check(PositionAssertions.isAbove(withId(R.id.helmet_previous)));
         onView(withId(R.id.helmet_previous))
@@ -170,7 +188,7 @@ public class MainActivityTest {
                 .check(PositionAssertions.isRightOf(withId(R.id.cancel)));
     }
 
-    private void checkEquipmentClickable(){
+    private void checkEquipmentClickable() {
         onView(withId(R.id.helmet_previous))
                 .check(matches(isClickable()));
         onView(withId(R.id.shirt_previous))
@@ -191,5 +209,76 @@ public class MainActivityTest {
                 .check(matches(isClickable()));
         onView(withId(R.id.cancel))
                 .check(matches(isClickable()));
+    }
+
+    private void checkCommit() {
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.project_label))
+                .check(ViewAssertions.matches(withText(R.string.project_name)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.score_label))
+                .check(ViewAssertions.matches(withText(R.string.score)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.branch_label))
+                .check(ViewAssertions.matches(withText(R.string.branch)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.date_label))
+                .check(ViewAssertions.matches(withText(R.string.commited_on)));
+
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.project_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.score_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.branch_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.date_label))
+                .check(matches(isCompletelyDisplayed()));
+    }
+
+    private void checkAchievement() {
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.image))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.name))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.description))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.completion))
+                .check(matches(isCompletelyDisplayed()));
+    }
+
+
+    private void checkProject() {
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.created_on_label))
+                .check(ViewAssertions.matches(withText(R.string.created_on)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.members_label))
+                .check(ViewAssertions.matches(withText(R.string.members)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.created_on_label))
+                .check(matches(isCompletelyDisplayed()));
     }
 }

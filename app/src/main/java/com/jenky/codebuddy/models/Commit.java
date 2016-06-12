@@ -6,10 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Calendar;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
-
 public class Commit implements Parcelable {
     public static final Parcelable.Creator<Commit> CREATOR = new Parcelable.Creator<Commit>() {
         public Commit createFromParcel(Parcel in) {

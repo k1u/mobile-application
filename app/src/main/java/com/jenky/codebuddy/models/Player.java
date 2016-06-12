@@ -2,10 +2,9 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-/**
- * Created by JTLie on 20-5-2016.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Player implements Parcelable{
     public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
@@ -20,15 +19,15 @@ public class Player implements Parcelable{
 
     private int id;
     private String name;
-    private Item head;
-    private Item shirt;
-    private Item legs;
-    private Item block;
-    private int totalScore;
-    private int avgScore;
-    private int achievements;
-    private int gamesPlayed;
-    private int jenkyCoins;
+    private Item head = new Item();
+    private Item shirt = new Item();
+    private Item legs  = new Item();
+    private Item block = new Item();
+    private int totalScore = 0;
+    private int avgScore = 0;
+    private int achievements  = 0;
+    private int gamesPlayed = 0;
+    private int jenkyCoins = 0;
 
     public Player(){
         //Empty for initial creation
@@ -61,6 +60,26 @@ public class Player implements Parcelable{
         dest.writeInt(achievements);
         dest.writeInt(gamesPlayed);
         dest.writeInt(jenkyCoins);
+    }
+
+    public Player init(JSONObject json) throws JSONException {
+        totalScore = json.getInt("totalScore");
+        avgScore = (int) json.getDouble("avgScore");
+        achievements = json.getInt("achievementCount");
+        gamesPlayed = json.getInt("projectCount");
+        JSONArray equippedItems = json.getJSONArray("equippedItems");
+        for(int i = 0; i < equippedItems.length(); i++){
+            //TODO sort items
+        }
+        return this;
+    }
+
+    public Player initTower(JSONObject json) throws JSONException {
+        JSONArray equippedItems = json.getJSONArray("equippedItems");
+        for(int i = 0; i < equippedItems.length(); i++){
+            //TODO sort items
+        }
+        return this;
     }
 
     @Override

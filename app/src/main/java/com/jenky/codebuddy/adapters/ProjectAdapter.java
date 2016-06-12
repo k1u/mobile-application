@@ -8,13 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.models.Project;
-import com.jenky.codebuddy.util.Converters;
+import com.jenky.codebuddy.util.Utilities;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Jason on 26-Apr-16.
- */
+
 public class ProjectAdapter extends ArrayAdapter {
     public ProjectAdapter(Context context, int resource, List<Project> items) {
         super(context, resource, items);
@@ -38,7 +36,7 @@ public class ProjectAdapter extends ArrayAdapter {
         }
 
         viewHolder.name.setText(project.getName());
-        viewHolder.createdOn.setText(Converters.ddMMyyyyToString(project.getCreatedOn()));
+        viewHolder.createdOn.setText(Utilities.ddMMyyyyToString(project.getCreatedOn()));
         viewHolder.members.setText(String.format(Locale.getDefault(), "%d", project.getMembers()));
         return convertView;
     }

@@ -1,8 +1,5 @@
 package com.jenky.codebuddy.custom;
 
-/**
- * Created by JTLie on 20-5-2016.
- */
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;

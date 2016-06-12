@@ -2,25 +2,17 @@ package com.jenky.codebuddy.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
-
-
+import android.widget.RelativeLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Locale;
 
-/**
- * Created by Jason on 26-Apr-16.
- */
-public class Converters {
+public class Utilities {
 
-    private Context context;
+    private Utilities() {
 
-    public Converters(Context context) {
-        this.context = context;
     }
 
     public static String ddMMyyyyToString(Calendar calendar) {
@@ -28,23 +20,22 @@ public class Converters {
         return df.format(calendar.getTime());
     }
 
-    public static Calendar stringToddMMYYYY(String string) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Calendar cal = Calendar.getInstance();
-        try {
-            cal.setTime(format.parse(string));
-        } catch (Exception e) {
-            Log.e("Converters", e.toString());
-        }
-        return cal;
-    }
 
-    public int getInDp(int value){
+    public static int getInDp(Context context, int value){
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return Math.round(value * displayMetrics.density);
     }
 
-
+    public static RelativeLayout.LayoutParams getLayoutParams(Context context, int width, int height, int marginLeft, int marginTop, int marginRight, int marginBottom) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getInDp(context, width), getInDp(context, height));
+        params.setMargins(
+                getInDp(context, marginLeft),
+                getInDp(context, marginTop),
+                getInDp(context, marginRight),
+                getInDp(context, marginBottom)
+        );
+        return params;
+    }
 }
