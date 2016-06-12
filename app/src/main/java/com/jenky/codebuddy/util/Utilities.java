@@ -2,15 +2,11 @@ package com.jenky.codebuddy.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
-
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Locale;
 
 /**
@@ -27,16 +23,6 @@ public class Utilities {
         return df.format(calendar.getTime());
     }
 
-    public static Calendar stringToddMMYYYY(String string) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        Calendar cal = Calendar.getInstance();
-        try {
-            cal.setTime(format.parse(string));
-        } catch (Exception e) {
-            Log.e("Utilities", e.toString());
-        }
-        return cal;
-    }
 
     public static int getInDp(Context context, int value){
         DisplayMetrics displayMetrics = new DisplayMetrics();

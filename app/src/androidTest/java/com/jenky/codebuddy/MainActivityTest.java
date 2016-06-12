@@ -1,31 +1,25 @@
 package com.jenky.codebuddy;
 
-import android.support.test.espresso.ViewAssertion;
+
 import android.support.test.espresso.assertion.PositionAssertions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.runner.AndroidJUnit4;
-
-import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.core.deps.guava.base.Predicates.instanceOf;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.core.AllOf.allOf;
 
 
 /**
@@ -59,6 +53,7 @@ public class MainActivityTest {
         checkProfileContent();
         checkProfileLayout();
         checkCommit();
+
     }
 
     @Test
@@ -68,6 +63,18 @@ public class MainActivityTest {
         checkEquipmentContent();
         checkEquipmentLayout();
         checkEquipmentClickable();
+    }
+
+    @Test
+    public void testAchievements() {
+        openAchievements();
+        checkAchievement();
+    }
+
+    @Test
+    public void testProjects() {
+        openProjects();
+        checkProject();
     }
 
     private void openNavigationMenu() {
@@ -207,16 +214,71 @@ public class MainActivityTest {
     private void checkCommit() {
         onData(anything())
                 .inAdapterView(withId(R.id.result_list_view))
-                .atPosition(0).onChildView(withId(R.id.project_label)).check(ViewAssertions.matches(withText(R.string.project_name)));
+                .atPosition(0).onChildView(withId(R.id.project_label))
+                .check(ViewAssertions.matches(withText(R.string.project_name)));
         onData(anything())
                 .inAdapterView(withId(R.id.result_list_view))
-                .atPosition(0).onChildView(withId(R.id.score_label)).check(ViewAssertions.matches(withText(R.string.score)));
+                .atPosition(0).onChildView(withId(R.id.score_label))
+                .check(ViewAssertions.matches(withText(R.string.score)));
         onData(anything())
                 .inAdapterView(withId(R.id.result_list_view))
-                .atPosition(0).onChildView(withId(R.id.branch_label)).check(ViewAssertions.matches(withText(R.string.branch)));
+                .atPosition(0).onChildView(withId(R.id.branch_label))
+                .check(ViewAssertions.matches(withText(R.string.branch)));
         onData(anything())
                 .inAdapterView(withId(R.id.result_list_view))
-                .atPosition(0).onChildView(withId(R.id.date_label)).check(ViewAssertions.matches(withText(R.string.commited_on)));
+                .atPosition(0).onChildView(withId(R.id.date_label))
+                .check(ViewAssertions.matches(withText(R.string.commited_on)));
+
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.project_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.score_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.branch_label))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.date_label))
+                .check(matches(isCompletelyDisplayed()));
     }
 
+    private void checkAchievement() {
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.image))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.name))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.description))
+                .check(matches(isCompletelyDisplayed()));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.completion))
+                .check(matches(isCompletelyDisplayed()));
+    }
+
+
+    private void checkProject() {
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.created_on_label))
+                .check(ViewAssertions.matches(withText(R.string.created_on)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.members_label))
+                .check(ViewAssertions.matches(withText(R.string.members)));
+        onData(anything())
+                .inAdapterView(withId(R.id.result_list_view))
+                .atPosition(0).onChildView(withId(R.id.created_on_label))
+                .check(matches(isCompletelyDisplayed()));
+    }
 }

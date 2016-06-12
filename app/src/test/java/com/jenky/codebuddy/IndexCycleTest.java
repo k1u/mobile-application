@@ -1,11 +1,8 @@
 package com.jenky.codebuddy;
 
 import android.content.Context;
-
-import com.jenky.codebuddy.models.Tower;
-
+import com.jenky.codebuddy.ui.fragments.EquipmentFragment;
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,15 +15,13 @@ public class IndexCycleTest {
 
     @Mock
     Context mMockContext;
-    int[] scores     = {689 , 5754, 5656, 4595,  988357,  986849,  94585685,  8372688,  952301,  3215,  784369,  987895};
-    int[] highScores = {1455, 7642, 9483, 5920, 4789984, 5475677, 767896978, 90867070, 6799679, 35636, 1546478, 7675869};
-    int[] heights    = {   6,   57,   56,   45,      49,      43,        29,       22,      33,    16,     120,      30};
 
 
     @Test
-    public void calculateTowerHeight() {
-        for(int i = 0; i < scores.length; i++){
-            Assert.assertEquals(Tower.CalculateHeight(scores[i], highScores[i]), heights[i]);
-        }
+    public void indexValidation() {
+            Assert.assertTrue(EquipmentFragment.changeIndex(30, 30, 1) == 0);
+            Assert.assertTrue(EquipmentFragment.changeIndex(50, 78, 1) == 51);
+            Assert.assertTrue(EquipmentFragment.changeIndex(0, 20, -1) == 19);
+            Assert.assertTrue(EquipmentFragment.changeIndex(10, 57, -1) == 9);
     }
 }

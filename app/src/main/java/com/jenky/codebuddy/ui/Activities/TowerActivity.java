@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
@@ -21,20 +20,16 @@ import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
 import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
-
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class TowerActivity extends AppCompatActivity {
-
 
     private static final int TOWER_PER_BACKGROUND = 7;
     private static final int TOWER_MAGRIN_LEFT = 20;
@@ -72,7 +67,7 @@ public class TowerActivity extends AppCompatActivity {
         TestData.addTestTowers(towers);
         //TODO move draw Activity to towerCallback  success
         drawActivity();
-        Request.getRequest(null).getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
+        Request.getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
     private void setViews() {
@@ -141,8 +136,11 @@ public class TowerActivity extends AppCompatActivity {
             Tower tower = towers.get(i);
             LinearLayout towerLayout = getTowerLayout();
             towerLayout.addView(drawAvatar(towers.get(i).getPlayer()));
+            ImageView blockImage = getTowerBlock(tower.getPlayer().getBlock().getImage());
             for (int j = 0; j < tower.getHeight(); j++) {
-                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock().getImage()));
+                ImageView block = new ImageView(this);
+                block.setImageDrawable(blockImage.getDrawable());
+                towerLayout.addView(block);
             }
             globalTowerLayout.addView(towerLayout);
         }
@@ -154,8 +152,7 @@ public class TowerActivity extends AppCompatActivity {
         ImageView head = new ImageView(this);
         ImageView shirt = new ImageView(this);
         ImageView legs = new ImageView(this);
-        Picasso.with(this)
-                .load(player.getHead().getImage())
+        Picasso.with(this).load(player.getHead().getImage())
                 .fit()
                 .placeholder(R.drawable.default_head)
                 .into(head);
@@ -208,7 +205,6 @@ public class TowerActivity extends AppCompatActivity {
 
 
     private ImageView getTowerBlock(String blockUrl) {
-
         ImageView block = new ImageView(this);
         block.setLayoutParams(Utilities.getLayoutParams(this, 45, 16, 0, 0, 0, 0));
         Picasso.with(this)
@@ -216,7 +212,6 @@ public class TowerActivity extends AppCompatActivity {
                 .fit()
                 .placeholder(R.drawable.test_block)
                 .into(block);
-
         return block;
     }
 

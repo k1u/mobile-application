@@ -16,14 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
 import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.Utilities;
 import com.jenky.codebuddy.util.IntentFactory;
 import com.jenky.codebuddy.util.Preferences;
 

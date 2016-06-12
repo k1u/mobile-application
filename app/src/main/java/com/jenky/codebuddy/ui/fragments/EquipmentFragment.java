@@ -11,17 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -46,36 +43,38 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
     private ArrayList<ImageView> legsImages = new ArrayList<>();
     private ArrayList<ImageView> blockImages = new ArrayList<>();
 
-    private LinearLayout helmetLayout,
-            shirtLayout,
-            legsLayout,
-            blockLayout;
+    private LinearLayout helmetLayout;
+    private LinearLayout shirtLayout;
+    private LinearLayout legsLayout;
+    private LinearLayout blockLayout;
 
-    private int helmetIndex = 0,
-            shirtIndex = 0,
-            legsIndex = 0,
-            blockIndex = 0;
+    private int helmetIndex = 0;
+    private int shirtIndex = 0;
+    private int legsIndex = 0;
+    private int blockIndex = 0;
 
 
     private Callback getEquipmentCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
             //TODO fill itemArrayList
+            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
         }
 
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
         }
     };
 
     private Callback setEquipmentCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            //TODO notify user
-        }
+            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);        }
 
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
         }
 
     };
@@ -87,7 +86,8 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 false);
         //TODO remove getItems
         getItems();
-        Request.getRequest(null).getEquipment(getEquipmentCallback);
+        getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+        Request.getEquipment(getEquipmentCallback);
         setViews(rootView);
         setOnclickListeners();
         //TODO move createImages() to getEquipmentCallback success
@@ -163,7 +163,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         blockLayout = (LinearLayout) rootView.findViewById(R.id.block_layout);
     }
 
-    private void setOnclickListeners(){
+    private void setOnclickListeners() {
         helmetPrevious.setOnClickListener(this);
         shirtPrevious.setOnClickListener(this);
         legsPrevious.setOnClickListener(this);
@@ -186,42 +186,43 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         int id = v.getId();
         switch (id) {
             case R.id.helmet_previous:
-                helmetIndex = ((helmetIndex-1) < 0) ? helmetImages.size() - 1: helmetIndex - 1;
+                helmetIndex = changeIndex(helmetIndex, helmetImages.size(), -1);
                 replaceImage(helmetLayout, helmetImages.get(helmetIndex));
                 break;
             case R.id.helmet_next:
-                helmetIndex = ((helmetIndex+1) == helmetImages.size()) ? 0 : helmetIndex + 1;
+                helmetIndex = changeIndex(helmetIndex, helmetImages.size(), 1);
                 replaceImage(helmetLayout, helmetImages.get(helmetIndex));
                 break;
             case R.id.shirt_previous:
-                shirtIndex = ((shirtIndex-1) < 0) ? shirtImages.size() - 1: shirtIndex - 1;
+                shirtIndex = changeIndex(shirtIndex, shirtImages.size(), -1);
                 replaceImage(shirtLayout, shirtImages.get(shirtIndex));
                 break;
             case R.id.shirt_next:
-                shirtIndex = ((shirtIndex+1) == shirtImages.size()) ? 0: shirtIndex + 1;
+                shirtIndex = changeIndex(shirtIndex, shirtImages.size(), 1);
                 replaceImage(shirtLayout, shirtImages.get(shirtIndex));
                 break;
             case R.id.legs_previous:
-                legsIndex = ((legsIndex-1) < 0) ? legsImages.size() - 1: legsIndex - 1;
+                legsIndex = changeIndex(legsIndex, legsImages.size(), -1);
                 replaceImage(legsLayout, legsImages.get(legsIndex));
                 break;
             case R.id.legs_next:
-                legsIndex = ((legsIndex+1) == legsImages.size()) ?  0: legsIndex + 1;
+                legsIndex = changeIndex(legsIndex, legsImages.size(), 1);
                 replaceImage(legsLayout, legsImages.get(legsIndex));
                 break;
             case R.id.block_previous:
-                blockIndex = ((blockIndex-1) < 0) ? blockImages.size() - 1: blockIndex - 1;
+                blockIndex = changeIndex(blockIndex, blockImages.size(), -1);
                 replaceImage(blockLayout, blockImages.get(blockIndex));
                 break;
             case R.id.block_next:
-                blockIndex = ((blockIndex+1) == blockImages.size()) ?  0: blockIndex + 1;
+                blockIndex = changeIndex(blockIndex, blockImages.size(), 1);
                 replaceImage(blockLayout, blockImages.get(blockIndex));
                 break;
             case R.id.cancel:
                 getDialog().cancel();
                 break;
             case R.id.apply:
-                Request.getRequest(null).setEquipment(setEquipmentCallback,
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                Request.setEquipment(setEquipmentCallback,
                         helmetLayout.getChildAt(0).getTag().toString(),
                         shirtLayout.getChildAt(0).getTag().toString(),
                         legsLayout.getChildAt(0).getTag().toString(),
@@ -229,7 +230,16 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 getDialog().cancel();
                 break;
         }
-
     }
 
+    public static int changeIndex(int index, int size, int sum){
+        int newIndex = index + sum;
+        if(newIndex >= size){
+            return 0;
+        }else if (newIndex < 0){
+            return size - 1;
+        }else{
+            return newIndex;
+        }
+    }
 }

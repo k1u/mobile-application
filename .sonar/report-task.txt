@@ -1,5 +1,5 @@
-projectKey=myproject
+projectKey=codebuddy
 serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/myproject
-ceTaskId=AVU616gdRCCUvsAU0QMA
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVU616gdRCCUvsAU0QMA
+dashboardUrl=http://localhost:9000/dashboard/index/codebuddy
+ceTaskId=AVVFlErneCoVEfG3SfqH
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVVFlErneCoVEfG3SfqH

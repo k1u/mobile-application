@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
@@ -115,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (checkPassword()) {
-                    Request.getRequest(progressBar).setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
+                    Request.setVerify(verifyCallback, editTextCode.getText().toString(), editTextPassword.getText().toString());
                     progressBar.setVisibility(View.VISIBLE);
                 }
             }
@@ -188,7 +187,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sendEmail() {
         if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
-            Request.getRequest(progressBar).getSignUp(codeCallback, editTextEmail.getText().toString());
+            Request.getSignUp(codeCallback, editTextEmail.getText().toString());
             progressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, R.string.invalid_mail, Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +27,11 @@ public class Player implements Parcelable{
     private Item shirt = new Item();
     private Item legs  = new Item();
     private Item block = new Item();
-    private int totalScore;
-    private int avgScore;
-    private int achievements;
-    private int gamesPlayed;
-    private int jenkyCoins;
+    private int totalScore = 0;
+    private int avgScore = 0;
+    private int achievements  = 0;
+    private int gamesPlayed = 0;
+    private int jenkyCoins = 0;
 
     public Player(){
         //Empty for initial creation
@@ -74,7 +73,14 @@ public class Player implements Parcelable{
         gamesPlayed = json.getInt("projectCount");
         JSONArray equippedItems = json.getJSONArray("equippedItems");
         for(int i = 0; i < equippedItems.length(); i++){
-            JSONObject item = equippedItems.getJSONObject(i);
+            //TODO sort items
+        }
+        return this;
+    }
+
+    public Player initTower(JSONObject json) throws JSONException {
+        JSONArray equippedItems = json.getJSONArray("equippedItems");
+        for(int i = 0; i < equippedItems.length(); i++){
             //TODO sort items
         }
         return this;

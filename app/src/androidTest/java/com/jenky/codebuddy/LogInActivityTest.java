@@ -4,15 +4,12 @@ import android.support.test.espresso.assertion.PositionAssertions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.runner.AndroidJUnit4;
 import com.jenky.codebuddy.ui.activities.LogInActivity;
-import com.jenky.codebuddy.util.AppController;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -27,10 +24,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class LogInActivityTest {
 
 
+
+
+
     @Rule public ActivityRule<LogInActivity> activityRule = new ActivityRule<>(LogInActivity.class);
+
     @Test
     public void  logInTest(){
-        AppController.getInstance().getPreferences().reset();
         checkLoginContent();
         checkLogInPositions();
         logIn();
@@ -58,11 +58,11 @@ public class LogInActivityTest {
 
     public static void logIn(){
         onView(withId(R.id.email))
-                .perform(typeText("jtlie@live.nl"));
-        closeSoftKeyboard();
+                .perform(typeText("f.fremouw@gmail.com"));
+        onView(withId(R.id.email)).perform(pressKey(66));
         onView(withId(R.id.password))
-                .perform(typeText("jasonlie"));
-        closeSoftKeyboard();
+                .perform(typeText("kappa"));
+        onView(withId(R.id.password)).perform(pressKey(66));
         onView(withId(R.id.log_in))
                 .perform(click());
         ActivityRule.matchToolbarTitle("Profile")
