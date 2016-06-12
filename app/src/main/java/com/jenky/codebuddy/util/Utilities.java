@@ -9,9 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created by Jason on 26-Apr-16.
- */
 public class Utilities {
 
     private Utilities() {

@@ -1,8 +1,5 @@
 package com.jenky.codebuddy.util;
 
-/**
- * Created by JTLie on 31-5-2016.
- */
 
 import android.app.Application;
 import android.content.Context;

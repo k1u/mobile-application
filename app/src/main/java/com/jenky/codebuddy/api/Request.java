@@ -16,14 +16,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by JTLie on 31-5-2016.
- */
 public class Request {
     public static final String API = "Https://Codebuddyjenky.herokuapp.com/";
     private Request(){
         //Prevent instantiation
     }
+
+    /**
+     *  Adds a request to be executed to the Volley RequestQueue
+     * @param methodId method the the request
+     * @param url URL which the request should be sent to
+     * @param callback The callback which contains how the data should be handled
+     * @param extraHeaders Extra headers that should be sent with the request
+     */
     public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders ) {
         //Expect response in json format
         final String tag = "json_obj_req";

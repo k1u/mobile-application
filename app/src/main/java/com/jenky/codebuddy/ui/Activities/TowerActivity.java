@@ -18,7 +18,6 @@ import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
-import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
@@ -47,7 +46,8 @@ public class TowerActivity extends AppCompatActivity {
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
-            //TODO fill tower array
+            //TODO add towers
+            drawActivity();
         }
 
         public void onFailed(JSONObject result) throws JSONException {
@@ -63,10 +63,6 @@ public class TowerActivity extends AppCompatActivity {
         setViews();
         setActionBar();
         scrollDown(vScroll);
-        //TODO remove Test data
-        TestData.addTestTowers(towers);
-        //TODO move draw Activity to towerCallback  success
-        drawActivity();
         Request.getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
@@ -87,7 +83,6 @@ public class TowerActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //Lets user scroll on both axis at the same time
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 xCoordinate = event.getX();
@@ -124,6 +119,10 @@ public class TowerActivity extends AppCompatActivity {
         drawTowers(towers);
     }
 
+    /**
+     * Draws a certain amount of background depending on the amount of towers
+     * @param towerAmount The amount of Towers for this View
+     */
     private void drawBackground(double towerAmount) {
         int backgroundAmount = (int) Math.ceil(towerAmount / TOWER_PER_BACKGROUND);
         for (int i = 0; i < backgroundAmount; i++) {
@@ -131,6 +130,10 @@ public class TowerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Add ImageViews to create the Towers
+     * @param towers List of Tower Objects
+     */
     private void drawTowers(ArrayList<Tower> towers) {
         for (int i = 0; i < towers.size(); i++) {
             Tower tower = towers.get(i);
@@ -146,6 +149,12 @@ public class TowerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets the Images from the Player Object and draws them with
+     * the appropriate parameters.
+     * @param player Player Object it needs to draw
+     * @return The RelativeLayout with the Avatar ImageViews
+     */
     private RelativeLayout drawAvatar(Player player) {
         RelativeLayout avatarLayout = new RelativeLayout(this);
 
@@ -176,6 +185,10 @@ public class TowerActivity extends AppCompatActivity {
         return avatarLayout;
     }
 
+    /**
+     * Create a ImageView which containt the background Image and the appropriate parameters
+     * @return The Background Image
+     */
     private ImageView getBackgroundImage() {
         ImageView background = new ImageView(this);
         background.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -184,6 +197,10 @@ public class TowerActivity extends AppCompatActivity {
         return background;
     }
 
+    /**
+     * @return a LinearLayout with the appropriate params
+     * for the Tower ImageViews to be placed it.
+     */
     private LinearLayout getTowerLayout() {
         LinearLayout linearLayout = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -203,7 +220,11 @@ public class TowerActivity extends AppCompatActivity {
         return linearLayout;
     }
 
-
+    /**
+     * Create a ImageView which contains the right image to build the tower.
+     * @param blockUrl url of the image it should load
+     * @return ImageView which contains the image form the url
+     */
     private ImageView getTowerBlock(String blockUrl) {
         ImageView block = new ImageView(this);
         block.setLayoutParams(Utilities.getLayoutParams(this, 45, 16, 0, 0, 0, 0));

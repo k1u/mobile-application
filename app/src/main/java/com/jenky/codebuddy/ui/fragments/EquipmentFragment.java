@@ -21,9 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-/**
- * Created by JTLie on 25-5-2016.
- */
 public class EquipmentFragment extends DialogFragment implements View.OnClickListener {
 
     private ArrayList<Item> itemList = new ArrayList<>();
@@ -137,8 +134,10 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         return imageView;
     }
 
+    /**
+     * Add the initial Items
+     */
     private void setCurrentEquipment() {
-
         helmetLayout.addView(helmetImages.get(0));
         shirtLayout.addView(shirtImages.get(0));
         legsLayout.addView(legsImages.get(0));
@@ -232,6 +231,13 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         }
     }
 
+    /**
+     * This method makes sure that de Index doesn't exceeds the length of the List.
+     * @param index Current number the index is on
+     * @param size Size of the list the index is based on
+     * @param sum Amount the index should change
+     * @return The new index that should be applied;
+     */
     public static int changeIndex(int index, int size, int sum){
         int newIndex = index + sum;
         if(newIndex >= size){

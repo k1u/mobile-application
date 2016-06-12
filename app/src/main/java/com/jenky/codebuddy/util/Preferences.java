@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-/**
- * Created by Jason on 19-May-16.
- */
 public class Preferences {
     public static final String SESSION_TOKEN = "token";
     public static final String USER_NAME = "user_name";

@@ -26,8 +26,6 @@ import com.jenky.codebuddy.util.IntentFactory;
 import com.jenky.codebuddy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setViews();
         setSupportActionBar(toolbar);
-        setValues();
+        setUsername();
         selectDefaultDrawerItem();
     }
 
@@ -75,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * Create the NavigationView for this Activity.
+     * @param navigationView
+     */
+
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -86,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
+    /**
+     * Open selected Fragment or Activity from Drawer
+     * @param menuItem Selected MenuItem
+     */
     private void selectDrawerItem(MenuItem menuItem) {
         Class fragmentClass;
         if (menuItem.getItemId() == R.id.shop) {
@@ -111,12 +118,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuItem.setChecked(true);
     }
 
+    /**
+     * Select de the Fragment View. This Fragment opens on creation.
+     */
     private void selectDefaultDrawerItem() {
         setFragment(ProfileFragment.class);
         nvDrawer.getMenu().getItem(0).setChecked(true);
         setTitle(R.string.profile);
     }
 
+    /**
+     * Switch Fragment of the Activity.
+     * @param fragmentClass Chosen Fragment
+     */
     private void setFragment(Class fragmentClass) {
         try {
             Fragment fragment = (Fragment) fragmentClass.newInstance();
@@ -133,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+
+
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
@@ -148,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void setValues() {
+    private void setUsername() {
         username =  AppController.getInstance().getPreferences().getUserName();
         usernameTextView.setText(username);
     }

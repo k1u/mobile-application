@@ -12,9 +12,6 @@ import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.ui.activities.ShopActivity;
 import java.util.ArrayList;
 
-/**
- * Created by Jason on 12-May-16.
- */
 public class ShopFragment extends Fragment {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();

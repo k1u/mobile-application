@@ -24,9 +24,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class LogInActivityTest {
 
 
-
-
-
     @Rule public ActivityRule<LogInActivity> activityRule = new ActivityRule<>(LogInActivity.class);
 
     @Test

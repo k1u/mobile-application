@@ -12,9 +12,7 @@ import com.jenky.codebuddy.util.Utilities;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Jason on 26-Apr-16.
- */
+
 public class ProjectAdapter extends ArrayAdapter {
     public ProjectAdapter(Context context, int resource, List<Project> items) {
         super(context, resource, items);

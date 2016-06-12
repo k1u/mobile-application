@@ -6,10 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-/**
- * Created by JTLie on 20-5-2016.
- */
-
 public class Tower implements Parcelable {
     public static final Parcelable.Creator<Tower> CREATOR = new Parcelable.Creator<Tower>() {
         public Tower createFromParcel(Parcel in) {

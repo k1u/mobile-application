@@ -13,9 +13,7 @@ import com.jenky.codebuddy.util.Utilities;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
+
 public class HistoryAdapter extends ArrayAdapter {
     public HistoryAdapter(Context context, int resource, List<Commit> items) {
         super(context, resource, items);

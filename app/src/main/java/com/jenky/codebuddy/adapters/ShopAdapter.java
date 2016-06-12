@@ -8,9 +8,6 @@ import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.ui.fragments.ShopFragment;
 
 
-/**
- * Created by Jason on 12-May-16.
- */
 public class ShopAdapter extends FragmentPagerAdapter {
     static final int PAGE_COUNT = 4;
     private String[] tabTitles;

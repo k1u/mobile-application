@@ -185,6 +185,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return matcher.find();
     }
 
+    /**
+     *  Determines if user input is correct and sends it to the server.
+     */
     private void sendEmail() {
         if (validateRegex(editTextEmail.getText().toString(), emailRegex)) {
             Request.getSignUp(codeCallback, editTextEmail.getText().toString());

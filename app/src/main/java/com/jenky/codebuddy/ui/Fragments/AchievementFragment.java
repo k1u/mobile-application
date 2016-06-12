@@ -13,14 +13,10 @@ import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Achievement;
 import com.jenky.codebuddy.util.AppController;
-import com.jenky.codebuddy.util.TestData;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-/**
- * Created by Jason on 26-Apr-16.
- */
 public class AchievementFragment extends Fragment {
 
     private AchievementAdapter achievementAdapter;
@@ -38,8 +34,6 @@ public class AchievementFragment extends Fragment {
         public void onFailed(JSONObject result) throws JSONException {
             if(getActivity() != null) {
                 Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-                //TODO remove test
-                TestData.addTestAchievements(achievements);
                 achievementAdapter.notifyDataSetChanged();
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }

@@ -6,9 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Calendar;
 
-/**
- * Created by JTLie on 25-4-2016.
- */
 
 public class Project implements Parcelable {
     public static final Parcelable.Creator<Project> CREATOR = new Parcelable.Creator<Project>() {

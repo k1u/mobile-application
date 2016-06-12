@@ -22,7 +22,6 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
-import com.jenky.codebuddy.util.TestData;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -47,13 +46,6 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-            //TODO remove setTabs
-            TestData.addTestHelmets(items);
-            TestData.addTestShirts(items);
-            TestData.addTestLegs(items);
-            TestData.addTestBlocks(items);
-            jenkyCoins.setText("78643423432432432");
-            setTabs();
             progressBar.setVisibility(View.INVISIBLE);
         }
 
@@ -65,7 +57,6 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
             tabLayout.setupWithViewPager(viewPager);
         }
     };
-
 
     private static Callback purchaseCallback = new Callback() {
         @Override

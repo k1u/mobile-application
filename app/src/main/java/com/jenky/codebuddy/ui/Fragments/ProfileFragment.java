@@ -21,16 +21,12 @@ import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
-import com.jenky.codebuddy.util.TestData;
 import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private HistoryAdapter historyAdapter;
@@ -48,7 +44,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private View rootView;
     private Player player;
 
-
     private Callback playerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
@@ -62,14 +57,13 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         public void onFailed(JSONObject result) throws JSONException {
             if(getActivity() != null) {
                 Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-                //TODO remove test data
-                player = TestData.testPlayer();
-                TestData.addTestCommits(commits);
                 historyAdapter.notifyDataSetChanged();
                 addStats();
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }
+
+
 
         private void addStats() {
             totalScoreValue.setText(Integer.toString(player.getTotalScore()));
@@ -79,6 +73,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             setAvatar();
         }
 
+        /**
+         * Create the Avatar of the player.
+         * It places the ImagesViews at the in the right places.
+         */
         private void setAvatar() {
             head = new ImageView(getActivity());
             shirt = new ImageView(getActivity());
@@ -106,6 +104,29 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             avatar.addView(legs);
         }
 
+    };
+
+    private Callback equipmentCallback = new Callback() {
+        @Override
+        public void onSuccess(JSONObject result) throws JSONException {
+            if (getActivity() != null) {
+                //TODO add items to itemList
+                EquipmentFragment equipmentFragment = new EquipmentFragment();
+                FragmentManager fm = getFragmentManager();
+                Bundle args = new Bundle();
+                args.putParcelableArrayList("items", itemList);
+                equipmentFragment.setArguments(args);
+                equipmentFragment.show(fm, "Dialog Fragment");
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
+
+        public void onFailed(JSONObject result) throws JSONException {
+            if (getActivity() != null) {
+                Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
     };
 
     @Override
@@ -151,18 +172,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private void setOnClickListeners() {
         avatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                //TODO remove tests
-                TestData.addTestHelmets(itemList);
-                TestData.addTestShirts(itemList);
-                TestData.addTestLegs(itemList);
-                TestData.addTestBlocks(itemList);
-
-                EquipmentFragment equipmentFragment = new EquipmentFragment();
-                FragmentManager fm = getFragmentManager();
-                Bundle args = new Bundle();
-                args.putParcelableArrayList("items", itemList);
-                equipmentFragment.setArguments(args);
-                equipmentFragment.show(fm, "Dialog Fragment");
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                Request.getEquipment(equipmentCallback);
             }
         });
     }
