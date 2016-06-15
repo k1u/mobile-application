@@ -29,6 +29,8 @@ public class Request {
      * @param callback The callback which contains how the data should be handled
      * @param extraHeaders Extra headers that should be sent with the request
      */
+
+
     public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders ) {
         //Expect response in json format
         final String tag = "json_obj_req";
@@ -141,7 +143,7 @@ public class Request {
 
     public static void getTowers(Callback callback, int projectId) {
         executeRequest(Method.GET,
-                API +"project/"+projectId,
+                API +"projects/"+projectId,
                 callback,
                 null
                 );

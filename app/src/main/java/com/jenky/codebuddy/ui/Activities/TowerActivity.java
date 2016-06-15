@@ -161,7 +161,7 @@ public class TowerActivity extends AppCompatActivity {
         ImageView head = new ImageView(this);
         ImageView shirt = new ImageView(this);
         ImageView legs = new ImageView(this);
-        Picasso.with(this).load(player.getHead().getImage())
+        Picasso.with(this).load(player.getHelmet().getImage())
                 .fit()
                 .placeholder(R.drawable.default_head)
                 .into(head);

@@ -32,7 +32,9 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
             //TODO add projects to arrayList
-            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            if(getActivity() != null) {
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

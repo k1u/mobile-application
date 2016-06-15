@@ -48,7 +48,11 @@ public class Item implements Parcelable {
     }
 
     public Item init(JSONObject json) throws JSONException {
-
+        id = json.getInt("id");
+        name = json.getString("name");
+        type = json.getString("type");
+        image = json.getString("image");
+        price = json.getInt("price");
         return this;
     }
 

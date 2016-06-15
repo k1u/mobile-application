@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             shirt = new ImageView(getActivity());
             legs = new ImageView(getActivity());
             Picasso.with(getActivity())
-                    .load(player.getHead().getImage())
+                    .load(player.getHelmet().getImage())
                     .fit()
                     .placeholder(R.drawable.default_head)
                     .into(head);

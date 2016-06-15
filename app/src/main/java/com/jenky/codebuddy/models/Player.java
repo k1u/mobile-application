@@ -2,6 +2,8 @@ package com.jenky.codebuddy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +21,7 @@ public class Player implements Parcelable{
 
     private int id;
     private String name;
-    private Item head = new Item();
+    private Item helmet = new Item();
     private Item shirt = new Item();
     private Item legs  = new Item();
     private Item block = new Item();
@@ -36,7 +38,7 @@ public class Player implements Parcelable{
     public Player(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        head = in.readParcelable(Item.class.getClassLoader());
+        helmet = in.readParcelable(Item.class.getClassLoader());
         shirt = in.readParcelable(Item.class.getClassLoader());
         legs = in.readParcelable(Item.class.getClassLoader());
         block = in.readParcelable(Item.class.getClassLoader());
@@ -51,7 +53,7 @@ public class Player implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeParcelable(head, 0);
+        dest.writeParcelable(helmet, 0);
         dest.writeParcelable(shirt, 0);
         dest.writeParcelable(legs, 0);
         dest.writeParcelable(block, 0);
@@ -68,18 +70,37 @@ public class Player implements Parcelable{
         achievements = json.getInt("achievementCount");
         gamesPlayed = json.getInt("projectCount");
         JSONArray equippedItems = json.getJSONArray("equippedItems");
-        for(int i = 0; i < equippedItems.length(); i++){
-            //TODO sort items
-        }
+        setEquipment(equippedItems);
         return this;
     }
 
     public Player initTower(JSONObject json) throws JSONException {
         JSONArray equippedItems = json.getJSONArray("equippedItems");
-        for(int i = 0; i < equippedItems.length(); i++){
-            //TODO sort items
-        }
+        setEquipment(equippedItems);
         return this;
+    }
+
+    public void setEquipment(JSONArray equippedItems) throws JSONException {
+        for(int i = 0; i < equippedItems.length(); i++){
+            Item item = new Item();
+            item.init(equippedItems.getJSONObject(i));
+            switch(item.getType()){
+                case "helmet":
+                    helmet = item;
+                    break;
+                case "shirt":
+                    shirt = item;
+                    break;
+                case "legs":
+                    legs = item;
+                    break;
+                case "block":
+                    block = item;
+                    break;
+                default:
+                    Log.e("Equipment Error", "Unknown equipment type");
+            }
+        }
     }
 
     @Override
@@ -103,12 +124,12 @@ public class Player implements Parcelable{
         this.name = name;
     }
 
-    public Item getHead() {
-        return head;
+    public Item getHelmet() {
+        return helmet;
     }
 
-    public void setHead(Item head) {
-        this.head = head;
+    public void setHelmet(Item helmet) {
+        this.helmet = helmet;
     }
 
     public Item getShirt() {
