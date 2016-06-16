@@ -1,5 +1,6 @@
 package com.jenky.codebuddy.ui.activities;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.jenky.codebuddy.util.Utilities;
 import com.squareup.picasso.Picasso;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -43,15 +45,18 @@ public class TowerActivity extends AppCompatActivity {
     private LinearLayout globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
     private Toolbar toolbar;
+    ProgressBar progressBar;
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) {
             //TODO add towers
             drawActivity();
+            progressBar.setVisibility(View.INVISIBLE);
         }
-
+        @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
         }
     };
 
@@ -72,7 +77,8 @@ public class TowerActivity extends AppCompatActivity {
         backgroundLinearLayout = (LinearLayout) findViewById(R.id.linear_layout_backgrounds);
         globalTowerLayout = (LinearLayout) findViewById(R.id.linear_layout_towers);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void setActionBar() {

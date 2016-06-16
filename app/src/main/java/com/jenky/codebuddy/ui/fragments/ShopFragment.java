@@ -16,10 +16,14 @@ public class ShopFragment extends Fragment {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> items = new ArrayList<>();
     private ListView resultListView;
-    private String type;
+    private String fragmentType;
+
+    public ShopFragment( ) {
+
+    }
 
     public ShopFragment(String type) {
-        this.type = type;
+        this.fragmentType = type;
     }
 
     @Override
@@ -33,12 +37,17 @@ public class ShopFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setItems();
+
+    }
+
+    private void setItems(){
         itemAdapter = new ItemAdapter(getContext(), R.layout.component_item, items);
         resultListView.setAdapter(itemAdapter);
         items.clear();
         ShopActivity activity = (ShopActivity) getActivity();
         for(int i = 0; i < activity.getItems().size(); i++) {
-            if(type == activity.getItems().get(i).getType()){
+            if(fragmentType.equalsIgnoreCase(activity.getItems().get(i).getType())){
                 items.add(activity.getItems().get(i));
             }
         }

@@ -21,7 +21,7 @@ public class Achievement implements Parcelable{
     private String image;
     private String description;
     private String reward;
-    private double complete;
+    private double progress;
 
     public Achievement() {
         //Empty for initial creation
@@ -33,7 +33,7 @@ public class Achievement implements Parcelable{
         image = in.readString();
         description = in.readString();
         reward = in.readString();
-        complete = in.readDouble();
+        progress = in.readDouble();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Achievement implements Parcelable{
         dest.writeString(image);
         dest.writeString(description);
         dest.writeString(reward);
-        dest.writeDouble(complete);
+        dest.writeDouble(progress);
     }
 
     @Override
@@ -52,6 +52,10 @@ public class Achievement implements Parcelable{
     }
 
     public Achievement init(JSONObject json) throws JSONException {
+        id =json.getInt("id");
+        name =json.getString("name");
+        description =json.getString("description");
+        progress =json.getDouble("progress");
         return this;
     }
 
@@ -96,10 +100,10 @@ public class Achievement implements Parcelable{
     }
 
     public double getComplete_percentage() {
-        return complete;
+        return progress;
     }
 
     public void setComplete_percentage(double completePercentage) {
-        this.complete = completePercentage;
+        this.progress = completePercentage;
     }
 }

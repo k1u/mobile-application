@@ -37,7 +37,7 @@ public class HistoryAdapter extends ArrayAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.project.setText(commit.getName());
+        viewHolder.project.setText(commit.getProjectName());
         viewHolder.score.setText(String.format(Locale.getDefault(), "%d", commit.getScore()));
         viewHolder.branch.setText(commit.getBranch());
         viewHolder.createdOn.setText(Utilities.ddMMyyyyToString(commit.getCreatedOn()));

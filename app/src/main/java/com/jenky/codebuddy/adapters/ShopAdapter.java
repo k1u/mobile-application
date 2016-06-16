@@ -11,15 +11,17 @@ import com.jenky.codebuddy.ui.fragments.ShopFragment;
 public class ShopAdapter extends FragmentPagerAdapter {
     static final int PAGE_COUNT = 4;
     private String[] tabTitles;
+    private Context context;
     public ShopAdapter(FragmentManager fm, Context context) {
             super(fm);
 
         this.tabTitles = new String[] {
-                context.getString(R.string.helmets),
+                context.getString(R.string.helmets) ,
                 context.getString(R.string.shirts),
                 context.getString(R.string.legs),
                 context.getString(R.string.blocks)
         };
+        this.context = context;
     }
 
     @Override
@@ -29,19 +31,9 @@ public class ShopAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch(position){
-            case 0:
-                return new ShopFragment("helmet");
-            case 1:
-                return new ShopFragment("shirt");
-            case 2:
-                return new ShopFragment("legs");
-            case 3:
-                return new ShopFragment("block");
-            default:
-                return new ShopFragment("helmet");
-        }
+                return new ShopFragment(tabTitles[position]);
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position

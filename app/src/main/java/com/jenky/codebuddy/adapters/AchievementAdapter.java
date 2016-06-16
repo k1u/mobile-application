@@ -28,7 +28,7 @@ public class AchievementAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.component_achievement, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
-            viewHolder.completion = (TextView) convertView.findViewById(R.id.completion);
+            viewHolder.progress = (TextView) convertView.findViewById(R.id.progess);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
             convertView.setTag(viewHolder);
         } else {
@@ -36,14 +36,14 @@ public class AchievementAdapter extends ArrayAdapter {
         }
         viewHolder.name.setText(achievement.getName());
         viewHolder.description.setText(achievement.getDescription());
-        viewHolder.completion.setText(String.format(Locale.getDefault(),"%.2f", achievement.getComplete_percentage()));
+        viewHolder.progress.setText(String.format(Locale.getDefault(),"%.2f", achievement.getComplete_percentage())+"%");
         return convertView;
     }
 
     private static class ViewHolder {
         TextView name;
         TextView description;
-        TextView completion;
+        TextView progress;
         ImageView image;
     }
 }

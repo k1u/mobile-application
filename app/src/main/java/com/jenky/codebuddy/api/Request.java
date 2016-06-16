@@ -2,6 +2,7 @@ package com.jenky.codebuddy.api;
 
 import android.util.Log;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
@@ -11,29 +12,33 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.util.AppController;
 import com.android.volley.Request.Method;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Request {
     public static final String API = "Https://Codebuddyjenky.herokuapp.com/";
-    private Request(){
+
+    private Request() {
         //Prevent instantiation
     }
 
     /**
-     *  Adds a request to be executed to the Volley RequestQueue
-     * @param methodId method the the request
-     * @param url URL which the request should be sent to
-     * @param callback The callback which contains how the data should be handled
+     * Adds a request to be executed to the Volley RequestQueue
+     *
+     * @param methodId     method the the request
+     * @param url          URL which the request should be sent to
+     * @param callback     The callback which contains how the data should be handled
      * @param extraHeaders Extra headers that should be sent with the request
      */
 
 
-    public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders ) {
+    public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders, String tag) {
         //Expect response in json format
-        final String tag = "json_obj_req";
+
         Log.i("Request", methodId + ": " + url);
         final JsonObjectRequest jsonObjReq = new JsonObjectRequest(methodId, url, null,
                 new Response.Listener<JSONObject>() {
@@ -42,7 +47,7 @@ public class Request {
                         try {
                             if (response.getInt("responseCode") == 200) {
                                 callback.onSuccess(response);
-                            }else {
+                            } else {
                                 callback.onFailed(response);
                             }
                         } catch (JSONException e) {
@@ -74,15 +79,14 @@ public class Request {
             }
         };
         jsonObjReq.setRetryPolicy(new
-                        DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+                DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
         );
-        AppController.getInstance().
-
-                addToRequestQueue(jsonObjReq, tag);
+        AppController.getInstance().cancelPendingRequests(tag);
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag);
     }
 
     public static void getLogIn(Callback callback, String email, String password) {
@@ -92,16 +96,17 @@ public class Request {
         executeRequest(Method.POST,
                 API + "login",
                 callback,
-                credentials
-                );
+                credentials,
+                "log_in");
     }
 
-    public static void getProfile(Callback callback ) {
+    public static void getProfile(Callback callback) {
         executeRequest(Method.GET,
                 API + "profile",
                 callback,
-                null
-                );
+                null,
+                "get_profile"
+        );
     }
 
     public static void getSignUp(Callback callback, String email) {
@@ -110,8 +115,9 @@ public class Request {
         executeRequest(Method.POST,
                 API + "signup",
                 callback,
-                credentials
-                );
+                credentials,
+                "get_sign_up"
+        );
     }
 
     public static void setVerify(Callback callback, String code, String password) {
@@ -121,63 +127,72 @@ public class Request {
         executeRequest(Method.POST,
                 API + "signup/verify",
                 callback,
-                verification
-                );
+                verification,
+                "set_verify"
+        );
     }
 
     public static void getAchievements(Callback callback) {
         executeRequest(Method.GET,
-                API +"achievements",
+                API + "achievements",
                 callback,
-                null
-                );
+                null,
+                "get_achievements"
+        );
     }
 
     public static void getProjects(Callback callback) {
         executeRequest(Method.GET,
-                API +"projects",
+                API + "projects",
                 callback,
-                null );
+                null,
+                "get_projects"
+        );
     }
 
 
     public static void getTowers(Callback callback, int projectId) {
         executeRequest(Method.GET,
-                API +"projects/"+projectId,
+                API + "projects/" + projectId,
                 callback,
-                null
-                );
+                null,
+                "get_towers"
+        );
     }
 
     public static void getPurchase(Callback callback, int itemId) {
-        executeRequest(Method.GET,
-                API +"shop/buy/"+itemId,
+        executeRequest(Method.POST,
+                API + "shop/buy/" + itemId,
                 callback,
-                null
-                );
+                null,
+                "get_purchase"
+        );
     }
 
     public static void getShop(Callback callback) {
         executeRequest(Method.GET,
-                API +"shop",
+                API + "shop",
                 callback,
-                null
-                );
+                null,
+                "get_shop"
+        );
     }
 
     public static void getEquipment(Callback callback) {
         executeRequest(Method.GET,
-                API +"equipment",
+                API + "equipment",
                 callback,
-                null
-                );
+                null,
+                "get_equipment"
+        );
     }
 
     public static void setEquipment(Callback callback, String headId, String shirtId, String legsId, String blockId) {
-        executeRequest(Method.GET,
-                API +"equipment/equip?helmet="+headId+"&"+"shirt="+shirtId+"&"+"legs="+legsId+"&"+"block="+blockId,
+        executeRequest(Method.POST,
+                API + "equipment/equip?helmet=" + headId + "&" + "shirt=" + shirtId + "&" + "legs=" + legsId + "&" + "block=" + blockId,
                 callback,
-                null
-                );
+                null,
+                "log_in"
+        );
     }
 }

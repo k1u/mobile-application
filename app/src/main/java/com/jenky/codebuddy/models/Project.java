@@ -51,11 +51,17 @@ public class Project implements Parcelable {
         dest.writeInt(rank);
     }
 
+    @Override
     public int describeContents() {
         return 0;
     }
 
     public Project init(JSONObject json) throws JSONException {
+        id = json.getInt("id");
+        name = json.getString("name");
+        members = json.getInt("userCount");
+        createdOn = Calendar.getInstance();
+        createdOn.setTimeInMillis(json.getLong("created_at"));
         return this;
     }
 

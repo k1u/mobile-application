@@ -1,5 +1,6 @@
 package com.jenky.codebuddy.ui.fragments;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.HistoryAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -22,8 +24,11 @@ import com.jenky.codebuddy.models.Player;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
@@ -47,22 +52,25 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private Callback playerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
-            if(getActivity() != null) {
+            if (getActivity() != null) {
                 player = new Player().init(result);
-                addStats();
-                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
-            }
-        }
-
-        public void onFailed(JSONObject result) throws JSONException {
-            if(getActivity() != null) {
-                Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                JSONArray jsonCommits = result.getJSONArray("commits");
+                for (int i = 0; i < jsonCommits.length(); i++) {
+                    Commit commit = new Commit().init(jsonCommits.getJSONObject(i));
+                    commits.add(commit);
+                }
                 historyAdapter.notifyDataSetChanged();
                 addStats();
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }
-
+        @Override
+        public void onFailed(JSONObject result) throws JSONException {
+            if (getActivity() != null) {
+                Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
 
 
         private void addStats() {
@@ -110,7 +118,12 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
             if (getActivity() != null) {
-                //TODO add items to itemList
+                JSONArray jsonEquipment = result.getJSONArray("equipment");
+                itemList.clear();
+                for (int i = 0; i < jsonEquipment.length(); i++) {
+                    Item item = new Item().init(jsonEquipment.getJSONObject(i));
+                    itemList.add(item);
+                }
                 EquipmentFragment equipmentFragment = new EquipmentFragment();
                 FragmentManager fm = getFragmentManager();
                 Bundle args = new Bundle();
@@ -143,7 +156,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         historyAdapter = new HistoryAdapter(getContext(), R.layout.component_history, commits);
         resultListView.setAdapter(historyAdapter);
         resultListView.setOnItemClickListener(this);
-
         setOnClickListeners();
         getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
         Request.getProfile(playerCallback);
@@ -154,6 +166,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Commit commit = commits.get(position);
         gotoProjectStats(commit);
+    }
+
+    @Override
+    public void onAttach(Context context){
+
     }
 
     private void gotoProjectStats(Commit commit) {
@@ -177,6 +194,5 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             }
         });
     }
-
 
 }

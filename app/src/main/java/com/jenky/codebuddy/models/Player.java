@@ -69,13 +69,7 @@ public class Player implements Parcelable{
         avgScore = (int) json.getDouble("avgScore");
         achievements = json.getInt("achievementCount");
         gamesPlayed = json.getInt("projectCount");
-        JSONArray equippedItems = json.getJSONArray("equippedItems");
-        setEquipment(equippedItems);
-        return this;
-    }
-
-    public Player initTower(JSONObject json) throws JSONException {
-        JSONArray equippedItems = json.getJSONArray("equippedItems");
+        JSONArray equippedItems = json.getJSONArray("equipment");
         setEquipment(equippedItems);
         return this;
     }

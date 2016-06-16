@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ShopAdapter;
 import com.jenky.codebuddy.api.Callback;
@@ -22,8 +23,11 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +39,19 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private TextView jenkyCoins;
     private ArrayList<Item> items = new ArrayList<>();
     private ProgressBar progressBar;
-    private  Callback itemCallback = new Callback() {
+    private Callback itemCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result) {
-            //TODO fill Item Array
-            //TODO add jenky Coins
+        public void onSuccess(JSONObject result) throws JSONException {
+            JSONArray jsonArray = result.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Item item = new Item().init(jsonArray.getJSONObject(i));
+                items.add(item);
+            }
             setTabs();
+            jenkyCoins.setText(result.getString("jenkycoins"));
             progressBar.setVisibility(View.INVISIBLE);
         }
+
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
@@ -63,6 +72,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         public void onSuccess(JSONObject result) {
             //TODO notify user
         }
+        @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
@@ -97,11 +107,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         logOut = (Button) findViewById(R.id.log_out);
         logOut.setOnClickListener(this);
         jenkyCoins = (TextView) findViewById(R.id.jenkey_coins);
-        //TODO remove test data
-
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
-
 
 
     @Override
@@ -122,7 +129,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         Request.getPurchase(purchaseCallback, item.getId());
     }
 
-    public static void purchaseAlert(final Context context, final Item item){
+    public static void purchaseAlert(final Context context, final Item item) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(context.getString(R.string.purchase_alert));
         alertDialog.setMessage(item.getName());

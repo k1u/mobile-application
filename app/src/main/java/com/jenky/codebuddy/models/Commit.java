@@ -18,7 +18,7 @@ public class Commit implements Parcelable {
 
     private int id;
     private int score;
-    private String name;
+    private String projectName;
     private String branch;
     private Calendar createdOn;
 
@@ -28,35 +28,43 @@ public class Commit implements Parcelable {
 
     public Commit(Parcel in) {
         id = in.readInt();
-        name = in.readString();
+        projectName = in.readString();
         score = in.readInt();
         branch = in.readString();
         createdOn = (Calendar) in.readSerializable();
     }
 
+
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(name);
+        dest.writeString(projectName);
         dest.writeInt(score);
         dest.writeString(branch);
         dest.writeSerializable(createdOn);
     }
-
+    @Override
     public int describeContents() {
         return 0;
     }
 
     public Commit init(JSONObject json) throws JSONException {
+        id = json.getInt("id");
+        createdOn = Calendar.getInstance();
+        createdOn.setTimeInMillis(json.getLong("created_at"));
+        branch = json.getString("branch");
+        score = json.getInt("score");
+        projectName = json.getString("projectName");
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public int getScore() {

@@ -12,7 +12,10 @@ import com.jenky.codebuddy.adapters.AchievementAdapter;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Achievement;
+import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -26,11 +29,16 @@ public class AchievementFragment extends Fragment {
 
     private Callback achievementCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result) {
-            //TODO process results
+        public void onSuccess(JSONObject result) throws JSONException {
+            JSONArray jsonAchievements = result.getJSONArray("achievements");
+            for (int i = 0; i < jsonAchievements.length(); i++) {
+                Achievement achievement = new Achievement().init(jsonAchievements.getJSONObject(i));
+                achievements.add(achievement);
+            }
+            achievementAdapter.notifyDataSetChanged();
             getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
         }
-
+        @Override
         public void onFailed(JSONObject result) throws JSONException {
             if(getActivity() != null) {
                 Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();

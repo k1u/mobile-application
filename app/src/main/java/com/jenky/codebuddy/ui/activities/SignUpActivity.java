@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignUpActivity.this, "Password has been set", Toast.LENGTH_SHORT).show();
             finish();
         }
-
+        @Override
         public void onFailed(JSONObject result) throws JSONException {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignUpActivity.this, "Request has been send. You should receive a email shortly", Toast.LENGTH_SHORT).show();
             setVerifyLayout();
         }
-
+        @Override
         public void onFailed(JSONObject result) throws JSONException {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();

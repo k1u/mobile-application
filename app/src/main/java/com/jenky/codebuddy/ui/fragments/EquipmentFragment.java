@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+
 
 public class EquipmentFragment extends DialogFragment implements View.OnClickListener {
 
@@ -35,6 +37,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
     private Button cancel;
     private Button apply;
     private View rootView;
+    private ProgressBar progressBar;
     private ArrayList<ImageView> helmetImages = new ArrayList<>();
     private ArrayList<ImageView> shirtImages = new ArrayList<>();
     private ArrayList<ImageView> legsImages = new ArrayList<>();
@@ -51,29 +54,22 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
     private int blockIndex = 0;
 
 
-    private Callback getEquipmentCallback = new Callback() {
-        @Override
-        public void onSuccess(JSONObject result) {
-            //TODO fill itemArrayList
-            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
-        }
-
-        public void onFailed(JSONObject result) throws JSONException {
-            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
-        }
-    };
 
     private Callback setEquipmentCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result) {
-            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);        }
-
-        public void onFailed(JSONObject result) throws JSONException {
+        public void onSuccess(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-            getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+
+            getDialog().cancel();
         }
 
+        @Override
+        public void onFailed(JSONObject result) throws JSONException {
+            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            getDialog().cancel();
+        }
     };
 
     @Override
@@ -81,13 +77,9 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.dialog_equipment, container,
                 false);
-        //TODO remove getItems
         getItems();
-        getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-        Request.getEquipment(getEquipmentCallback);
         setViews(rootView);
         setOnclickListeners();
-        //TODO move createImages() to getEquipmentCallback success
         createImages(itemList);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return rootView;
@@ -155,7 +147,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         blockNext = (Button) rootView.findViewById(R.id.block_next);
         cancel = (Button) rootView.findViewById(R.id.cancel);
         apply = (Button) rootView.findViewById(R.id.apply);
-
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         helmetLayout = (LinearLayout) rootView.findViewById(R.id.helmet_layout);
         shirtLayout = (LinearLayout) rootView.findViewById(R.id.shirt_layout);
         legsLayout = (LinearLayout) rootView.findViewById(R.id.legs_layout);
@@ -220,14 +212,14 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
                 getDialog().cancel();
                 break;
             case R.id.apply:
-                getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Request.setEquipment(setEquipmentCallback,
                         helmetLayout.getChildAt(0).getTag().toString(),
                         shirtLayout.getChildAt(0).getTag().toString(),
                         legsLayout.getChildAt(0).getTag().toString(),
                         blockLayout.getChildAt(0).getTag().toString());
-                getDialog().cancel();
                 break;
+
         }
     }
 
@@ -238,6 +230,7 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
      * @param sum Amount the index should change
      * @return The new index that should be applied;
      */
+
     public static int changeIndex(int index, int size, int sum){
         int newIndex = index + sum;
         if(newIndex >= size){
@@ -248,4 +241,5 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
             return newIndex;
         }
     }
+
 }

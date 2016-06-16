@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ProjectAdapter;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
+import com.jenky.codebuddy.models.Commit;
 import com.jenky.codebuddy.models.Project;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -31,8 +35,13 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
     private Callback projectCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
-            //TODO add projects to arrayList
             if(getActivity() != null) {
+                JSONArray jsonProjects = result.getJSONArray("activeProjects");
+                for(int i = 0; i < jsonProjects.length(); i++){
+                    Project project = new Project().init(jsonProjects.getJSONObject(i));
+                    projects.add(project);
+                }
+                projectAdapter.notifyDataSetChanged();
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }

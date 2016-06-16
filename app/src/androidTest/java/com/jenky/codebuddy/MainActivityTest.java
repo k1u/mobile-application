@@ -262,7 +262,7 @@ public class MainActivityTest {
                 .check(matches(isCompletelyDisplayed()));
         onData(anything())
                 .inAdapterView(withId(R.id.result_list_view))
-                .atPosition(0).onChildView(withId(R.id.completion))
+                .atPosition(0).onChildView(withId(R.id.progess))
                 .check(matches(isCompletelyDisplayed()));
     }
 
