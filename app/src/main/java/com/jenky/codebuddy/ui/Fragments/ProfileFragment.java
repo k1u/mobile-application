@@ -86,6 +86,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
          * It places the ImagesViews at the in the right places.
          */
         private void setAvatar() {
+
             head = new ImageView(getActivity());
             shirt = new ImageView(getActivity());
             legs = new ImageView(getActivity());
@@ -166,11 +167,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Commit commit = commits.get(position);
         gotoProjectStats(commit);
-    }
-
-    @Override
-    public void onAttach(Context context){
-
     }
 
     private void gotoProjectStats(Commit commit) {

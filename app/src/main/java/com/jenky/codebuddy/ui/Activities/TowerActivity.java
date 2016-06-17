@@ -8,8 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
@@ -20,15 +23,20 @@ import com.jenky.codebuddy.models.Tower;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Utilities;
 import com.squareup.picasso.Picasso;
+
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TowerActivity extends AppCompatActivity {
 
@@ -48,11 +56,22 @@ public class TowerActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private Callback towerCallback = new Callback() {
         @Override
-        public void onSuccess(JSONObject result) {
+        public void onSuccess(JSONObject result) throws JSONException {
             //TODO add towers
+            JSONArray jsonTowers = result.getJSONArray("profile");
+            ArrayList<Integer> scores = new ArrayList<>();
+            for (int i = 0; i < jsonTowers.length(); i++) {
+                scores.add(jsonTowers.getJSONObject(i).getInt("projectScore"));
+            }
+
+            for (int i = 0; i < jsonTowers.length(); i++) {
+                Tower tower = new Tower().init(jsonTowers.getJSONObject(i), Collections.max(scores));
+                towers.add(tower);
+            }
             drawActivity();
             progressBar.setVisibility(View.INVISIBLE);
         }
+
         @Override
         public void onFailed(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
@@ -67,7 +86,6 @@ public class TowerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tower);
         setViews();
         setActionBar();
-        scrollDown(vScroll);
         Request.getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
     }
 
@@ -110,14 +128,15 @@ public class TowerActivity extends AppCompatActivity {
         return true;
     }
 
-    private void scrollDown(ScrollView s) {
+    private void focusOnView(ScrollView s, View v) {
         final ScrollView scrollView = s;
-        scrollView.postDelayed(new Runnable() {
+        final View view = v;
+        scrollView.post(new Runnable() {
             @Override
             public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN);
+                scrollView.smoothScrollTo(view.getLeft(), view.getTop());
             }
-        }, 1000);
+        });
     }
 
     private void drawActivity() {
@@ -127,6 +146,7 @@ public class TowerActivity extends AppCompatActivity {
 
     /**
      * Draws a certain amount of background depending on the amount of towers
+     *
      * @param towerAmount The amount of Towers for this View
      */
     private void drawBackground(double towerAmount) {
@@ -138,6 +158,7 @@ public class TowerActivity extends AppCompatActivity {
 
     /**
      * Add ImageViews to create the Towers
+     *
      * @param towers List of Tower Objects
      */
     private void drawTowers(ArrayList<Tower> towers) {
@@ -158,12 +179,12 @@ public class TowerActivity extends AppCompatActivity {
     /**
      * Gets the Images from the Player Object and draws them with
      * the appropriate parameters.
+     *
      * @param player Player Object it needs to draw
      * @return The RelativeLayout with the Avatar ImageViews
      */
     private RelativeLayout drawAvatar(Player player) {
         RelativeLayout avatarLayout = new RelativeLayout(this);
-
         ImageView head = new ImageView(this);
         ImageView shirt = new ImageView(this);
         ImageView legs = new ImageView(this);
@@ -182,9 +203,9 @@ public class TowerActivity extends AppCompatActivity {
                 .placeholder(R.drawable.default_legs)
                 .into(legs);
 
-        head.setLayoutParams(Utilities.getLayoutParams(this, 20, 22,10, 10, 0, 0));
-        shirt.setLayoutParams(Utilities.getLayoutParams(this, 24, 18,7, 28, 0, 0));
-        legs.setLayoutParams(Utilities.getLayoutParams(this, 17, 12,12, 45, 0, 0));
+        head.setLayoutParams(Utilities.getLayoutParams(this, 20, 23, 10, 10, 0, 0));
+        shirt.setLayoutParams(Utilities.getLayoutParams(this, 24, 19, 7, 28, 0, 0));
+        legs.setLayoutParams(Utilities.getLayoutParams(this, 17, 12, 12, 45, 0, 0));
         avatarLayout.addView(head);
         avatarLayout.addView(shirt);
         avatarLayout.addView(legs);
@@ -193,6 +214,7 @@ public class TowerActivity extends AppCompatActivity {
 
     /**
      * Create a ImageView which containt the background Image and the appropriate parameters
+     *
      * @return The Background Image
      */
     private ImageView getBackgroundImage() {
@@ -208,7 +230,13 @@ public class TowerActivity extends AppCompatActivity {
      * for the Tower ImageViews to be placed it.
      */
     private LinearLayout getTowerLayout() {
-        LinearLayout linearLayout = new LinearLayout(this);
+        final LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                focusOnView(vScroll, linearLayout);
+            }
+        });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -228,6 +256,7 @@ public class TowerActivity extends AppCompatActivity {
 
     /**
      * Create a ImageView which contains the right image to build the tower.
+     *
      * @param blockUrl url of the image it should load
      * @return ImageView which contains the image form the url
      */

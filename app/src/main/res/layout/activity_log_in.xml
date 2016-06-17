@@ -70,6 +70,7 @@
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="@dimen/log_in_views_width"
+
                     android:layout_height="wrap_content"
                     android:hint="@string/github_email"
                     android:inputType="text"

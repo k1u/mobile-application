@@ -74,7 +74,7 @@ public class Request {
                 if (extraHeaders != null) {
                     headers.putAll(extraHeaders);
                 }
-                headers.put("token", AppController.getInstance().getPreferences().getToken());
+                headers.put("token", AppController.getInstance().getPreferences().getSessionToken());
                 return headers;
             }
         };
@@ -193,6 +193,27 @@ public class Request {
                 callback,
                 null,
                 "log_in"
+        );
+    }
+
+    public static void setMessagingToken(Callback callback) {
+        Map<String, String> messagingToken = new HashMap<>();
+        String token = AppController.getInstance().getPreferences().getMessageToken();
+        messagingToken.put("messagingtoken", token);
+        executeRequest(Method.POST,
+                API + "notification",
+                callback,
+                messagingToken,
+                "set_messaging_token"
+        );
+
+    }
+    public static void deleteMessagingToken(Callback callback) {
+        executeRequest(Method.POST,
+                API + "logout",
+                callback,
+                null,
+                "delete_messaging_token"
         );
     }
 }

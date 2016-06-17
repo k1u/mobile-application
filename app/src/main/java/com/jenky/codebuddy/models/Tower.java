@@ -47,8 +47,9 @@ public class Tower implements Parcelable {
     }
 
     public Tower init(JSONObject json, int highestScore) throws JSONException {
-        player.init(json);
-        height = calculateHeight(json.getInt("score"), highestScore);
+        player = new Player().init(json);
+        score = json.getInt("projectScore");
+        height = calculateHeight(score, highestScore);
         return this;
     }
 

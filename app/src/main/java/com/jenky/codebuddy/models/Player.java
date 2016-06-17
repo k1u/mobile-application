@@ -65,10 +65,19 @@ public class Player implements Parcelable{
     }
 
     public Player init(JSONObject json) throws JSONException {
+        //TODO remove null check once it's fixed on rule-engine
+        if(!json.isNull("user")){
+            JSONObject userinfo = json.getJSONObject("user");
+            id = userinfo.getInt("user_id");
+            name = userinfo.getString("email");
+            jenkyCoins = userinfo.getInt("jenkycoins");
+        }
+
         totalScore = json.getInt("totalScore");
         avgScore = (int) json.getDouble("avgScore");
         achievements = json.getInt("achievementCount");
         gamesPlayed = json.getInt("projectCount");
+
         JSONArray equippedItems = json.getJSONArray("equipment");
         setEquipment(equippedItems);
         return this;

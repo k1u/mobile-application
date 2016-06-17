@@ -2,6 +2,7 @@ package com.jenky.codebuddy.util;
 
 import android.content.Context;
 import android.content.Intent;
+
 import com.jenky.codebuddy.ui.activities.LogInActivity;
 import com.jenky.codebuddy.ui.activities.MainActivity;
 import com.jenky.codebuddy.ui.activities.ShopActivity;

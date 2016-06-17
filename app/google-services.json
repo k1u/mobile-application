@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "746892718957",
-    "project_id": "code-buddy"
+    "project_number": "622675623331",
+    "firebase_url": "https://code-buddy-57ed1.firebaseio.com",
+    "project_id": "code-buddy-57ed1",
+    "storage_bucket": "code-buddy-57ed1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:746892718957:android:45887de772c32bfc",
+        "mobilesdk_app_id": "1:622675623331:android:45887de772c32bfc",
         "android_client_info": {
           "package_name": "com.jenky.codebuddy"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "622675623331-tglbt6pugrtrt71n3i8tggkdk5cn8f25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZmEbxS5-MgSNz_21ZQnV9Xs1wOZolZkY"
+          "current_key": "AIzaSyAzDI40lYFQJNzfv061B5U18DsDuMj_u9Q"
         }
       ],
       "services": {
@@ -26,7 +33,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
