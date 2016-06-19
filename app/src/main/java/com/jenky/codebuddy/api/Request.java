@@ -201,7 +201,7 @@ public class Request {
         String token = AppController.getInstance().getPreferences().getMessageToken();
         messagingToken.put("messagingtoken", token);
         executeRequest(Method.POST,
-                API + ",messaging/notification",
+                API + "messaging/notification",
                 callback,
                 messagingToken,
                 "set_messaging_token"
