@@ -201,7 +201,7 @@ public class Request {
         String token = AppController.getInstance().getPreferences().getMessageToken();
         messagingToken.put("messagingtoken", token);
         executeRequest(Method.POST,
-                API + "notification",
+                API + ",messaging/notification",
                 callback,
                 messagingToken,
                 "set_messaging_token"
@@ -210,7 +210,7 @@ public class Request {
     }
     public static void deleteMessagingToken(Callback callback) {
         executeRequest(Method.POST,
-                API + "logout",
+                API + "messaging/logout",
                 callback,
                 null,
                 "delete_messaging_token"
