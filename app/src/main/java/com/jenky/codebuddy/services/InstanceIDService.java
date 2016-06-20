@@ -2,17 +2,12 @@
 package com.jenky.codebuddy.services;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class InstanceIDService extends FirebaseInstanceIdService {
 

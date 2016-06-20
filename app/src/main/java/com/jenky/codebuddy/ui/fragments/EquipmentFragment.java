@@ -60,7 +60,6 @@ public class EquipmentFragment extends DialogFragment implements View.OnClickLis
         public void onSuccess(JSONObject result) throws JSONException {
             Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.INVISIBLE);
-
             getDialog().cancel();
         }
 

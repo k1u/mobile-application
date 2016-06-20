@@ -162,7 +162,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         Request.getProfile(playerCallback);
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Commit commit = commits.get(position);

@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.ui.fragments.AchievementFragment;
 import com.jenky.codebuddy.ui.fragments.ProfileFragment;
@@ -167,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setUsername() {
         username =  AppController.getInstance().getPreferences().getUserName();
         usernameTextView.setText(username);
+
     }
 
 
@@ -175,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.log_out:
-                Preferences.logOut(MainActivity.this);
-                finish();
+                Preferences.logOut();
+                progressBar.setVisibility(View.VISIBLE);
                 break;
             default:
                 Log.e("onClick", getString(R.string.unknown_id));
