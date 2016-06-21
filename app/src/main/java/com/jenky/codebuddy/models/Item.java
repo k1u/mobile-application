@@ -19,7 +19,7 @@ public class Item implements Parcelable {
     private String name;
     private String image;
     private String type;
-    private double price;
+    private int price;
 
     public Item() {
         //Empty for initial creation
@@ -30,7 +30,7 @@ public class Item implements Parcelable {
         name = in.readString();
         image = in.readString();
         type = in.readString();
-        price = in.readDouble();
+        price = in.readInt();
     }
 
     @Override
@@ -88,11 +88,11 @@ public class Item implements Parcelable {
         this.type = type;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

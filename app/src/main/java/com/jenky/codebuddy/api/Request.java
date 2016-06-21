@@ -1,6 +1,8 @@
 package com.jenky.codebuddy.api;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,7 +38,7 @@ public class Request {
      */
 
 
-    public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders, String tag) {
+    public static void executeRequest(int methodId, String url, final Callback callback, final Map<String, String> extraHeaders, final String tag) {
         //Expect response in json format
 
         Log.i("Request", methodId + ": " + url);
@@ -46,6 +48,7 @@ public class Request {
                     public void onResponse(JSONObject response) {
                         try {
                             if (response.getInt("responseCode") == 200) {
+                                Log.i("Response", tag +" successfully received");
                                 callback.onSuccess(response);
                             } else {
                                 callback.onFailed(response);
@@ -165,7 +168,7 @@ public class Request {
                 API + "shop/buy/" + itemId,
                 callback,
                 null,
-                "get_purchase"
+                "get_purchase"+itemId
         );
     }
 

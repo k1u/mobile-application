@@ -40,7 +40,7 @@ public class AchievementAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    private static class ViewHolder {
+    private class ViewHolder {
         TextView name;
         TextView description;
         TextView progress;

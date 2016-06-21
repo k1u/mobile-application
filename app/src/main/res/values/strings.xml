@@ -45,7 +45,7 @@
     <string name="password">Password</string>
     <string name="helmets">Helmet</string>
     <string name="shirts">Shirt</string>
-    <string name="legs">Leg</string>
+    <string name="legs">Legs</string>
     <string name="blocks">Block</string>
     <string name="unknown_id">Unknown Id</string>
     <string name="github_email">Github Email</string>
@@ -62,4 +62,7 @@
     <string name="branch">Branch</string>
     <string name="default_error">Something went wrong</string>
     <string name="commited_on">Commited on:</string>
+    <string name="no_items_available">No {{item_type}} available</string>
+    <string name="price">Price:</string>
+    <string name="purchased">Purchased</string>
 </resources>

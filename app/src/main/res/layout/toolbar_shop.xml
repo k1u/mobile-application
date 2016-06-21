@@ -34,9 +34,11 @@
         android:layout_gravity="center">
 
         <ImageView
+            android:id="@+id/jenky_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:gravity="right"
+            android:visibility="invisible"
             android:src="@drawable/jenky_coin" />
         <TextView
             android:id="@+id/jenkey_coins"

@@ -46,7 +46,7 @@ public class HistoryAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    private static class ViewHolder {
+    private class ViewHolder {
         TextView project;
         TextView score;
         TextView branch;

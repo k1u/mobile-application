@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +34,13 @@ import java.util.List;
 
 public class ShopActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    public static ArrayList<Integer> purchased = new ArrayList<>();
+    public static TextView jenkyCoins;
     private Toolbar toolbar;
     private Button logOut;
-    private TextView jenkyCoins;
     private ArrayList<Item> items = new ArrayList<>();
     private ProgressBar progressBar;
+    private ImageView jenkyIcon;
     private Callback itemCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
@@ -48,6 +50,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
                 items.add(item);
             }
             setTabs();
+            jenkyIcon.setVisibility(View.VISIBLE);
             jenkyCoins.setText(result.getString("jenkycoins"));
             progressBar.setVisibility(View.INVISIBLE);
         }
@@ -67,16 +70,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    private static Callback purchaseCallback = new Callback() {
-        @Override
-        public void onSuccess(JSONObject result) {
-            //TODO notify user
-        }
-        @Override
-        public void onFailed(JSONObject result) throws JSONException {
-            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
-        }
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +100,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         logOut = (Button) findViewById(R.id.log_out);
         logOut.setOnClickListener(this);
+        jenkyIcon = (ImageView) findViewById(R.id.jenky_icon);
         jenkyCoins = (TextView) findViewById(R.id.jenkey_coins);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
@@ -125,28 +120,10 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void purchaseItem(Item item) {
-        Request.getPurchase(purchaseCallback, item.getId());
+
     }
 
-    public static void purchaseAlert(final Context context, final Item item) {
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle(context.getString(R.string.purchase_alert));
-        alertDialog.setMessage(item.getName());
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.yes),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        ShopActivity.purchaseItem(item);
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.no),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
-    }
+
 
     public List<Item> getItems() {
         return items;

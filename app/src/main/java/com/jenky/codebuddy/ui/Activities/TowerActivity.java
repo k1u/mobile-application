@@ -1,19 +1,22 @@
 package com.jenky.codebuddy.ui.activities;
 
-import android.opengl.Visibility;
+import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
@@ -80,6 +83,11 @@ public class TowerActivity extends AppCompatActivity implements View.OnClickList
             progressBar.setVisibility(View.INVISIBLE);
         }
     };
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
@@ -89,6 +97,8 @@ public class TowerActivity extends AppCompatActivity implements View.OnClickList
         setViews();
         setActionBar();
         Request.getTowers(towerCallback, getIntent().getIntExtra("projectId", -1));
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
 
     private void setViews() {
@@ -170,11 +180,8 @@ public class TowerActivity extends AppCompatActivity implements View.OnClickList
             Tower tower = towers.get(i);
             LinearLayout towerLayout = getTowerLayout();
             towerLayout.addView(drawAvatar(towers.get(i).getPlayer()));
-            ImageView blockImage = getTowerBlock(tower.getPlayer().getBlock().getImage());
             for (int j = 0; j < tower.getHeight(); j++) {
-                ImageView block = new ImageView(this);
-                block.setImageDrawable(blockImage.getDrawable());
-                towerLayout.addView(block);
+                towerLayout.addView(getTowerBlock(tower.getPlayer().getBlock().getImage()));
             }
             globalTowerLayout.addView(towerLayout);
         }
@@ -303,4 +310,6 @@ public class TowerActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+
 }
