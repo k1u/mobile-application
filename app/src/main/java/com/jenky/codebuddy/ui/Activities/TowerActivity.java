@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -38,7 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class TowerActivity extends AppCompatActivity {
+public class TowerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int TOWER_PER_BACKGROUND = 7;
     private static final int TOWER_MAGRIN_LEFT = 20;
@@ -53,7 +54,8 @@ public class TowerActivity extends AppCompatActivity {
     private LinearLayout globalTowerLayout;
     private ArrayList<Tower> towers = new ArrayList<>();
     private Toolbar toolbar;
-    ProgressBar progressBar;
+    private Button scrollDown;
+    private ProgressBar progressBar;
     private Callback towerCallback = new Callback() {
         @Override
         public void onSuccess(JSONObject result) throws JSONException {
@@ -97,6 +99,8 @@ public class TowerActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
+        scrollDown = (Button) findViewById(R.id.scroll_down);
+        scrollDown.setOnClickListener(this);
     }
 
     private void setActionBar() {
@@ -266,7 +270,7 @@ public class TowerActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(blockUrl)
                 .fit()
-                .placeholder(R.drawable.test_block)
+                .placeholder(R.drawable.default_block)
                 .into(block);
         return block;
     }
@@ -280,5 +284,23 @@ public class TowerActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.scroll_down:
+                ScrollDown();
+        }
+    }
+
+    private void ScrollDown() {
+
+        vScroll.post(new Runnable() {
+            @Override
+            public void run() {
+                vScroll.smoothScrollTo(globalTowerLayout.getLeft(), globalTowerLayout.getBottom());
+            }
+        });
     }
 }

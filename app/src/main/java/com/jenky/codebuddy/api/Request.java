@@ -208,12 +208,4 @@ public class Request {
         );
 
     }
-    public static void deleteMessagingToken(Callback callback) {
-        executeRequest(Method.POST,
-                API + "messaging/logout",
-                callback,
-                null,
-                "delete_messaging_token"
-        );
-    }
 }
