@@ -5,14 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.AchievementAdapter;
 import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Achievement;
-import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ public class AchievementFragment extends Fragment {
     private ArrayList<Achievement> achievements = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
+    private LinearLayout main;
 
     private Callback achievementCallback = new Callback() {
         @Override
@@ -34,6 +36,9 @@ public class AchievementFragment extends Fragment {
             for (int i = 0; i < jsonAchievements.length(); i++) {
                 Achievement achievement = new Achievement().init(jsonAchievements.getJSONObject(i));
                 achievements.add(achievement);
+            }
+            if(achievements.size() == 0){
+                addNoAchievmentMessage();
             }
             achievementAdapter.notifyDataSetChanged();
             getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
@@ -46,7 +51,12 @@ public class AchievementFragment extends Fragment {
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }
-
+        private void addNoAchievmentMessage(){
+            TextView noItems = new TextView(getActivity());
+            noItems.setText(R.string.no_achievements);
+            main.removeAllViews();
+            main.addView(noItems);
+        }
     };
 
 
@@ -54,6 +64,7 @@ public class AchievementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_project, container, false);
+        main = (LinearLayout) rootView. findViewById(R.id.main);
         resultListView = (ListView) rootView.findViewById(R.id.result_list_view);
         return rootView;
     }

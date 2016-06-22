@@ -65,4 +65,5 @@
     <string name="no_items_available">No {{item_type}} available</string>
     <string name="price">Price:</string>
     <string name="purchased">Purchased</string>
+    <string name="no_achievements">No Achievements Completed or in Progress</string>
 </resources>

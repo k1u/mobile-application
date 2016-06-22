@@ -94,7 +94,7 @@ public class ItemAdapter extends ArrayAdapter {
                                 ShopActivity.purchased.add(item.getId());
                                 int oldCurrency = Integer.parseInt(ShopActivity.jenkyCoins.getText().toString());
                                 int newCurrency = oldCurrency - item.getPrice();
-                                ShopActivity.jenkyCoins.setText(newCurrency);
+                                ShopActivity.jenkyCoins.setText(Integer.toString(newCurrency));
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(AppController.getInstance(), "Purchase Successful", Toast.LENGTH_SHORT).show();
                             }
