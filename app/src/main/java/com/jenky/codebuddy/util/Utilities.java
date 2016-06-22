@@ -1,9 +1,13 @@
 package com.jenky.codebuddy.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+
+import com.jenky.codebuddy.R;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

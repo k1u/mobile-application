@@ -19,6 +19,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.jenky.codebuddy.R;
+import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
 
 
@@ -76,14 +78,9 @@ public class FBMessagingService extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(message.get("content")))
                 .setLights(Color.parseColor(message.get("colour")) , 500, 500);
-
-
-
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         notificationManager.notify(0, notificationBuilder.build());
     }
-
 }
 

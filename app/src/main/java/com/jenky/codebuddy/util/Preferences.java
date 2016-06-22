@@ -24,6 +24,7 @@ public class Preferences {
     public static final String SESSION_TOKEN = "session_token";
     public static final String MESSAGING_TOKEN = "messaging_token";
     public static final String USER_NAME = "user_name";
+    public static final String STATUS = "status";
 
     private SharedPreferences sharedPreferences;
 
@@ -35,7 +36,6 @@ public class Preferences {
 
         @Override
         public void onFailed(JSONObject result) throws JSONException {
-            Toast.makeText(AppController.getInstance(), result.getString("responseMessage"), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -72,6 +72,8 @@ public class Preferences {
     public String getMessageToken() {
         return sharedPreferences.getString(MESSAGING_TOKEN, "");
     }
+
+
 
 
     public void setUserName(String mUserName) {

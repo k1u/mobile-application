@@ -3,10 +3,7 @@ package com.jenky.codebuddy;
 import com.jenky.codebuddy.models.Tower;
 import junit.framework.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TowerHeightTest {
 
 

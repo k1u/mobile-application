@@ -1,24 +1,17 @@
 package com.jenky.codebuddy;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import android.content.Context;
 import com.jenky.codebuddy.util.Utilities;
 import junit.framework.Assert;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-@RunWith(MockitoJUnitRunner.class)
 public class DateConverterUnitTest {
 
     private static final ArrayList<Calendar> calendars = new ArrayList<>();
     Calendar cal = Calendar.getInstance();
 
-    @Mock
-    Context mMockContext;
 
     @Test
     public void dateConverterStringValues() {

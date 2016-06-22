@@ -1,7 +1,9 @@
 package com.jenky.codebuddy.adapters;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -47,6 +49,7 @@ public class ItemAdapter extends ArrayAdapter {
             viewHolder.image = (ImageView) convertView.findViewById(R.id.image);
             viewHolder.purchase = (Button) convertView.findViewById(R.id.purchase);
             viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progress_bar);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

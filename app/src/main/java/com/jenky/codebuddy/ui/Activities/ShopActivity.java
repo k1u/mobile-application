@@ -24,6 +24,7 @@ import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.Preferences;
+import com.jenky.codebuddy.util.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +63,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         private void setTabs() {
+
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             viewPager.setAdapter(new ShopAdapter(getSupportFragmentManager(),
                     ShopActivity.this));

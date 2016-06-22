@@ -1,20 +1,16 @@
 package com.jenky.codebuddy;
 
-import android.content.Context;
 import com.jenky.codebuddy.ui.fragments.EquipmentFragment;
 import junit.framework.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class IndexCycleTest {
 
 
-    @Mock
-    Context mMockContext;
+
+
 
 
     @Test

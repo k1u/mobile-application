@@ -26,6 +26,7 @@ import com.jenky.codebuddy.ui.fragments.ProjectFragment;
 import com.jenky.codebuddy.util.AppController;
 import com.jenky.codebuddy.util.IntentFactory;
 import com.jenky.codebuddy.util.Preferences;
+import com.jenky.codebuddy.util.Utilities;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout drawer;

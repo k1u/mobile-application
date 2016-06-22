@@ -11,8 +11,6 @@
     tools:ignore="Overdraw"
     >
 
-
-
     <Button
         android:id="@+id/log_out"
         android:layout_gravity="right"
@@ -21,8 +19,6 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/logout"
         />
-
-
 
     <ProgressBar
         android:id="@+id/progress_bar"
