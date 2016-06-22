@@ -1,6 +1,8 @@
 package com.jenky.codebuddy.api;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Request {
-    public static final String API = "Http://83.86.212.79:8081/";
+    public static final String API = "Http://Codebuddyjenky.herokuapp.com/";
 
     private Request() {
         //Prevent instantiation
