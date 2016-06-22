@@ -1,9 +1,7 @@
 package com.jenky.codebuddy.ui.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +21,6 @@ public class ShopFragment extends Fragment {
     private LinearLayout main;
     private ListView resultListView;
     private String fragmentType;
-
-    public ShopFragment( ) {
-
-    }
-
-    public ShopFragment(String type) {
-        this.fragmentType = type;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +42,7 @@ public class ShopFragment extends Fragment {
         itemAdapter = new ItemAdapter(getContext(), R.layout.component_item, items);
         resultListView.setAdapter(itemAdapter);
         items.clear();
+        fragmentType = getArguments().getString("type");
         ShopActivity activity = (ShopActivity) getActivity();
         for(int i = 0; i < activity.getItems().size(); i++) {
             if(fragmentType.equalsIgnoreCase(activity.getItems().get(i).getType())){
