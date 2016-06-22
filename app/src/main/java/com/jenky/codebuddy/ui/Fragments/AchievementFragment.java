@@ -38,7 +38,7 @@ public class AchievementFragment extends Fragment {
                 achievements.add(achievement);
             }
             if(achievements.size() == 0){
-                addNoAchievmentMessage();
+                addNoAchievementMessage();
             }
             achievementAdapter.notifyDataSetChanged();
             getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
@@ -51,11 +51,11 @@ public class AchievementFragment extends Fragment {
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }
-        private void addNoAchievmentMessage(){
-            TextView noItems = new TextView(getActivity());
-            noItems.setText(R.string.no_achievements);
+        private void addNoAchievementMessage(){
+            TextView noAchievement = new TextView(getActivity());
+            noAchievement.setText(R.string.no_achievements);
             main.removeAllViews();
-            main.addView(noItems);
+            main.addView(noAchievement);
         }
     };
 
@@ -63,8 +63,8 @@ public class AchievementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_project, container, false);
-        main = (LinearLayout) rootView. findViewById(R.id.main);
+        rootView = inflater.inflate(R.layout.fragment_achievement, container, false);
+        main = (LinearLayout) rootView.findViewById(R.id.main);
         resultListView = (ListView) rootView.findViewById(R.id.result_list_view);
         return rootView;
     }

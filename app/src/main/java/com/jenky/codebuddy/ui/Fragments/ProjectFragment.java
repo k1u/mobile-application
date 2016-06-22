@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.jenky.codebuddy.R;
 import com.jenky.codebuddy.adapters.ProjectAdapter;
@@ -32,6 +34,7 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
     private ArrayList<Project> projects = new ArrayList<>();
     private ListView resultListView;
     private View rootView;
+    private LinearLayout main;
 
     private Callback projectCallback = new Callback() {
         @Override
@@ -41,6 +44,9 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
                 for(int i = 0; i < jsonProjects.length(); i++){
                     Project project = new Project().init(jsonProjects.getJSONObject(i));
                     projects.add(project);
+                }
+                if(projects.size() == 0){
+                    addNoPorojectMessage();
                 }
                 projectAdapter.notifyDataSetChanged();
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
@@ -54,12 +60,20 @@ public class ProjectFragment extends Fragment implements AdapterView.OnItemClick
                 getActivity().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
             }
         }
+
+        private void addNoPorojectMessage(){
+            TextView noItems = new TextView(getActivity());
+            noItems.setText(R.string.no_projects);
+            main.removeAllViews();
+            main.addView(noItems);
+        }
     };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_project, container, false);
+        main = (LinearLayout) rootView.findViewById(R.id.main);
         resultListView = (ListView) rootView.findViewById(R.id.result_list_view);
         return rootView;
     }

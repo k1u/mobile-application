@@ -1,5 +1,6 @@
 package com.jenky.codebuddy.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import com.jenky.codebuddy.api.Callback;
 import com.jenky.codebuddy.api.Request;
 import com.jenky.codebuddy.models.Item;
 import com.jenky.codebuddy.util.AppController;
+import com.jenky.codebuddy.util.IntentFactory;
 import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
